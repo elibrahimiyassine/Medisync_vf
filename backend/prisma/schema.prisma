@@ -1,0 +1,327 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  PATIENT
+  DOCTOR
+  SECRETARY
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+}
+
+enum BloodType {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+enum SectorType {
+  SECTOR_1
+  SECTOR_2
+  SECTOR_3
+}
+
+enum NotificationType {
+  APPOINTMENT_BOOKED
+  APPOINTMENT_CONFIRMED
+  APPOINTMENT_CANCELLED
+  APPOINTMENT_REMINDER
+  PRESCRIPTION_ISSUED
+  INVOICE_ISSUED
+  SYSTEM
+  MESSAGE
+}
+
+model User {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  passwordHash     String
+  role             Role      @default(PATIENT)
+  isActive         Boolean   @default(true)
+  twoFactorSecret  String?
+  twoFactorEnabled Boolean   @default(false)
+  refreshToken     String?
+  lastLoginAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  patient       Patient?
+  doctor        Doctor?
+  secretary     Secretary?
+  admin         Admin?
+  notifications Notification[]
+  auditLogs     AuditLog[]
+
+  @@map("users")
+}
+
+model Patient {
+  id                   String    @id @default(uuid())
+  userId               String    @unique
+  firstName            String
+  lastName             String
+  dateOfBirth          DateTime
+  phone                String?
+  address              String?
+  bloodType            BloodType?
+  allergies            String[]
+  socialSecurityNumber String?   @unique
+  emergencyContact     String?
+  emergencyPhone       String?
+  avatar               String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments   Appointment[]
+  medicalRecords MedicalRecord[]
+  prescriptions  Prescription[]
+  documents      Document[]
+  invoices       Invoice[]
+  reviews        Review[]
+
+  @@map("patients")
+}
+
+model Doctor {
+  id               String     @id @default(uuid())
+  userId           String     @unique
+  firstName        String
+  lastName         String
+  specialty        String
+  languages        String[]   @default(["French"])
+  sectorType       SectorType @default(SECTOR_1)
+  consultationRate Float      @default(25.0)
+  bio              String?
+  avatar           String?
+  licenseNumber    String?    @unique
+  isAvailable      Boolean    @default(true)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments   Appointment[]
+  timeSlots      TimeSlot[]
+  medicalRecords MedicalRecord[]
+  prescriptions  Prescription[]
+  reviews        Review[]
+
+  @@map("doctors")
+}
+
+model Secretary {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  firstName String
+  lastName  String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+
+  @@map("secretaries")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("admins")
+}
+
+model TimeSlot {
+  id          String   @id @default(uuid())
+  doctorId    String
+  date        DateTime @db.Date
+  startTime   String
+  endTime     String
+  duration    Int      @default(30)
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  doctor      Doctor       @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  appointment Appointment?
+
+  @@unique([doctorId, date, startTime])
+  @@map("time_slots")
+}
+
+model Appointment {
+  id          String            @id @default(uuid())
+  patientId   String
+  doctorId    String
+  secretaryId String?
+  slotId      String            @unique
+  status      AppointmentStatus @default(PENDING)
+  motif       String
+  notes       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  patient       Patient        @relation(fields: [patientId], references: [id])
+  doctor        Doctor         @relation(fields: [doctorId], references: [id])
+  secretary     Secretary?     @relation(fields: [secretaryId], references: [id])
+  slot          TimeSlot       @relation(fields: [slotId], references: [id])
+  medicalRecord MedicalRecord?
+  invoice       Invoice?
+  review        Review?
+
+  @@map("appointments")
+}
+
+model MedicalRecord {
+  id            String   @id @default(uuid())
+  patientId     String
+  doctorId      String
+  appointmentId String   @unique
+  diagnosis     String
+  notes         String?
+  symptoms      String[]
+  vitals        Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  patient      Patient      @relation(fields: [patientId], references: [id])
+  doctor       Doctor       @relation(fields: [doctorId], references: [id])
+  appointment  Appointment  @relation(fields: [appointmentId], references: [id])
+  prescription Prescription?
+
+  @@map("medical_records")
+}
+
+model Prescription {
+  id              String   @id @default(uuid())
+  medicalRecordId String   @unique
+  doctorId        String
+  patientId       String
+  medications     Json[]
+  instructions    String?
+  issuedAt        DateTime @default(now())
+  expiresAt       DateTime?
+
+  medicalRecord MedicalRecord @relation(fields: [medicalRecordId], references: [id])
+  doctor        Doctor        @relation(fields: [doctorId], references: [id])
+  patient       Patient       @relation(fields: [patientId], references: [id])
+
+  @@map("prescriptions")
+}
+
+model Document {
+  id           String   @id @default(uuid())
+  patientId    String
+  uploadedBy   String
+  fileUrl      String
+  fileType     String
+  fileName     String
+  fileSize     Int
+  documentType String   @default("OTHER")
+  uploadedAt   DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@map("documents")
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  patientId     String
+  appointmentId String        @unique
+  amount        Float
+  acts          Json[]
+  status        InvoiceStatus @default(PENDING)
+  issuedAt      DateTime      @default(now())
+  paidAt        DateTime?
+  dueDate       DateTime?
+
+  patient     Patient     @relation(fields: [patientId], references: [id])
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+
+  @@map("invoices")
+}
+
+model Room {
+  id        String   @id @default(uuid())
+  name      String
+  equipment String[]
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("rooms")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  target    String
+  details   Json?
+  ip        String?
+  userAgent String?
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  message   String
+  type      NotificationType @default(SYSTEM)
+  isRead    Boolean          @default(false)
+  data      Json?
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Review {
+  id            String   @id @default(uuid())
+  patientId     String
+  doctorId      String
+  appointmentId String   @unique
+  rating        Int
+  comment       String?
+  createdAt     DateTime @default(now())
+
+  patient     Patient     @relation(fields: [patientId], references: [id])
+  doctor      Doctor      @relation(fields: [doctorId], references: [id])
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+
+  @@map("reviews")
+}
