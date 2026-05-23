@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
@@ -46,6 +46,34 @@ import { TopbarComponent } from '../../../shared/components/topbar/topbar.compon
                   <label>Téléphone d'urgence</label>
                   <input formControlName="emergencyPhone" class="glass-input" type="tel" />
                 </div>
+
+                @if (isMinor()) {
+                  <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(42,74,56,0.1);">
+                    <p style="font-size:12px;font-weight:700;color:#B8792A;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;">
+                      Représentant légal (patient mineur)
+                    </p>
+                    <div class="form-group" style="margin-bottom:14px;">
+                      <label>Nom du responsable légal</label>
+                      <input formControlName="guardianName" class="glass-input" placeholder="Prénom et nom" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:14px;">
+                      <label>Téléphone du responsable</label>
+                      <input formControlName="guardianPhone" class="glass-input" type="tel" placeholder="06 XX XX XX XX" />
+                    </div>
+                    <div class="form-group">
+                      <label>Lien de parenté</label>
+                      <select formControlName="guardianRelationship" class="glass-input">
+                        <option value="">— Sélectionner —</option>
+                        <option value="père">Père</option>
+                        <option value="mère">Mère</option>
+                        <option value="tuteur">Tuteur légal</option>
+                        <option value="grand-parent">Grand-parent</option>
+                        <option value="autre">Autre</option>
+                      </select>
+                    </div>
+                  </div>
+                }
+
                 <button type="submit" class="btn-primary" style="width:100%;margin-top:20px;justify-content:center;" [disabled]="saving()">
                   {{ saving() ? 'Enregistrement...' : 'Enregistrer les modifications' }}
                 </button>
@@ -74,6 +102,12 @@ export class PatientProfileComponent implements OnInit {
   private _saving  = signal(false);
   readonly patient  = this._patient.asReadonly();
   readonly saving   = this._saving.asReadonly();
+  readonly isMinor  = computed(() => {
+    const dob = this._patient()?.dateOfBirth;
+    if (!dob) return false;
+    const age = (Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 3600 * 1000);
+    return age < 18;
+  });
 
   bloodTypes = [
     { value: 'A_POS', label: 'A+' }, { value: 'A_NEG', label: 'A-' },
@@ -93,6 +127,7 @@ export class PatientProfileComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [''], lastName: [''], phone: [''], address: [''],
       dateOfBirth: [''], bloodType: [''], emergencyContact: [''], emergencyPhone: [''],
+      guardianName: [''], guardianPhone: [''], guardianRelationship: [''],
     });
   }
 
@@ -105,6 +140,8 @@ export class PatientProfileComponent implements OnInit {
         address: p.address || '', dateOfBirth: p.dateOfBirth?.slice(0, 10) || '',
         bloodType: p.bloodType || '', emergencyContact: p.emergencyContact || '',
         emergencyPhone: p.emergencyPhone || '',
+        guardianName: p.guardianName || '', guardianPhone: p.guardianPhone || '',
+        guardianRelationship: p.guardianRelationship || '',
       });
     });
   }

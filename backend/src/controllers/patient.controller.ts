@@ -24,11 +24,20 @@ export const getMe = async (req: AuthRequest, res: Response, next: NextFunction)
 
 export const updateMe = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { firstName, lastName, phone, address, dateOfBirth, bloodType, allergies, emergencyContact, emergencyPhone } = req.body;
+    const {
+      firstName, lastName, phone, address, dateOfBirth, bloodType, allergies,
+      emergencyContact, emergencyPhone,
+      guardianName, guardianPhone, guardianRelationship,
+    } = req.body;
 
     const patient = await prisma.patient.update({
       where: { userId: req.user!.userId },
-      data: { firstName, lastName, phone, address, dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined, bloodType, allergies, emergencyContact, emergencyPhone },
+      data: {
+        firstName, lastName, phone, address,
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined,
+        bloodType, allergies, emergencyContact, emergencyPhone,
+        guardianName, guardianPhone, guardianRelationship,
+      },
     });
     res.json({ success: true, data: patient });
   } catch (err) { next(err); }
@@ -81,6 +90,37 @@ export const getPatientRecords = async (req: AuthRequest, res: Response, next: N
       orderBy: { createdAt: 'desc' },
     });
     res.json({ success: true, data: records });
+  } catch (err) { next(err); }
+};
+
+export const getLabResults = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    // Lab results are stored as documents of type LAB_RESULT or embedded in medical records vitals.
+    // Return an empty array until a dedicated lab module is built.
+    res.json({ success: true, data: [] });
+  } catch (err) { next(err); }
+};
+
+export const signalSymptom = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { urgency, description, doctorId } = req.body;
+    const patient = await prisma.patient.findUnique({ where: { userId: req.user!.userId } });
+
+    if (doctorId) {
+      const doctor = await prisma.doctor.findUnique({ where: { id: doctorId } });
+      if (doctor) {
+        await prisma.notification.create({
+          data: {
+            userId:  doctor.userId,
+            message: `Signalement ${urgency || 'INFO'} de ${patient?.firstName || 'un patient'} : ${description || ''}`,
+            type:    'SYSTEM',
+            data:    { urgency, description, patientId: patient?.id },
+          },
+        });
+      }
+    }
+
+    res.json({ success: true, message: 'Signal envoyé' });
   } catch (err) { next(err); }
 };
 

@@ -17,6 +17,7 @@ enum Role {
 enum AppointmentStatus {
   PENDING
   CONFIRMED
+  SCHEDULED
   CANCELLED
   COMPLETED
   NO_SHOW
@@ -84,7 +85,7 @@ model Patient {
   userId               String    @unique
   firstName            String
   lastName             String
-  dateOfBirth          DateTime
+  dateOfBirth          DateTime?
   phone                String?
   address              String?
   bloodType            BloodType?
@@ -92,6 +93,9 @@ model Patient {
   socialSecurityNumber String?   @unique
   emergencyContact     String?
   emergencyPhone       String?
+  guardianName         String?
+  guardianPhone        String?
+  guardianRelationship String?
   avatar               String?
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
@@ -119,6 +123,8 @@ model Doctor {
   bio              String?
   avatar           String?
   licenseNumber    String?    @unique
+  city             String?
+  address          String?
   isAvailable      Boolean    @default(true)
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
@@ -129,6 +135,7 @@ model Doctor {
   medicalRecords MedicalRecord[]
   prescriptions  Prescription[]
   reviews        Review[]
+  leaves         Leave[]
 
   @@map("doctors")
 }
@@ -175,6 +182,7 @@ model TimeSlot {
   appointment Appointment?
 
   @@unique([doctorId, date, startTime])
+  @@index([date])
   @@map("time_slots")
 }
 
@@ -198,6 +206,9 @@ model Appointment {
   invoice       Invoice?
   review        Review?
 
+  @@index([patientId])
+  @@index([doctorId])
+  @@index([status])
   @@map("appointments")
 }
 
@@ -218,6 +229,8 @@ model MedicalRecord {
   appointment  Appointment  @relation(fields: [appointmentId], references: [id])
   prescription Prescription?
 
+  @@index([patientId])
+  @@index([doctorId])
   @@map("medical_records")
 }
 
@@ -235,6 +248,8 @@ model Prescription {
   doctor        Doctor        @relation(fields: [doctorId], references: [id])
   patient       Patient       @relation(fields: [patientId], references: [id])
 
+  @@index([patientId])
+  @@index([doctorId])
   @@map("prescriptions")
 }
 
@@ -251,6 +266,7 @@ model Document {
 
   patient Patient @relation(fields: [patientId], references: [id])
 
+  @@index([patientId])
   @@map("documents")
 }
 
@@ -268,6 +284,8 @@ model Invoice {
   patient     Patient     @relation(fields: [patientId], references: [id])
   appointment Appointment @relation(fields: [appointmentId], references: [id])
 
+  @@index([patientId])
+  @@index([status])
   @@map("invoices")
 }
 
@@ -293,6 +311,8 @@ model AuditLog {
 
   user User @relation(fields: [userId], references: [id])
 
+  @@index([userId])
+  @@index([timestamp])
   @@map("audit_logs")
 }
 
@@ -307,7 +327,22 @@ model Notification {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId, isRead])
   @@map("notifications")
+}
+
+model Leave {
+  id        String   @id @default(uuid())
+  doctorId  String
+  startDate DateTime @db.Date
+  endDate   DateTime @db.Date
+  reason    String?
+  createdAt DateTime @default(now())
+
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId])
+  @@map("leaves")
 }
 
 model Review {
@@ -323,5 +358,7 @@ model Review {
   doctor      Doctor      @relation(fields: [doctorId], references: [id])
   appointment Appointment @relation(fields: [appointmentId], references: [id])
 
+  @@index([doctorId])
+  @@index([patientId])
   @@map("reviews")
 }
