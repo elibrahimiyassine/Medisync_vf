@@ -5,6 +5,7 @@ import { ApiService } from '../../../core/services/api.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
 import { TopbarComponent } from '../../../shared/components/topbar/topbar.component';
 import { LucideAngularModule } from 'lucide-angular';
+import ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-admin-finance',
@@ -45,7 +46,7 @@ import { LucideAngularModule } from 'lucide-angular';
                 }
               </select>
             }
-            <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:5px;" (click)="exportCsv()"><lucide-icon name="download" [size]="13" /> CSV</button>
+            <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:5px;" (click)="exportXlsx()"><lucide-icon name="download" [size]="13" /> Excel</button>
           </div>
         </div>
 
@@ -205,22 +206,54 @@ export class AdminFinanceComponent implements OnInit {
     w.print();
   }
 
-  exportCsv(): void {
-    const rows = [['Patient', 'Médecin', 'Date', 'Montant', 'Statut']];
-    this._invoices().forEach(inv => {
-      rows.push([
-        `${inv.patient?.firstName} ${inv.patient?.lastName}`,
-        `Dr. ${inv.appointment?.doctor?.lastName || '—'}`,
-        new Date(inv.issuedAt).toLocaleDateString('fr-FR'),
-        inv.amount?.toFixed(2) + ' DH',
-        this.translateStatus(inv.status),
-      ]);
+  async exportXlsx(): Promise<void> {
+    const wb = new ExcelJS.Workbook();
+    wb.creator  = 'MediSync';
+    wb.created  = new Date();
+    const ws = wb.addWorksheet('Factures');
+
+    ws.columns = [
+      { header: 'Patient',  key: 'patient',  width: 28 },
+      { header: 'Médecin',  key: 'doctor',   width: 28 },
+      { header: 'Date',     key: 'date',     width: 16 },
+      { header: 'Montant (DH)', key: 'amount', width: 16 },
+      { header: 'Statut',   key: 'status',   width: 14 },
+    ];
+
+    const headerRow = ws.getRow(1);
+    headerRow.eachCell(cell => {
+      cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill  = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF2A4A38' } };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
     });
-    const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
-    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    headerRow.height = 20;
+
+    this._invoices().forEach(inv => {
+      const row = ws.addRow({
+        patient: `${inv.patient?.firstName ?? ''} ${inv.patient?.lastName ?? ''}`.trim(),
+        doctor:  `Dr. ${inv.appointment?.doctor?.lastName || '—'}`,
+        date:    new Date(inv.issuedAt).toLocaleDateString('fr-FR'),
+        amount:  inv.amount ?? 0,
+        status:  this.translateStatus(inv.status),
+      });
+      row.getCell('amount').numFmt = '#,##0.00';
+      row.getCell('status').fill = {
+        type: 'pattern', pattern: 'solid',
+        fgColor: { argb: inv.status === 'PAID' ? 'FFD4EDDA' : inv.status === 'OVERDUE' ? 'FFF8D7DA' : 'FFFFF3CD' },
+      };
+    });
+
+    ws.eachRow((row, i) => {
+      if (i > 1) row.eachCell(cell => { cell.border = { bottom: { style: 'thin', color: { argb: 'FFE0E0E0' } } }; });
+    });
+
+    const buf = await wb.xlsx.writeBuffer();
+    const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `factures-${this.selectedMonth}.csv`; a.click();
+    a.href = url;
+    a.download = `factures-${this.selectedMonth}.xlsx`;
+    a.click();
     URL.revokeObjectURL(url);
   }
 }
