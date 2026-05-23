@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
@@ -21,6 +22,19 @@ import { LucideAngularModule } from 'lucide-angular';
           <h2 style="font-family:'Fraunces',Georgia,serif;">Paramètres du système</h2>
           <p style="color:#7A8A82;font-size:13px;margin-top:4px;">Configurer la clinique et les préférences système</p>
         </div>
+
+        @if (needs2FASetup()) {
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(194,64,64,0.08);border:1px solid rgba(194,64,64,0.3);border-radius:12px;margin-bottom:24px;">
+            <lucide-icon name="shield-alert" [size]="20" style="color:#C24040;flex-shrink:0;" />
+            <div style="flex:1;">
+              <p style="font-size:13px;font-weight:700;color:#C24040;">Double authentification requise</p>
+              <p style="font-size:12px;color:#7A8A82;margin-top:2px;">En tant qu'administrateur, vous devez activer la 2FA pour sécuriser votre compte et accéder à toutes les fonctionnalités.</p>
+            </div>
+            <button class="btn-primary" style="font-size:12px;padding:7px 16px;white-space:nowrap;background:linear-gradient(135deg,#C24040,#9B2020);" (click)="activeSection.set('security')">
+              Configurer maintenant
+            </button>
+          </div>
+        }
 
         <div style="display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start;">
 
@@ -467,6 +481,7 @@ import { LucideAngularModule } from 'lucide-angular';
 export class AdminSettingsComponent implements OnInit {
   activeSection = signal('clinic');
   saving        = signal(false);
+  needs2FASetup = signal(false);
 
   private _rooms = signal<any[]>([]);
   readonly rooms = this._rooms.asReadonly();
@@ -549,11 +564,34 @@ export class AdminSettingsComponent implements OnInit {
     { id: 'security',     label: 'Sécurité',        icon: 'lock-keyhole' },
   ];
 
-  constructor(private api: ApiService, private notif: NotificationService) {}
+  constructor(
+    private api: ApiService,
+    private notif: NotificationService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (user?.role === 'ADMIN' && !user?.twoFactorEnabled) {
+        this.needs2FASetup.set(true);
+      }
+    } catch {}
+
+    this.route.queryParams.subscribe(params => {
+      if (params['section']) this.activeSection.set(params['section']);
+    });
+
     this.api.get<any>('/admin/settings').subscribe({
-      next: (res) => { if (res.data) Object.assign(this.settings, res.data); },
+      next: (res) => {
+        if (res.data) {
+          const { permissions, ...rest } = res.data;
+          Object.assign(this.settings, rest);
+          if (permissions?.dashboard?.DOCTOR !== undefined) {
+            this.settings.permissions = permissions;
+          }
+        }
+      },
     });
     this.loadRooms();
   }
@@ -608,6 +646,11 @@ export class AdminSettingsComponent implements OnInit {
         this.notif.showToast('2FA activé avec succès', 'success');
         this.totpSetup.set(null);
         this.settings.require2FA = true;
+        this.needs2FASetup.set(false);
+        try {
+          const u = JSON.parse(localStorage.getItem('user') || '{}');
+          localStorage.setItem('user', JSON.stringify({ ...u, twoFactorEnabled: true }));
+        } catch {}
       },
       error: () => this.notif.showToast('Code invalide — réessayez', 'error'),
       complete: () => this.verifyingTotp.set(false),

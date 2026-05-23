@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
           create: {
             firstName,
             lastName,
-            dateOfBirth: new Date(dateOfBirth),
+            ...(dateOfBirth && { dateOfBirth: new Date(dateOfBirth) }),
             phone,
           },
         },
@@ -46,7 +46,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -86,7 +86,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -94,7 +94,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
     res.json({
       success: true,
-      data: { accessToken, user: { id: user.id, email: user.email, role: user.role, profile } },
+      data: { accessToken, user: { id: user.id, email: user.email, role: user.role, twoFactorEnabled: user.twoFactorEnabled, profile } },
     });
   } catch (err) { next(err); }
 };
@@ -128,12 +128,12 @@ export const verify2FA = async (req: Request, res: Response, next: NextFunction)
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     const profile = user.patient || user.doctor || user.secretary || user.admin;
-    res.json({ success: true, data: { accessToken, user: { id: user.id, email: user.email, role: user.role, profile } } });
+    res.json({ success: true, data: { accessToken, user: { id: user.id, email: user.email, role: user.role, twoFactorEnabled: user.twoFactorEnabled, profile } } });
   } catch (err) { next(err); }
 };
 
@@ -201,7 +201,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     res.cookie('refreshToken', newRefreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
