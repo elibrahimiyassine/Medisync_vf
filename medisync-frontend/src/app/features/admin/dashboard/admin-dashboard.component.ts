@@ -185,6 +185,44 @@ import { LucideAngularModule } from 'lucide-angular';
             <p class="stat-value" style="color:#3D6B4F;">{{ stats().totalDoctors }}</p>
           </div>
         </div>
+
+        <!-- Room occupancy -->
+        <div class="glass-card" style="padding:24px;margin-top:20px;">
+          <div class="section-title" style="margin-bottom:16px;">
+            <h3>Occupation des salles — 7 derniers jours</h3>
+            <span style="font-size:11px;color:#7A8A82;">{{ roomOccupancy().length }} salle(s) active(s)</span>
+          </div>
+          @if (roomOccupancy().length === 0) {
+            <p style="color:#7A8A82;font-size:13px;text-align:center;padding:20px 0;">Aucune salle configurée</p>
+          }
+          @for (r of roomOccupancy(); track r.id) {
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                <span style="font-size:13px;font-weight:600;color:#1B2520;">{{ r.name }}</span>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:11px;color:#7A8A82;">{{ r.usedSlots }} / {{ r.totalSlots }} créneaux</span>
+                  <span style="font-size:13px;font-weight:700;"
+                        [style.color]="r.occupancyRate >= 80 ? '#C24040' : r.occupancyRate >= 50 ? '#B8792A' : '#3D6B4F'">
+                    {{ r.occupancyRate }}%
+                  </span>
+                </div>
+              </div>
+              <div style="height:8px;background:rgba(239,234,224,0.95);border-radius:10px;overflow:hidden;">
+                <div style="height:100%;border-radius:10px;transition:width 1s ease;"
+                     [style.width]="r.occupancyRate + '%'"
+                     [style.background]="r.occupancyRate >= 80 ? '#C24040' : r.occupancyRate >= 50 ? '#B8792A' : '#3D6B4F'">
+                </div>
+              </div>
+              @if (r.equipment?.length > 0) {
+                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">
+                  @for (eq of r.equipment.slice(0,3); track eq) {
+                    <span style="background:rgba(42,74,56,0.06);color:#3A5248;border-radius:999px;padding:1px 8px;font-size:10px;font-weight:600;">{{ eq }}</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
       </div>
     </main>
   `,
@@ -221,7 +259,9 @@ export class AdminDashboardComponent implements OnInit {
     monthAppointments: 0, pendingInvoices: 0, totalRevenue: 0,
     noShowRate: 0, appointmentsByStatus: [],
   });
-  private _animated = signal<any>({ totalPatients: 0, totalDoctors: 0, monthAppointments: 0, totalRevenue: 0 });
+  private _animated    = signal<any>({ totalPatients: 0, totalDoctors: 0, monthAppointments: 0, totalRevenue: 0 });
+  private _roomOccupancy = signal<any[]>([]);
+  readonly roomOccupancy = this._roomOccupancy.asReadonly();
 
   private readonly MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
   private _monthlyStats = signal<any[]>(this.MONTHS.map((month, i) => ({
@@ -398,6 +438,9 @@ export class AdminDashboardComponent implements OnInit {
       next: (res) => {
         if (res.data?.length) this._monthlyStats.set(res.data);
       },
+    });
+    this.api.get<any>('/admin/rooms/occupancy').subscribe({
+      next: (res) => { if (res.data) this._roomOccupancy.set(res.data); },
     });
   }
 

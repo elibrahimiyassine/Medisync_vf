@@ -4,7 +4,7 @@ import {
   getStaff, createStaff, updateStaff, deleteStaff,
   getFinanceReport,
   getSettings, updateSettings,
-  getRooms, createRoom, deleteRoom,
+  getRooms, createRoom, deleteRoom, getRoomOccupancy,
   setupAdminTOTP, verifyAdminTOTP,
   updateAdminProfile,
 } from '../controllers/admin.controller';
@@ -27,6 +27,7 @@ router.get('/finance',        getFinanceReport);
 router.get('/settings',       getSettings);
 router.put('/settings',       validate(updateSettingsSchema), auditLog('UPDATE_SETTINGS', 'system'), updateSettings);
 router.get('/rooms',          getRooms);
+router.get('/rooms/occupancy', getRoomOccupancy);
 router.post('/rooms',         createRoom);
 router.delete('/rooms/:id',   deleteRoom);
 router.get('/totp/setup',     setupAdminTOTP);
