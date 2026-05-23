@@ -21,6 +21,7 @@ import { LucideAngularModule } from 'lucide-angular';
           <h2 style="font-family:'Fraunces',Georgia,serif;">Gestion des rendez-vous</h2>
           <div style="display:flex;gap:10px;align-items:center;">
             <input type="date" class="glass-input" style="width:180px;" (change)="filterDate($event)" />
+            <button class="btn-secondary" (click)="openNewPatient()">+ Nouveau patient</button>
             <button class="btn-primary" (click)="openNewAppt()">+ Nouveau RDV</button>
           </div>
         </div>
@@ -35,7 +36,7 @@ import { LucideAngularModule } from 'lucide-angular';
                 <tr>
                   <td><strong style="color:#1B2520;">{{ a.patient?.firstName }} {{ a.patient?.lastName }}</strong></td>
                   <td style="color:#3A5248;">Dr. {{ a.doctor?.firstName }} {{ a.doctor?.lastName }}</td>
-                  <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7A8A82;">{{ a.slot?.date | date:'MMM d' }} · {{ a.slot?.startTime }}</td>
+                  <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7A8A82;">{{ a.slot?.date | date:'d MMM' }} · {{ a.slot?.startTime }}</td>
                   <td style="color:#3A5248;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.motif }}</td>
                   <td><span class="badge {{ a.status.toLowerCase() }}">{{ translateStatus(a.status) }}</span></td>
                   <td>
@@ -60,6 +61,68 @@ import { LucideAngularModule } from 'lucide-angular';
 
       </div>
     </main>
+
+    <!-- New patient modal -->
+    @if (showPatientModal()) {
+      <div class="overlay" (click)="closePatientModal()">
+      <div class="glass-card new-appt-modal animate-scale-in" (click)="$event.stopPropagation()">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <h3 style="font-size:17px;font-weight:700;color:#1B2520;font-family:'Fraunces',Georgia,serif;">Nouveau patient</h3>
+          <button class="modal-close" (click)="closePatientModal()"><lucide-icon name="x" [size]="16" /></button>
+        </div>
+        @if (createdPatientCreds()) {
+          <div style="background:rgba(0,245,160,0.08);border:1px solid rgba(0,245,160,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+            <p style="font-weight:700;color:#2A4A38;margin-bottom:8px;">✓ Compte créé avec succès</p>
+            <p style="font-size:13px;color:#3A5248;">Email : <strong>{{ createdPatientCreds()!.email }}</strong></p>
+            <p style="font-size:13px;color:#3A5248;">Mot de passe temporaire : <strong style="font-family:'JetBrains Mono',monospace;">{{ createdPatientCreds()!.tempPassword }}</strong></p>
+            <p style="font-size:11px;color:#7A8A82;margin-top:8px;">Ces identifiants ont été envoyés au patient par e-mail.</p>
+          </div>
+          <button class="btn-primary" style="width:100%;" (click)="closePatientModal()">Fermer</button>
+        } @else {
+          <form [formGroup]="newPatientForm" (ngSubmit)="createPatient()">
+            <div class="modal-grid">
+              <div class="form-group">
+                <label>Prénom *</label>
+                <input type="text" formControlName="firstName" class="glass-input" placeholder="Prénom" />
+              </div>
+              <div class="form-group">
+                <label>Nom *</label>
+                <input type="text" formControlName="lastName" class="glass-input" placeholder="Nom" />
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label>Email *</label>
+                <input type="email" formControlName="email" class="glass-input" placeholder="email@exemple.com" />
+              </div>
+              <div class="form-group">
+                <label>Téléphone</label>
+                <input type="tel" formControlName="phone" class="glass-input" placeholder="06 XX XX XX XX" />
+              </div>
+              <div class="form-group">
+                <label>Date de naissance</label>
+                <input type="date" formControlName="dateOfBirth" class="glass-input" />
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label>Groupe sanguin</label>
+                <select formControlName="bloodType" class="glass-input">
+                  <option value="">— Non renseigné —</option>
+                  <option value="A_POS">A+</option><option value="A_NEG">A-</option>
+                  <option value="B_POS">B+</option><option value="B_NEG">B-</option>
+                  <option value="AB_POS">AB+</option><option value="AB_NEG">AB-</option>
+                  <option value="O_POS">O+</option><option value="O_NEG">O-</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
+              <button type="button" class="btn-secondary" (click)="closePatientModal()">Annuler</button>
+              <button type="submit" class="btn-primary" [disabled]="newPatientForm.invalid || savingPatient()">
+                {{ savingPatient() ? 'Création...' : '+ Créer le patient' }}
+              </button>
+            </div>
+          </form>
+        }
+      </div>
+      </div>
+    }
 
     <!-- New appointment modal -->
     @if (showModal()) {
@@ -148,11 +211,15 @@ export class SecretaryAppointmentsComponent implements OnInit {
   readonly patients     = this._patients.asReadonly();
   readonly doctors      = this._doctors.asReadonly();
 
-  showModal = signal(false);
-  saving    = signal(false);
-  today     = new Date().toISOString().slice(0, 10);
+  showModal        = signal(false);
+  saving           = signal(false);
+  showPatientModal = signal(false);
+  savingPatient    = signal(false);
+  createdPatientCreds = signal<{ email: string; tempPassword: string } | null>(null);
+  today = new Date().toISOString().slice(0, 10);
 
   newApptForm!: ReturnType<FormBuilder['group']>;
+  newPatientForm!: ReturnType<FormBuilder['group']>;
 
   constructor(
     private api: ApiService,
@@ -167,6 +234,14 @@ export class SecretaryAppointmentsComponent implements OnInit {
       duration:  [30],
       type:      ['GENERAL'],
       motif:     [''],
+    });
+    this.newPatientForm = this.fb.group({
+      firstName:   ['', Validators.required],
+      lastName:    ['', Validators.required],
+      email:       ['', [Validators.required, Validators.email]],
+      phone:       [''],
+      dateOfBirth: [''],
+      bloodType:   [''],
     });
   }
 
@@ -191,6 +266,45 @@ export class SecretaryAppointmentsComponent implements OnInit {
   }
 
   closeModal(): void { this.showModal.set(false); }
+
+  openNewPatient(): void {
+    this.newPatientForm.reset();
+    this.createdPatientCreds.set(null);
+    this.showPatientModal.set(true);
+  }
+
+  closePatientModal(): void {
+    this.showPatientModal.set(false);
+    this.createdPatientCreds.set(null);
+    if (this.createdPatientCreds()) {
+      this.api.get<any>('/patients').subscribe(r => this._patients.set(r.data || []));
+    }
+  }
+
+  createPatient(): void {
+    if (this.newPatientForm.invalid) return;
+    this.savingPatient.set(true);
+    const v = this.newPatientForm.value;
+    this.api.post<any>('/secretary/patients', {
+      email:       v.email,
+      firstName:   v.firstName,
+      lastName:    v.lastName,
+      phone:       v.phone || null,
+      dateOfBirth: v.dateOfBirth || null,
+      bloodType:   v.bloodType || null,
+    }).subscribe({
+      next: (res) => {
+        this.savingPatient.set(false);
+        this.createdPatientCreds.set({ email: res.data.email, tempPassword: res.data.tempPassword });
+        this.api.get<any>('/patients').subscribe(r => this._patients.set(r.data || []));
+        this.notifSvc.showToast('Patient créé avec succès', 'success');
+      },
+      error: (err) => {
+        this.savingPatient.set(false);
+        this.notifSvc.showToast(err.error?.message || 'Échec de la création', 'error');
+      },
+    });
+  }
 
   createAppt(): void {
     if (this.newApptForm.invalid) return;
