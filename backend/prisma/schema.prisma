@@ -399,3 +399,12 @@ model ClinicSettings {
 
   @@map("clinic_settings")
 }
+
+model RolePermission {
+  id          String   @id @default(uuid())
+  role        Role     @unique
+  permissions Json     @default("{}")
+  updatedAt   DateTime @updatedAt
+
+  @@map("role_permissions")
+}

@@ -4,6 +4,7 @@ import {
   getStaff, createStaff, updateStaff, deleteStaff,
   getFinanceReport,
   getSettings, updateSettings,
+  getPermissions, updatePermissions,
   getRooms, createRoom, deleteRoom, getRoomOccupancy,
   setupAdminTOTP, verifyAdminTOTP,
   updateAdminProfile,
@@ -34,7 +35,9 @@ router.delete('/rooms/:id',   deleteRoom);
 router.get('/totp/setup',     setupAdminTOTP);
 router.post('/totp/verify',   verifyAdminTOTP);
 router.put('/me',             updateAdminProfile);
-router.get('/reports',        getReports);
-router.patch('/reports/:id',  updateReportStatus);
+router.get('/reports',              getReports);
+router.patch('/reports/:id',        updateReportStatus);
+router.get('/permissions',          getPermissions);
+router.put('/permissions/:role',    updatePermissions);
 
 export default router;

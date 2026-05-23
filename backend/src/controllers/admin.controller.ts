@@ -391,6 +391,59 @@ export const updateSettings = async (req: AuthRequest, res: Response, next: Next
   } catch (err) { next(err); }
 };
 
+// ── Permissions ────────────────────────────────────────────────────────────────
+const DEFAULT_PERMISSIONS: Record<string, any> = {
+  DOCTOR: {
+    dashboard:    { view: true,  edit: false, delete: false },
+    patients:     { view: true,  edit: true,  delete: false },
+    appointments: { view: true,  edit: true,  delete: false },
+    billing:      { view: false, edit: false, delete: false },
+    staff:        { view: false, edit: false, delete: false },
+    settings:     { view: false, edit: false, delete: false },
+  },
+  SECRETARY: {
+    dashboard:    { view: true,  edit: false, delete: false },
+    patients:     { view: true,  edit: true,  delete: false },
+    appointments: { view: true,  edit: true,  delete: true  },
+    billing:      { view: true,  edit: true,  delete: false },
+    staff:        { view: false, edit: false, delete: false },
+    settings:     { view: false, edit: false, delete: false },
+  },
+  PATIENT: {
+    dashboard:    { view: true,  edit: false, delete: false },
+    patients:     { view: false, edit: false, delete: false },
+    appointments: { view: true,  edit: true,  delete: false },
+    billing:      { view: true,  edit: false, delete: false },
+    staff:        { view: false, edit: false, delete: false },
+    settings:     { view: false, edit: false, delete: false },
+  },
+};
+
+export const getPermissions = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const rows = await prisma.rolePermission.findMany();
+    const result: Record<string, any> = { ...DEFAULT_PERMISSIONS };
+    for (const row of rows) {
+      result[row.role] = row.permissions;
+    }
+    res.json({ success: true, data: result });
+  } catch (err) { next(err); }
+};
+
+export const updatePermissions = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const role = req.params.role as 'DOCTOR' | 'SECRETARY' | 'PATIENT';
+    if (!['DOCTOR', 'SECRETARY', 'PATIENT'].includes(role)) throw new AppError('Invalid role', 400);
+
+    const row = await prisma.rolePermission.upsert({
+      where:  { role },
+      update: { permissions: req.body },
+      create: { role, permissions: req.body },
+    });
+    res.json({ success: true, data: row });
+  } catch (err) { next(err); }
+};
+
 // ── TOTP (admin 2FA management) ────────────────────────────────────────────────
 export const setupAdminTOTP = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {

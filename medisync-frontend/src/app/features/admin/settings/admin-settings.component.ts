@@ -583,14 +583,11 @@ export class AdminSettingsComponent implements OnInit {
     });
 
     this.api.get<any>('/admin/settings').subscribe({
+      next: (res) => { if (res.data) Object.assign(this.settings, res.data); },
+    });
+    this.api.get<any>('/admin/permissions').subscribe({
       next: (res) => {
-        if (res.data) {
-          const { permissions, ...rest } = res.data;
-          Object.assign(this.settings, rest);
-          if (permissions?.dashboard?.DOCTOR !== undefined) {
-            this.settings.permissions = permissions;
-          }
-        }
+        if (res.data) this.settings.permissions = res.data;
       },
     });
     this.loadRooms();
@@ -683,10 +680,23 @@ export class AdminSettingsComponent implements OnInit {
 
   save(): void {
     this.saving.set(true);
+    if (this.activeSection() === 'permissions') {
+      const roles = ['DOCTOR', 'SECRETARY', 'PATIENT'] as const;
+      const calls = roles.map(role =>
+        this.api.put<any>(`/admin/permissions/${role}`, this.settings.permissions[role] || {})
+      );
+      let done = 0;
+      for (const call of calls) {
+        call.subscribe({
+          next: () => { done++; if (done === roles.length) { this.saving.set(false); this.notif.showToast('Permissions sauvegardées', 'success'); } },
+          error: () => { this.saving.set(false); this.notif.showToast('Échec de la sauvegarde', 'error'); },
+        });
+      }
+      return;
+    }
     this.api.put<any>('/admin/settings', this.settings).subscribe({
-      next: () => this.notif.showToast('Paramètres sauvegardés', 'success'),
-      error: () => this.notif.showToast('Échec de la sauvegarde', 'error'),
-      complete: () => this.saving.set(false),
+      next: () => { this.saving.set(false); this.notif.showToast('Paramètres sauvegardés', 'success'); },
+      error: () => { this.saving.set(false); this.notif.showToast('Échec de la sauvegarde', 'error'); },
     });
   }
 }
