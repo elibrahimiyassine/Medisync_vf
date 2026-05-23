@@ -5,8 +5,6 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 import bcrypt from 'bcryptjs';
 import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
-import fs from 'fs';
-import path from 'path';
 
 // ── Stats ──────────────────────────────────────────────────────────────────────
 export const getStats = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -351,80 +349,45 @@ export const deleteRoom = async (req: AuthRequest, res: Response, next: NextFunc
 };
 
 // ── Settings ───────────────────────────────────────────────────────────────────
-const SETTINGS_FILE = path.join(process.cwd(), 'data', 'settings.json');
-
-const defaultSettings = {
-  // Clinic info
-  clinicName:   'MediSync Clinique',
-  address:      'Centre Médical MediSync, Avenue Mohammed V, 20000 Casablanca, Maroc',
-  phone:        '+212 5 22 00 00 00',
-  email:        'contact@medisync.ma',
-  timezone:     'Africa/Casablanca',
-  // Scheduling
-  openingTime:  '08:00',
-  closingTime:  '18:00',
-  openDays:     { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false },
-  apptDuration: 30,
-  maxApptPerDay: 20,
-  cancelWindow: 24,
-  autoConfirm:  false,
-  emailReminders: true,
-  // Finance
-  currency:     'MAD',
-  defaultFee:   300,
-  vatRate:      0,
-  invoiceNote:  'Merci de votre confiance. Paiement à réception.',
-  invoicePrefix: 'FAC',
-  sector1Rate:  25,
-  sector2Rate:  50,
-  sector3Rate:  80,
-  consultationTypes: [
-    { id: 'consultation', label: 'Consultation', duration: 30, price: 300 },
-    { id: 'follow-up',    label: 'Suivi',         duration: 20, price: 200 },
-    { id: 'emergency',   label: 'Urgence',        duration: 45, price: 500 },
-  ],
-  // Security
-  require2FA:        false,
-  ipAllowlist:       false,
-  sessionTimeout:    60,
-  maxLoginAttempts:  5,
-  passwordPolicy:    'strong',
-  twoFactorEnabled:  false,
-  // Permissions
-  permissions: {
-    patientCanBook:     true,
-    patientCanCancel:   true,
-    secretaryCanCreate: true,
-    secretaryCanDelete: false,
-  },
-};
-
-function readSettings() {
-  try {
-    if (fs.existsSync(SETTINGS_FILE)) {
-      return { ...defaultSettings, ...JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf-8')) };
-    }
-  } catch { /* ignore */ }
-  return { ...defaultSettings };
-}
-
-function writeSettings(data: any) {
-  const dir = path.dirname(SETTINGS_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(SETTINGS_FILE, JSON.stringify(data, null, 2));
-}
-
 export const getSettings = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    res.json({ success: true, data: readSettings() });
+    const settings = await prisma.clinicSettings.upsert({
+      where:  { id: 'singleton' },
+      update: {},
+      create: { id: 'singleton' },
+    });
+    res.json({ success: true, data: settings });
   } catch (err) { next(err); }
 };
 
 export const updateSettings = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const updated = { ...readSettings(), ...req.body };
-    writeSettings(updated);
-    res.json({ success: true, data: updated });
+    const {
+      clinicName, address, phone, email,
+      slotDuration, workingHoursStart, workingHoursEnd,
+      consultationFee, invoicePrefix,
+      passwordPolicy, twoFactorEnabled, sessionTimeout,
+    } = req.body;
+
+    const settings = await prisma.clinicSettings.upsert({
+      where:  { id: 'singleton' },
+      update: {
+        ...(clinicName        !== undefined && { clinicName }),
+        ...(address           !== undefined && { address }),
+        ...(phone             !== undefined && { phone }),
+        ...(email             !== undefined && { email }),
+        ...(slotDuration      !== undefined && { slotDuration: Number(slotDuration) }),
+        ...(workingHoursStart !== undefined && { workingHoursStart }),
+        ...(workingHoursEnd   !== undefined && { workingHoursEnd }),
+        ...(consultationFee   !== undefined && { consultationFee: Number(consultationFee) }),
+        ...(invoicePrefix     !== undefined && { invoicePrefix }),
+        ...(passwordPolicy    !== undefined && { passwordPolicy }),
+        ...(twoFactorEnabled  !== undefined && { twoFactorEnabled: Boolean(twoFactorEnabled) }),
+        ...(sessionTimeout    !== undefined && { sessionTimeout: Number(sessionTimeout) }),
+      },
+      create: { id: 'singleton' },
+    });
+    res.json({ success: true, data: settings });
   } catch (err) { next(err); }
 };
 

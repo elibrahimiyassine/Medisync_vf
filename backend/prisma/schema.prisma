@@ -107,6 +107,7 @@ model Patient {
   documents      Document[]
   invoices       Invoice[]
   reviews        Review[]
+  reports        Report[]
 
   @@map("patients")
 }
@@ -345,6 +346,23 @@ model Leave {
   @@map("leaves")
 }
 
+model Report {
+  id          String   @id @default(uuid())
+  patientId   String
+  doctorId    String?
+  urgency     String   @default("INFO")
+  description String
+  status      String   @default("OPEN")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@index([status])
+  @@map("reports")
+}
+
 model Review {
   id            String   @id @default(uuid())
   patientId     String
@@ -361,4 +379,23 @@ model Review {
   @@index([doctorId])
   @@index([patientId])
   @@map("reviews")
+}
+
+model ClinicSettings {
+  id                String   @id @default("singleton")
+  clinicName        String   @default("MediSync Clinique")
+  address           String?
+  phone             String?
+  email             String?
+  slotDuration      Int      @default(30)
+  workingHoursStart String   @default("08:00")
+  workingHoursEnd   String   @default("18:00")
+  consultationFee   Float    @default(25.0)
+  invoicePrefix     String   @default("INV")
+  passwordPolicy    String   @default("strong")
+  twoFactorEnabled  Boolean  @default(false)
+  sessionTimeout    Int      @default(30)
+  updatedAt         DateTime @updatedAt
+
+  @@map("clinic_settings")
 }
