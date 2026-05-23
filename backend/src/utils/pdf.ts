@@ -104,7 +104,94 @@ export const generateInvoicePDF = (
   doc.moveDown();
   doc.moveTo(50, doc.y).lineTo(550, doc.y).strokeColor('#ccc').stroke();
   doc.fontSize(12).fillColor('#333').text('Total:', 50, doc.y + 5, { continued: true });
-  doc.fillColor('#00D4FF').text(`€${data.total.toFixed(2)}`, { align: 'right' });
+  doc.fillColor('#00D4FF').text(`${data.total.toFixed(2)} DH`, { align: 'right' });
+
+  doc.end();
+};
+
+export const generateFeuilleSoinsPDF = (
+  res: Response,
+  data: {
+    invoiceNumber: string;
+    patientName: string;
+    patientDob: string;
+    patientSsn: string;
+    doctorName: string;
+    doctorSpecialty: string;
+    doctorLicense: string;
+    doctorAddress: string;
+    date: string;
+    acts: Array<{ description: string; amount: number }>;
+    total: number;
+    sectorType: string;
+  }
+): void => {
+  const doc = new PDFDocument({ margin: 50, size: 'A4' });
+
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', `attachment; filename="feuille-soins-${data.invoiceNumber}.pdf"`);
+  doc.pipe(res);
+
+  // Header band
+  doc.rect(50, 40, 495, 48).fillAndStroke('#1B2520', '#1B2520');
+  doc.fontSize(18).fillColor('#FFFFFF').text('FEUILLE DE SOINS', 60, 52);
+  doc.fontSize(9).fillColor('#A0B8A8').text(`Réf. ${data.invoiceNumber}  ·  ${data.date}`, 60, 74);
+  doc.fontSize(9).fillColor('#A0B8A8').text('MediSync — Document pour remboursement', 300, 60, { width: 240, align: 'right' });
+
+  doc.moveDown(4);
+  const sY = doc.y;
+
+  // Patient box
+  doc.rect(50, sY, 230, 130).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(8).fillColor('#7A8A82').text('ASSURÉ / PATIENT', 62, sY + 10, { characterSpacing: 0.5 });
+  doc.moveTo(62, sY + 22).lineTo(268, sY + 22).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(10).fillColor('#1B2520').text(data.patientName, 62, sY + 28);
+  doc.fontSize(9).fillColor('#3A5248').text(`Né(e) le : ${data.patientDob || '—'}`, 62, sY + 46);
+  doc.fontSize(9).fillColor('#3A5248').text(`N° SS : ${data.patientSsn || '—'}`, 62, sY + 62);
+
+  // Doctor box
+  doc.rect(300, sY, 245, 130).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(8).fillColor('#7A8A82').text('MÉDECIN', 312, sY + 10, { characterSpacing: 0.5 });
+  doc.moveTo(312, sY + 22).lineTo(533, sY + 22).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(10).fillColor('#1B2520').text(`Dr. ${data.doctorName}`, 312, sY + 28);
+  doc.fontSize(9).fillColor('#3A5248').text(data.doctorSpecialty, 312, sY + 46);
+  doc.fontSize(9).fillColor('#3A5248').text(`RPPS : ${data.doctorLicense || '—'}`, 312, sY + 62);
+  doc.fontSize(8).fillColor('#7A8A82').text(data.doctorAddress || '—', 312, sY + 78, { width: 220 });
+  const sectorLabel: Record<string, string> = { SECTOR_1: 'Secteur 1 — Conventionné', SECTOR_2: 'Secteur 2 — Honoraires libres', SECTOR_3: 'Secteur 3 — Non conventionné' };
+  doc.fontSize(8).fillColor('#3A5248').text(sectorLabel[data.sectorType] || data.sectorType, 312, sY + 108);
+
+  // Acts table
+  const tY = sY + 148;
+  doc.rect(50, tY, 495, 22).fillAndStroke('#F0F4F1', '#D0DDD5');
+  doc.fontSize(8).fillColor('#3A5248')
+    .text('Date', 62, tY + 7)
+    .text('Acte / Description', 140, tY + 7)
+    .text('Montant', 500, tY + 7, { align: 'right' });
+
+  let rowY = tY + 22;
+  data.acts.forEach((act, i) => {
+    if (i % 2 === 0) doc.rect(50, rowY, 495, 20).fillAndStroke('#FAF7F1', '#F0F4F1');
+    else doc.rect(50, rowY, 495, 20).fillAndStroke('#FFFFFF', '#F0F4F1');
+    doc.fontSize(9).fillColor('#1B2520')
+      .text(data.date, 62, rowY + 5)
+      .text(act.description, 140, rowY + 5, { width: 320 })
+      .text(`${act.amount.toFixed(2)} DH`, 500, rowY + 5, { align: 'right' });
+    rowY += 20;
+  });
+
+  // Total row
+  doc.rect(50, rowY, 495, 24).fillAndStroke('#1B2520', '#1B2520');
+  doc.fontSize(10).fillColor('#FFFFFF').text('TOTAL', 62, rowY + 7, { continued: true });
+  doc.text(`${data.total.toFixed(2)} DH`, { align: 'right' });
+
+  // Signature zones
+  const sigY = rowY + 50;
+  doc.rect(50, sigY, 220, 80).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(8).fillColor('#7A8A82').text('Signature du médecin', 62, sigY + 8);
+  doc.rect(325, sigY, 220, 80).strokeColor('#D0DDD5').stroke();
+  doc.fontSize(8).fillColor('#7A8A82').text("Signature de l'assuré", 337, sigY + 8);
+
+  doc.fontSize(7).fillColor('#A0B8A8').text('Document généré par MediSync · À conserver pour votre dossier', 50, sigY + 100, { align: 'center', width: 495 });
 
   doc.end();
 };

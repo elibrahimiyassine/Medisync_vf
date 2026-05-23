@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma';
 import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
-import { generateInvoicePDF } from '../utils/pdf';
+import { generateInvoicePDF, generateFeuilleSoinsPDF } from '../utils/pdf';
 import { sendInvoiceEmail } from '../utils/email';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -56,6 +56,31 @@ export const updateInvoice = async (req: AuthRequest, res: Response, next: NextF
       data: { status, paidAt: status === 'PAID' ? new Date() : undefined },
     });
     res.json({ success: true, data: invoice });
+  } catch (err) { next(err); }
+};
+
+export const getFeuilleSoins = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const invoice = await prisma.invoice.findUnique({
+      where: { id: req.params.id },
+      include: { patient: true, appointment: { include: { doctor: true } } },
+    });
+    if (!invoice) throw new AppError('Invoice not found', 404);
+
+    generateFeuilleSoinsPDF(res, {
+      invoiceNumber: invoice.id.slice(0, 8).toUpperCase(),
+      patientName: `${invoice.patient.firstName} ${invoice.patient.lastName}`,
+      patientDob: invoice.patient.dateOfBirth ? new Date(invoice.patient.dateOfBirth).toLocaleDateString('fr-FR') : '',
+      patientSsn: invoice.patient.socialSecurityNumber || '',
+      doctorName: `${invoice.appointment.doctor.firstName} ${invoice.appointment.doctor.lastName}`,
+      doctorSpecialty: invoice.appointment.doctor.specialty,
+      doctorLicense: invoice.appointment.doctor.licenseNumber || '',
+      doctorAddress: invoice.appointment.doctor.address || '',
+      date: new Date(invoice.issuedAt).toLocaleDateString('fr-FR'),
+      acts: invoice.acts as Array<{ description: string; amount: number }>,
+      total: invoice.amount,
+      sectorType: invoice.appointment.doctor.sectorType,
+    });
   } catch (err) { next(err); }
 };
 

@@ -41,6 +41,7 @@ import { LucideAngularModule } from 'lucide-angular';
                         <button class="btn-primary" style="font-size:11px;padding:5px 10px;" (click)="markPaid(inv.id)">Marquer payé</button>
                       }
                       <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="printInvoice(inv)"><lucide-icon name="download" [size]="12" /> PDF</button>
+                      <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="downloadFeuilleSoins(inv.id)"><lucide-icon name="file-text" [size]="12" /> Feuille</button>
                       <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="sendEmail(inv.id)" [disabled]="sendingEmailId() === inv.id">
                         @if (sendingEmailId() !== inv.id) { <lucide-icon name="mail" [size]="12" /> } {{ sendingEmailId() === inv.id ? '...' : 'E-mail' }}
                       </button>
@@ -287,6 +288,26 @@ export class SecretaryBillingComponent implements OnInit {
   translateStatus(s: string): string {
     const map: Record<string, string> = { PAID: 'Payée', PENDING: 'En attente', CANCELLED: 'Annulée' };
     return map[s] || s;
+  }
+
+  downloadFeuilleSoins(id: string): void {
+    const token = localStorage.getItem('accessToken');
+    const url = `${this.apiBase}/invoices/${id}/feuille-soins`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    if (token) a.href = `${url}?token=${encodeURIComponent(token)}`;
+    // Use fetch to handle auth header properly
+    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.blob())
+      .then(blob => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `feuille-soins-${id.slice(0, 8)}.pdf`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(() => this.notifSvc.showToast('Échec du téléchargement', 'error'));
   }
 
   sendEmail(id: string): void {
