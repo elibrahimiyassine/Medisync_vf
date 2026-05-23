@@ -292,9 +292,8 @@ export class SecretaryBillingComponent implements OnInit {
   sendEmail(id: string): void {
     this.sendingEmailId.set(id);
     this.api.post<any>(`/invoices/${id}/send-email`, {}).subscribe({
-      next: () => this.notifSvc.showToast('Facture envoyée par e-mail', 'success'),
-      error: () => this.notifSvc.showToast('Échec de l\'envoi', 'error'),
-      complete: () => this.sendingEmailId.set(null),
+      next: () => { this.sendingEmailId.set(null); this.notifSvc.showToast('Facture envoyée par e-mail', 'success'); },
+      error: () => { this.sendingEmailId.set(null); this.notifSvc.showToast('Échec de l\'envoi', 'error'); },
     });
   }
 

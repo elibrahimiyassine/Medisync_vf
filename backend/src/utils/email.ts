@@ -60,6 +60,45 @@ export const sendAppointmentConfirmation = async (
   });
 };
 
+export const sendInvoiceEmail = async (
+  email: string,
+  patientName: string,
+  doctorName: string,
+  date: string,
+  invoiceNumber: string,
+  amount: number,
+  acts: Array<{ description: string; amount: number }>
+): Promise<void> => {
+  const actsRows = acts.map(a =>
+    `<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,212,255,0.1);">${a.description}</td>
+     <td style="padding:8px 12px;border-bottom:1px solid rgba(0,212,255,0.1);text-align:right;">${a.amount.toFixed(2)} DH</td></tr>`
+  ).join('');
+  await sendEmail({
+    to: email,
+    subject: `Facture MediSync — ${invoiceNumber}`,
+    html: `<div style="font-family:'DM Sans',sans-serif;background:#070B14;color:#E8F4FD;padding:40px;border-radius:12px;max-width:600px;margin:0 auto;border:1px solid rgba(0,212,255,0.3);">
+      <h1 style="color:#00D4FF;text-align:center;">MediSync</h1>
+      <h2 style="color:#00F5A0;">Votre facture #${invoiceNumber}</h2>
+      <p>Cher(e) <strong>${patientName}</strong>,</p>
+      <p>Veuillez trouver ci-dessous votre facture du <strong>${date}</strong>.</p>
+      <div style="background:#0D1526;border:1px solid rgba(0,212,255,0.2);border-radius:8px;padding:20px;margin:20px 0;">
+        <p><strong style="color:#00D4FF;">Médecin :</strong> Dr. ${doctorName}</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:12px;">
+          <thead><tr style="background:rgba(0,212,255,0.08);">
+            <th style="padding:8px 12px;text-align:left;color:#00D4FF;font-size:12px;">Acte</th>
+            <th style="padding:8px 12px;text-align:right;color:#00D4FF;font-size:12px;">Montant</th>
+          </tr></thead>
+          <tbody>${actsRows}</tbody>
+        </table>
+        <div style="display:flex;justify-content:space-between;padding:12px;background:rgba(0,245,160,0.08);border-radius:6px;margin-top:12px;">
+          <strong>Total</strong><strong style="color:#00F5A0;">${amount.toFixed(2)} DH</strong>
+        </div>
+      </div>
+      <p style="color:#5A7A9B;font-size:12px;margin-top:30px;">Message automatique MediSync. Merci de ne pas y répondre.</p>
+    </div>`,
+  });
+};
+
 export const sendPasswordResetEmail = async (email: string, resetUrl: string): Promise<void> => {
   await sendEmail({
     to: email,

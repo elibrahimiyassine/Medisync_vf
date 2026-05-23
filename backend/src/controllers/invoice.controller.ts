@@ -3,6 +3,7 @@ import { prisma } from '../utils/prisma';
 import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { generateInvoicePDF } from '../utils/pdf';
+import { sendInvoiceEmail } from '../utils/email';
 import { v4 as uuidv4 } from 'uuid';
 
 export const createInvoice = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -55,6 +56,26 @@ export const updateInvoice = async (req: AuthRequest, res: Response, next: NextF
       data: { status, paidAt: status === 'PAID' ? new Date() : undefined },
     });
     res.json({ success: true, data: invoice });
+  } catch (err) { next(err); }
+};
+
+export const sendInvoiceByEmail = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const invoice = await prisma.invoice.findUnique({
+      where: { id: req.params.id },
+      include: { patient: { include: { user: true } }, appointment: { include: { doctor: true } } },
+    });
+    if (!invoice) throw new AppError('Invoice not found', 404);
+    await sendInvoiceEmail(
+      invoice.patient.user.email,
+      `${invoice.patient.firstName} ${invoice.patient.lastName}`,
+      `${invoice.appointment.doctor.firstName} ${invoice.appointment.doctor.lastName}`,
+      new Date(invoice.issuedAt).toLocaleDateString('fr-FR'),
+      invoice.id.slice(0, 8).toUpperCase(),
+      invoice.amount,
+      invoice.acts as Array<{ description: string; amount: number }>,
+    );
+    res.json({ success: true, message: 'Facture envoyée par e-mail' });
   } catch (err) { next(err); }
 };
 
