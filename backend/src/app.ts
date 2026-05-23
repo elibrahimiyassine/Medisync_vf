@@ -21,10 +21,13 @@ import adminRoutes from './routes/admin.routes';
 import notificationRoutes from './routes/notification.routes';
 import documentRoutes from './routes/document.routes';
 import reviewRoutes from './routes/review.routes';
+import leaveRoutes from './routes/leave.routes';
+import secretaryRoutes from './routes/secretary.routes';
 
 import { errorHandler } from './middlewares/error.middleware';
 import { setupSocketIO } from './utils/socket';
 import { logger } from './utils/logger';
+import { scheduleReminders } from './utils/reminders';
 
 dotenv.config();
 
@@ -83,12 +86,16 @@ app.use(`${apiPrefix}/doctors`, doctorRoutes);
 app.use(`${apiPrefix}/appointments`, appointmentRoutes);
 app.use(`${apiPrefix}/slots`, slotRoutes);
 app.use(`${apiPrefix}/records`, recordRoutes);
+app.use(`${apiPrefix}/medical-records`, recordRoutes);
+app.use(`${apiPrefix}/dossier`, recordRoutes);
 app.use(`${apiPrefix}/prescriptions`, prescriptionRoutes);
 app.use(`${apiPrefix}/invoices`, invoiceRoutes);
 app.use(`${apiPrefix}/admin`, adminRoutes);
 app.use(`${apiPrefix}/notifications`, notificationRoutes);
 app.use(`${apiPrefix}/documents`, documentRoutes);
 app.use(`${apiPrefix}/reviews`, reviewRoutes);
+app.use(`${apiPrefix}/doctor/leaves`, leaveRoutes);
+app.use(`${apiPrefix}/secretary`, secretaryRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);
@@ -98,6 +105,7 @@ const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
   logger.info(`MediSync API running on port ${PORT}`);
   logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  scheduleReminders();
 });
 
 export { app, io };
