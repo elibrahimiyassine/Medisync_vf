@@ -95,9 +95,11 @@ export const getPatientRecords = async (req: AuthRequest, res: Response, next: N
 
 export const getLabResults = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    // Lab results are stored as documents of type LAB_RESULT or embedded in medical records vitals.
-    // Return an empty array until a dedicated lab module is built.
-    res.json({ success: true, data: [] });
+    const results = await prisma.document.findMany({
+      where: { patientId: req.params.id, documentType: 'LAB_RESULT' },
+      orderBy: { uploadedAt: 'desc' },
+    });
+    res.json({ success: true, data: results });
   } catch (err) { next(err); }
 };
 
@@ -105,22 +107,71 @@ export const signalSymptom = async (req: AuthRequest, res: Response, next: NextF
   try {
     const { urgency, description, doctorId } = req.body;
     const patient = await prisma.patient.findUnique({ where: { userId: req.user!.userId } });
+    if (!patient) throw new AppError('Patient not found', 404);
 
+    const report = await prisma.report.create({
+      data: {
+        patientId:   patient.id,
+        doctorId:    doctorId || null,
+        urgency:     urgency || 'INFO',
+        description: description || '',
+      },
+    });
+
+    // Notify all admin users
+    const admins = await prisma.user.findMany({ where: { role: 'ADMIN', isActive: true }, select: { id: true } });
+    if (admins.length) {
+      await prisma.notification.createMany({
+        data: admins.map(a => ({
+          userId:  a.id,
+          message: `Nouveau signalement (${urgency || 'INFO'}) de ${patient.firstName} ${patient.lastName} : ${(description || '').slice(0, 80)}`,
+          type:    'SYSTEM' as const,
+          data:    { reportId: report.id, urgency, patientId: patient.id },
+        })),
+      });
+    }
+
+    // Also notify the specific doctor if provided
     if (doctorId) {
       const doctor = await prisma.doctor.findUnique({ where: { id: doctorId } });
       if (doctor) {
         await prisma.notification.create({
           data: {
             userId:  doctor.userId,
-            message: `Signalement ${urgency || 'INFO'} de ${patient?.firstName || 'un patient'} : ${description || ''}`,
+            message: `Signalement ${urgency || 'INFO'} de ${patient.firstName} ${patient.lastName} : ${(description || '').slice(0, 80)}`,
             type:    'SYSTEM',
-            data:    { urgency, description, patientId: patient?.id },
+            data:    { reportId: report.id, urgency, patientId: patient.id },
           },
         });
       }
     }
 
-    res.json({ success: true, message: 'Signal envoyé' });
+    res.status(201).json({ success: true, data: report });
+  } catch (err) { next(err); }
+};
+
+export const getReports = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { status } = req.query;
+    const where: any = {};
+    if (status) where.status = status;
+
+    const reports = await prisma.report.findMany({
+      where,
+      include: { patient: { select: { firstName: true, lastName: true } } },
+      orderBy: { createdAt: 'desc' },
+    });
+    res.json({ success: true, data: reports });
+  } catch (err) { next(err); }
+};
+
+export const updateReportStatus = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const report = await prisma.report.update({
+      where: { id: req.params.id },
+      data: { status: req.body.status },
+    });
+    res.json({ success: true, data: report });
   } catch (err) { next(err); }
 };
 
