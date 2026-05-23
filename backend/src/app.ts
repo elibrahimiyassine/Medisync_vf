@@ -24,6 +24,8 @@ import reviewRoutes from './routes/review.routes';
 import leaveRoutes from './routes/leave.routes';
 import secretaryRoutes from './routes/secretary.routes';
 
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './utils/swagger';
 import { errorHandler } from './middlewares/error.middleware';
 import { setupSocketIO } from './utils/socket';
 import { logger } from './utils/logger';
@@ -77,6 +79,10 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.get('/health', (_, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), service: 'MediSync API' });
 });
+
+// API docs (Swagger UI) — disable CSP only for this path so the UI loads
+app.use('/api-docs', (req: express.Request, res: express.Response, next: express.NextFunction) => { res.setHeader('Content-Security-Policy', ''); next(); }, swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customSiteTitle: 'MediSync API Docs' }));
+app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
 
 // API Routes
 const apiPrefix = '/api/v1';
