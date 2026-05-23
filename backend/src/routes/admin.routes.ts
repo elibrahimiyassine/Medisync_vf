@@ -8,6 +8,7 @@ import {
   setupAdminTOTP, verifyAdminTOTP,
   updateAdminProfile,
 } from '../controllers/admin.controller';
+import { getReports, updateReportStatus } from '../controllers/patient.controller';
 import { authenticate, authorize, requireAdmin2FA } from '../middlewares/auth.middleware';
 import { auditLog } from '../middlewares/audit.middleware';
 import { validate } from '../middlewares/validate.middleware';
@@ -33,5 +34,7 @@ router.delete('/rooms/:id',   deleteRoom);
 router.get('/totp/setup',     setupAdminTOTP);
 router.post('/totp/verify',   verifyAdminTOTP);
 router.put('/me',             updateAdminProfile);
+router.get('/reports',        getReports);
+router.patch('/reports/:id',  updateReportStatus);
 
 export default router;
