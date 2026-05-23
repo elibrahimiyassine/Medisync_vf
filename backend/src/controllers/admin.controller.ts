@@ -224,13 +224,34 @@ export const deleteStaff = async (req: AuthRequest, res: Response, next: NextFun
 // ── Finance ────────────────────────────────────────────────────────────────────
 export const getFinanceReport = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { month } = req.query as { month?: string };
+    const { month, date, year, week } = req.query as Record<string, string | undefined>;
     let startDate: Date, endDate: Date;
-    if (month) {
+
+    if (date) {
+      // day view: ?date=YYYY-MM-DD
+      startDate = new Date(date);
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(date);
+      endDate.setHours(23, 59, 59, 999);
+    } else if (week) {
+      // week view: ?week=YYYY-MM-DD (start of week)
+      startDate = new Date(week);
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 6);
+      endDate.setHours(23, 59, 59, 999);
+    } else if (year) {
+      // year view: ?year=YYYY
+      const y   = parseInt(year, 10);
+      startDate = new Date(y, 0, 1);
+      endDate   = new Date(y, 11, 31, 23, 59, 59, 999);
+    } else if (month) {
+      // month view: ?month=YYYY-MM
       const [y, m] = month.split('-').map(Number);
       startDate = new Date(y, m - 1, 1);
       endDate   = new Date(y, m, 0, 23, 59, 59, 999);
     } else {
+      // default: current month
       const now = new Date();
       startDate = new Date(now.getFullYear(), now.getMonth(), 1);
       endDate   = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);

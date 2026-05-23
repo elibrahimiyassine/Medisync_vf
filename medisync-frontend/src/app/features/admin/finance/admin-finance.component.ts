@@ -25,11 +25,15 @@ import { LucideAngularModule } from 'lucide-angular';
             <!-- Period tabs -->
             <div class="period-tabs">
               <button class="period-btn" [class.active]="period() === 'day'"   (click)="setPeriod('day')">Jour</button>
+              <button class="period-btn" [class.active]="period() === 'week'"  (click)="setPeriod('week')">Semaine</button>
               <button class="period-btn" [class.active]="period() === 'month'" (click)="setPeriod('month')">Mois</button>
               <button class="period-btn" [class.active]="period() === 'year'"  (click)="setPeriod('year')">Année</button>
             </div>
             @if (period() === 'day') {
               <input type="date" class="glass-input" style="width:160px;" [(ngModel)]="selectedDay" (change)="load()" />
+            }
+            @if (period() === 'week') {
+              <input type="date" class="glass-input" style="width:160px;" [(ngModel)]="selectedWeek" (change)="load()" />
             }
             @if (period() === 'month') {
               <input type="month" class="glass-input" style="width:160px;" [(ngModel)]="selectedMonth" (change)="load()" />
@@ -108,7 +112,7 @@ import { LucideAngularModule } from 'lucide-angular';
                 <tr>
                   <td><strong style="color:#1B2520;">{{ inv.patient?.firstName }} {{ inv.patient?.lastName }}</strong></td>
                   <td style="color:#3A5248;">Dr. {{ inv.appointment?.doctor?.lastName }}</td>
-                  <td style="color:#7A8A82;font-size:12px;">{{ inv.issuedAt | date:'MMM d, yyyy' }}</td>
+                  <td style="color:#7A8A82;font-size:12px;">{{ inv.issuedAt | date:'d MMM yyyy' }}</td>
                   <td style="font-family:'JetBrains Mono',monospace;color:#2A4A38;font-weight:700;">{{ inv.amount | number:'1.2-2' }} DH</td>
                   <td><span class="badge {{ inv.status.toLowerCase() }}">{{ translateStatus(inv.status) }}</span></td>
                   <td>
@@ -141,11 +145,12 @@ export class AdminFinanceComponent implements OnInit {
   readonly report   = this._report.asReadonly();
   readonly invoices = this._invoices.asReadonly();
 
-  private _period = signal<'day'|'month'|'year'>('month');
+  private _period = signal<'day'|'week'|'month'|'year'>('month');
   readonly period = this._period.asReadonly();
 
   selectedMonth = this.currentMonth();
   selectedDay   = new Date().toISOString().slice(0, 10);
+  selectedWeek  = new Date().toISOString().slice(0, 10);
   selectedYear  = new Date().getFullYear();
   readonly years = Array.from({ length: 6 }, (_, i) => new Date().getFullYear() - i);
 
@@ -158,7 +163,7 @@ export class AdminFinanceComponent implements OnInit {
 
   ngOnInit(): void { this.load(); }
 
-  setPeriod(p: 'day'|'month'|'year'): void {
+  setPeriod(p: 'day'|'week'|'month'|'year'): void {
     this._period.set(p);
     this.load();
   }
@@ -167,6 +172,7 @@ export class AdminFinanceComponent implements OnInit {
     const p = this._period();
     const params =
       p === 'day'   ? { date:  this.selectedDay } :
+      p === 'week'  ? { week:  this.selectedWeek } :
       p === 'year'  ? { year:  String(this.selectedYear) } :
                       { month: this.selectedMonth };
     this.api.get<any>('/admin/finance', params).subscribe(res => {
