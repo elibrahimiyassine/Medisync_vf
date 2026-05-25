@@ -1,0 +1,98 @@
+@use 'styles/variables' as *;
+@use 'styles/animations';
+
+.topbar {
+  position: fixed;
+  top: 0; left: 260px; right: 0;
+  height: 64px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  transition: left 0.3s;
+}
+
+.ecg-bar {
+  height: 28px;
+  overflow: hidden;
+  svg {
+    width: 100%; height: 100%;
+    .ecg-path {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawLine 4s linear infinite;
+    }
+  }
+}
+
+.topbar__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.page-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  position: relative;
+  background: none;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-sm;
+  padding: 8px;
+  color: $text-muted;
+  cursor: pointer;
+  display: flex;
+  transition: all 0.2s;
+  svg { width: 18px; height: 18px; }
+  &:hover { color: $cyan; border-color: $border-glow; }
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  min-width: 16px; height: 16px;
+  background: $cyan;
+  color: #070B14;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 5px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid $border-subtle;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  &:hover { border-color: $border-glow; }
+}
+.chip-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $cyan, $violet);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700;
+  color: #070B14;
+}
+.chip-name { font-size: 0.84rem; font-weight: 500; }

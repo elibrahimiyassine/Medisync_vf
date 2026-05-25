@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 import { ApiService } from '../../../core/services/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
@@ -226,9 +227,17 @@ export class SecretaryBillingComponent implements OnInit {
   openActModal(): void {
     this.buildActForm();
     this._actModalOpen.set(true);
-    this.api.get<any>('/appointments').subscribe(res => {
-      const all: any[] = res.data || [];
-      this._appointments.set(all.filter(a => a.status === 'CONFIRMED' || a.status === 'COMPLETED'));
+
+    forkJoin({
+      appts: this.api.get<any>('/appointments'),
+      invs:  this.api.get<any>('/invoices'),
+    }).subscribe(({ appts, invs }) => {
+      const all: any[] = appts?.data || [];
+      const invoicedIds = new Set((invs?.data || []).map((inv: any) => inv.appointmentId));
+      this._appointments.set(all.filter(a =>
+        (a.status === 'CONFIRMED' || a.status === 'COMPLETED' || a.status === 'PENDING')
+        && !invoicedIds.has(a.id)
+      ));
     });
   }
 

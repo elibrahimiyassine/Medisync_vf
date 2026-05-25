@@ -3,6 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
 import { TopbarComponent } from '../../../shared/components/topbar/topbar.component';
 import { LucideAngularModule } from 'lucide-angular';
@@ -77,7 +78,12 @@ import { LucideAngularModule } from 'lucide-angular';
                 </div>
                 <div class="actions-col">
                   <span class="badge {{ appt.status.toLowerCase() }}">{{ translateStatus(appt.status) }}</span>
-                  @if (appt.status !== 'COMPLETED') {
+                  @if (appt.status === 'PENDING') {
+                    <button class="btn-confirm" (click)="confirmAppointment(appt.id)">
+                      <lucide-icon name="check" [size]="13" /> Confirmer
+                    </button>
+                  }
+                  @if (appt.status !== 'COMPLETED' && appt.status !== 'CANCELLED') {
                     <a [routerLink]="['/doctor/consultation', appt.id]" class="btn-primary" style="font-size:12px;padding:7px 14px;white-space:nowrap;">Démarrer →</a>
                   }
                 </div>
@@ -96,7 +102,7 @@ import { LucideAngularModule } from 'lucide-angular';
                   <div class="patient-avatar" style="width:36px;height:36px;font-size:12px;">{{ appt.patient.firstName[0] }}{{ appt.patient.lastName[0] }}</div>
                   <div style="flex:1;">
                     <p style="font-size:13px;font-weight:600;color:#1B2520;">{{ appt.patient.firstName }} {{ appt.patient.lastName }}</p>
-                    <p style="font-size:11px;color:#7A8A82;">{{ appt.slot?.date | date:'MMM d' }} · {{ appt.motif }}</p>
+                    <p style="font-size:11px;color:#7A8A82;">{{ appt.slot?.date | date:'d MMM' }} · {{ appt.motif }}</p>
                   </div>
                   <span class="badge {{ appt.status.toLowerCase() }}" style="font-size:10px;">{{ translateStatus(appt.status) }}</span>
                 </div>
@@ -143,6 +149,7 @@ import { LucideAngularModule } from 'lucide-angular';
     .patient-motif { font-size:12px;color:#7A8A82;margin-top:2px; }
     .allergy-warn { font-size:11px;color:#C24040;margin-top:3px; }
     .actions-col { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+    .btn-confirm { display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:7px 14px;border-radius:8px;border:1px solid rgba(61,107,79,0.4);background:rgba(61,107,79,0.08);color:#3D6B4F;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s; &:hover{background:rgba(61,107,79,0.16);border-color:#3D6B4F;} }
 
     .quick-action-btn { display:flex;flex-direction:column;align-items:center;padding:16px 8px;background:rgba(42,74,56,0.05);border:1px solid rgba(42,74,56,0.1);border-radius:12px;text-decoration:none;color:#3A5248;transition:all .2s; &:hover{background:rgba(42,74,56,0.06);border-color:rgba(42,74,56,0.3);color:#1B2520;transform:translateY(-2px);} }
     .section-title { display:flex;justify-content:space-between;align-items:center;margin-bottom:14px; h3{font-size:16px;font-weight:600;color:#1B2520;} }
@@ -168,7 +175,7 @@ export class DoctorDashboardComponent implements OnInit {
     { icon: 'user',          label: 'Mon profil',  path: '/doctor/profile' },
   ];
 
-  constructor(private api: ApiService, private authService: AuthService) {}
+  constructor(private api: ApiService, private authService: AuthService, private notif: NotificationService) {}
 
   ngOnInit(): void {
     this.api.get<any>('/doctors/me/dashboard').subscribe({
@@ -189,6 +196,19 @@ export class DoctorDashboardComponent implements OnInit {
 
     this.api.get<any>('/doctors/me/appointments').subscribe(r => {
       this._recentPats.set((r.data || []).slice(0, 5));
+    });
+  }
+
+  confirmAppointment(id: string): void {
+    this.api.put<any>(`/appointments/${id}`, { status: 'CONFIRMED' }).subscribe({
+      next: () => {
+        this._todayAppts.update(list =>
+          list.map(a => a.id === id ? { ...a, status: 'CONFIRMED' } : a)
+        );
+        this._stats.update(s => ({ ...s, pending: Math.max(0, s.pending - 1) }));
+        this.notif.showToast('Rendez-vous confirmé', 'success');
+      },
+      error: () => this.notif.showToast('Échec de la confirmation', 'error'),
     });
   }
 

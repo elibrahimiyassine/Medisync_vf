@@ -450,11 +450,21 @@ export const setupAdminTOTP = async (req: AuthRequest, res: Response, next: Next
     const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
     if (!user) throw new AppError('User not found', 404);
 
-    const secret = speakeasy.generateSecret({ name: `MediSync Admin (${user.email})`, length: 20 });
-    await prisma.user.update({ where: { id: user.id }, data: { twoFactorSecret: secret.base32 } });
+    // Reuse existing secret so repeated page loads don't invalidate the authenticator app entry
+    let secretBase32 = user.twoFactorSecret;
+    let otpauthUrl: string;
 
-    const qrCode = await QRCode.toDataURL(secret.otpauth_url!);
-    res.json({ success: true, data: { secret: secret.base32, qrCode, qrCodeUrl: qrCode } });
+    if (!secretBase32) {
+      const generated = speakeasy.generateSecret({ name: `MediSync Admin (${user.email})`, length: 20 });
+      secretBase32 = generated.base32;
+      otpauthUrl = generated.otpauth_url!;
+      await prisma.user.update({ where: { id: user.id }, data: { twoFactorSecret: secretBase32 } });
+    } else {
+      otpauthUrl = `otpauth://totp/MediSync%20Admin%20(${encodeURIComponent(user.email)})?secret=${secretBase32}&issuer=MediSync`;
+    }
+
+    const qrCode = await QRCode.toDataURL(otpauthUrl);
+    res.json({ success: true, data: { secret: secretBase32, qrCode, qrCodeUrl: qrCode } });
   } catch (err) { next(err); }
 };
 

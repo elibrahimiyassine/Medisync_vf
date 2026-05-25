@@ -63,11 +63,41 @@ export const getAppointmentById = async (req: AuthRequest, res: Response, next: 
 
 export const createAppointment = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { patientId, doctorId, slotId, motif, notes } = req.body;
+    const { patientId, doctorId, slotId, motif, notes, slot: inlineSlot } = req.body;
     const io = req.app.get('io');
 
-    const slot = await prisma.timeSlot.findUnique({ where: { id: slotId } });
-    if (!slot || !slot.isAvailable) throw new AppError('Time slot not available', 409);
+    // Resolve doctor: when a DOCTOR creates an urgency appointment, doctorId comes from their profile
+    let resolvedDoctorId = doctorId;
+    if (!resolvedDoctorId && req.user!.role === 'DOCTOR') {
+      const doctor = await prisma.doctor.findUnique({ where: { userId: req.user!.userId } });
+      if (!doctor) throw new AppError('Doctor not found', 404);
+      resolvedDoctorId = doctor.id;
+    }
+
+    // Resolve slot: create on-the-fly for urgency appointments (no slotId sent)
+    let resolvedSlotId = slotId;
+    if (!resolvedSlotId && inlineSlot) {
+      const urgencySlot = await prisma.timeSlot.create({
+        data: {
+          doctorId: resolvedDoctorId,
+          date: new Date(inlineSlot.date),
+          startTime: inlineSlot.startTime,
+          endTime: inlineSlot.startTime,
+          duration: Number(inlineSlot.duration) || 30,
+          isAvailable: false,
+        },
+      });
+      resolvedSlotId = urgencySlot.id;
+    }
+
+    if (!resolvedSlotId) throw new AppError('Slot ID is required', 400);
+
+    // For regular (non-urgency) bookings: verify slot is available and mark it taken
+    if (!inlineSlot) {
+      const slot = await prisma.timeSlot.findUnique({ where: { id: resolvedSlotId } });
+      if (!slot || !slot.isAvailable) throw new AppError('Time slot not available', 409);
+      await prisma.timeSlot.update({ where: { id: resolvedSlotId }, data: { isAvailable: false } });
+    }
 
     let resolvedPatientId = patientId;
     if (req.user!.role === 'PATIENT') {
@@ -78,9 +108,9 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
     const appointment = await prisma.appointment.create({
       data: {
         patientId: resolvedPatientId,
-        doctorId,
-        slotId,
-        motif,
+        doctorId: resolvedDoctorId,
+        slotId: resolvedSlotId,
+        motif: motif || 'Urgence médicale',
         notes,
         secretaryId: req.user!.role === 'SECRETARY'
           ? (await prisma.secretary.findUnique({ where: { userId: req.user!.userId } }))?.id
@@ -94,20 +124,32 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
       },
     });
 
-    await prisma.timeSlot.update({ where: { id: slotId }, data: { isAvailable: false } });
-
     // Notify doctor
     emitToUser(io, appointment.doctor.userId, 'new_appointment', appointment);
 
-    // Create notification
     await prisma.notification.create({
       data: {
         userId: appointment.doctor.userId,
-        message: `New appointment request from ${appointment.patient.firstName} ${appointment.patient.lastName}`,
+        message: `Nouveau rendez-vous de ${appointment.patient.firstName} ${appointment.patient.lastName}`,
         type: 'APPOINTMENT_BOOKED',
         data: { appointmentId: appointment.id },
       },
     });
+
+    // Notify all secretaries
+    const secretaries = await prisma.secretary.findMany({ select: { userId: true } });
+    if (secretaries.length > 0) {
+      const slotDate = new Date(appointment.slot.date).toLocaleDateString('fr-FR');
+      await prisma.notification.createMany({
+        data: secretaries.map(s => ({
+          userId: s.userId,
+          message: `Nouveau RDV : ${appointment.patient.firstName} ${appointment.patient.lastName} avec Dr. ${appointment.doctor.firstName} ${appointment.doctor.lastName} le ${slotDate} à ${appointment.slot.startTime}`,
+          type: 'APPOINTMENT_BOOKED',
+          data: { appointmentId: appointment.id },
+        })),
+      });
+      secretaries.forEach(s => emitToUser(io, s.userId, 'new_appointment', appointment));
+    }
 
     // Send email confirmation
     await sendAppointmentConfirmation(

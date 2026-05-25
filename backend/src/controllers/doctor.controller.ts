@@ -5,13 +5,15 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 
 export const getAllDoctors = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { specialty, search } = req.query;
+    const { specialty, search, city } = req.query;
     const where: any = { isAvailable: true };
     if (specialty) where.specialty = { contains: specialty as string, mode: 'insensitive' };
+    if (city)      where.city      = { contains: city as string,      mode: 'insensitive' };
     if (search) where.OR = [
       { firstName: { contains: search as string, mode: 'insensitive' } },
-      { lastName: { contains: search as string, mode: 'insensitive' } },
+      { lastName:  { contains: search as string, mode: 'insensitive' } },
       { specialty: { contains: search as string, mode: 'insensitive' } },
+      { city:      { contains: search as string, mode: 'insensitive' } },
     ];
 
     const doctors = await prisma.doctor.findMany({
@@ -19,7 +21,7 @@ export const getAllDoctors = async (req: Request, res: Response, next: NextFunct
       select: {
         id: true, firstName: true, lastName: true, specialty: true,
         languages: true, sectorType: true, consultationRate: true,
-        bio: true, avatar: true, licenseNumber: true,
+        bio: true, avatar: true, licenseNumber: true, city: true, address: true,
         reviews: { select: { rating: true } },
       },
     });
@@ -54,7 +56,7 @@ export const getDoctorById = async (req: Request, res: Response, next: NextFunct
 export const getDoctorSlots = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { date } = req.query;
-    const where: any = { doctorId: req.params.id };
+    const where: any = { doctorId: req.params.id, isAvailable: true };
 
     if (date) {
       const d = new Date(date as string);
@@ -88,6 +90,25 @@ export const getDoctorAppointments = async (req: AuthRequest, res: Response, nex
   } catch (err) { next(err); }
 };
 
+export const updateDoctorMe = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { firstName, lastName, specialty, languages, sectorType, consultationRate, bio, phone } = req.body;
+    const doctor = await prisma.doctor.update({
+      where: { userId: req.user!.userId },
+      data: {
+        ...(firstName    !== undefined && { firstName }),
+        ...(lastName     !== undefined && { lastName }),
+        ...(specialty    !== undefined && { specialty }),
+        ...(languages    !== undefined && { languages }),
+        ...(sectorType   !== undefined && { sectorType }),
+        ...(consultationRate !== undefined && { consultationRate: Number(consultationRate) }),
+        ...(bio          !== undefined && { bio }),
+      },
+    });
+    res.json({ success: true, data: doctor });
+  } catch (err) { next(err); }
+};
+
 export const updateDoctor = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { firstName, lastName, specialty, languages, sectorType, consultationRate, bio } = req.body;
@@ -96,6 +117,20 @@ export const updateDoctor = async (req: AuthRequest, res: Response, next: NextFu
       data: { firstName, lastName, specialty, languages, sectorType, consultationRate: Number(consultationRate), bio },
     });
     res.json({ success: true, data: doctor });
+  } catch (err) { next(err); }
+};
+
+export const getDoctorProfile = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const doctor = await prisma.doctor.findUnique({
+      where: { userId: req.user!.userId },
+      include: { reviews: { select: { rating: true } } },
+    });
+    if (!doctor) throw new AppError('Doctor not found', 404);
+    const avgRating = doctor.reviews.length
+      ? doctor.reviews.reduce((a, r) => a + r.rating, 0) / doctor.reviews.length
+      : null;
+    res.json({ success: true, data: { ...doctor, avgRating, reviewCount: doctor.reviews.length } });
   } catch (err) { next(err); }
 };
 

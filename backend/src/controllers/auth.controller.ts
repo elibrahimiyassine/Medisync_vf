@@ -99,6 +99,28 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
   } catch (err) { next(err); }
 };
 
+export const rescan2FA = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { userId } = req.body;
+    if (!userId) throw new AppError('userId required', 400);
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user || !user.twoFactorEnabled || !user.twoFactorSecret) {
+      throw new AppError('Invalid request', 400);
+    }
+
+    const otpauthUrl = speakeasy.otpauthURL({
+      secret: user.twoFactorSecret,
+      label: encodeURIComponent(`MediSync (${user.email})`),
+      issuer: 'MediSync',
+      encoding: 'base32',
+    });
+    const qrCodeUrl = await QRCode.toDataURL(otpauthUrl);
+
+    res.json({ success: true, data: { qrCodeUrl, secret: user.twoFactorSecret } });
+  } catch (err) { next(err); }
+};
+
 export const verify2FA = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { userId, token } = req.body;

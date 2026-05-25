@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { ApiService } from './api.service';
 
 export interface Notification {
   id: string;
@@ -26,23 +27,34 @@ export class NotificationService {
   readonly toasts        = this._toasts.asReadonly();
   readonly unreadCount   = this._unreadCount.asReadonly();
 
+  constructor(private api: ApiService) {}
+
   connect(): void {}
   disconnect(): void {}
 
   loadNotifications(): void {
-    this._notifications.set([
-      { id: '1', message: 'Bienvenue sur MediSync !', type: 'INFO', isRead: false, createdAt: new Date().toISOString() },
-      { id: '2', message: 'Le Dr. Chen a confirmé votre rendez-vous', type: 'APPOINTMENT', isRead: false, createdAt: new Date(Date.now() - 3_600_000).toISOString() },
-    ]);
-    this._unreadCount.set(2);
+    this.api.get<any>('/notifications').subscribe({
+      next: (res) => {
+        this._notifications.set(res.data || []);
+        this._unreadCount.set(res.unreadCount ?? 0);
+      },
+      error: () => {},
+    });
+  }
+
+  clearNotifications(): void {
+    this._notifications.set([]);
+    this._unreadCount.set(0);
   }
 
   markAsRead(id: string): void {
+    this.api.put(`/notifications/${id}/read`, {}).subscribe({ error: () => {} });
     this._notifications.update(n => n.map(x => x.id === id ? { ...x, isRead: true } : x));
     this._unreadCount.update(c => Math.max(0, c - 1));
   }
 
   markAllAsRead(): void {
+    this.api.put('/notifications/read-all', {}).subscribe({ error: () => {} });
     this._notifications.update(n => n.map(x => ({ ...x, isRead: true })));
     this._unreadCount.set(0);
   }

@@ -1,0 +1,219 @@
+<div class="booking page-enter">
+
+  <!-- Success overlay -->
+  @if (showSuccess) {
+    <div class="success-overlay">
+      <div class="success-content">
+        <app-medi-mascot state="excited" [size]="140"/>
+        <h2 class="display text-cyan">Rendez-vous confirmé !</h2>
+        <p class="text-muted">Vous recevrez un rappel 24h avant votre consultation.</p>
+        <div class="confetti-wrap">
+          @for (c of [1,2,3,4,5,6,7,8,9,10,11,12]; track c) {
+            <div class="confetti-piece" [style.left]="(c * 8) + '%'" [style.animation-delay]="(c * 0.08) + 's'"></div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Step indicator -->
+  <div class="steps-bar">
+    @for (step of [1,2,3]; track step) {
+      <div class="step" [class.active]="currentStep === step" [class.done]="currentStep > step">
+        <div class="step-circle">{{ currentStep > step ? '✓' : step }}</div>
+        <span class="step-label">{{ ['Médecin', 'Créneau', 'Confirmation'][step - 1] }}</span>
+      </div>
+      @if (step < 3) { <div class="step-line" [class.done]="currentStep > step"></div> }
+    }
+  </div>
+
+  <!-- ── STEP 1: Choose doctor ── -->
+  @if (currentStep === 1) {
+    <div class="step-content page-enter">
+      <h2 class="display" style="margin-bottom:20px;">Choisir un médecin</h2>
+
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input class="input-field" placeholder="Rechercher..." [(ngModel)]="searchQuery"/>
+        </div>
+        <select class="input-field" [(ngModel)]="selectedSpecialty" style="max-width:240px;">
+          <option value="">Toutes spécialités</option>
+          @for (s of specialties; track s) { <option [value]="s">{{ s }}</option> }
+        </select>
+      </div>
+
+      <div class="doctors-grid">
+        @for (doc of filteredDoctors; track doc.id) {
+          <div class="doctor-card glass-light" (click)="selectDoctor(doc)">
+            <div class="doc-avatar" [style.background]="'linear-gradient(135deg,' + doc.color + '40,#0D1526)'">
+              <span [style.color]="doc.color">{{ doc.initials }}</span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">{{ doc.name }}</h3>
+              <span class="badge badge-cyan">{{ doc.specialty }}</span>
+            </div>
+            <div class="doc-meta">
+              <div class="stars">
+                @for (filled of stars(doc.rating); track $index) {
+                  <svg viewBox="0 0 24 24" [style.fill]="filled ? '#00D4FF' : 'none'" stroke="#00D4FF" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                }
+                <span class="text-muted" style="font-size:0.75rem;">{{ doc.rating }}</span>
+              </div>
+              <div class="doc-langs">
+                @for (lang of doc.languages; track lang) {
+                  <span class="badge badge-muted" style="font-size:0.65rem; padding:2px 7px;">{{ lang }}</span>
+                }
+              </div>
+            </div>
+            <div class="doc-footer">
+              <span class="badge badge-violet">{{ doc.sector }}</span>
+              <span class="text-green" style="font-size:0.78rem;">{{ doc.available }} créneaux</span>
+              <button class="btn-primary" style="padding:7px 18px; font-size:0.82rem;">Choisir →</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ── STEP 2: Orbit slot picker ── -->
+  @if (currentStep === 2 && selectedDoctor) {
+    <div class="step-content page-enter">
+      <div class="orbit-header">
+        <div>
+          <h2 class="display">Choisir un créneau</h2>
+          <p class="text-muted">{{ selectedDoctor.name }} · {{ selectedDoctor.specialty }}</p>
+        </div>
+        <button class="btn-ghost" (click)="goToStep(1)">← Changer de médecin</button>
+      </div>
+
+      <div class="orbit-container">
+        <svg viewBox="-300 -300 600 600" class="orbit-svg">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Ring circles -->
+          @for (ring of rings; track ring.radius) {
+            <circle cx="0" cy="0" [attr.r]="ring.radius"
+              stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+            <text [attr.x]="0" [attr.y]="-ring.radius - 8"
+              text-anchor="middle" class="day-label">
+              {{ ring.dayLabel }} {{ ring.date }}
+            </text>
+          }
+
+          <!-- Slot dots -->
+          @for (slot of allSlots; track slot.id) {
+            <g (mouseenter)="hoveredSlot = slot" (mouseleave)="hoveredSlot = null" (click)="selectSlot(slot)">
+              <circle
+                [attr.cx]="slot.x" [attr.cy]="slot.y"
+                [attr.r]="slot.selected ? 9 : (hoveredSlot?.id === slot.id ? 8 : 6)"
+                [attr.fill]="slot.available ? '#00D4FF' : '#FF4D6D'"
+                [attr.opacity]="slot.available ? 1 : 0.5"
+                [attr.filter]="slot.available && !slot.selected ? 'url(#glow)' : 'none'"
+                [style.cursor]="slot.available ? 'pointer' : 'default'"
+                style="transition: r 0.15s"/>
+              @if (slot.selected) {
+                <circle
+                  [attr.cx]="slot.x" [attr.cy]="slot.y" r="15"
+                  fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.5"
+                  class="pulse-ring-svg"/>
+              }
+            </g>
+          }
+
+          <!-- Doctor avatar at center -->
+          <circle cx="0" cy="0" r="46" [attr.fill]="selectedDoctor.color + '20'"
+            [attr.stroke]="selectedDoctor.color" stroke-width="1.5"/>
+          <text x="0" y="6" text-anchor="middle" class="doctor-initial"
+            [attr.fill]="selectedDoctor.color">{{ selectedDoctor.initials }}</text>
+        </svg>
+
+        <!-- Tooltip -->
+        @if (hoveredSlot && hoveredSlot.available) {
+          <div class="slot-tooltip glass">
+            <span class="mono text-cyan">{{ hoveredSlot.time }}</span>
+            <span class="text-muted">{{ hoveredSlot.day }} {{ hoveredSlot.date }}</span>
+          </div>
+        }
+
+        <!-- Legend -->
+        <div class="orbit-legend">
+          <div class="legend-item"><span class="dot dot--cyan"></span>Disponible</div>
+          <div class="legend-item"><span class="dot dot--red"></span>Pris</div>
+          @if (selectedSlot) {
+            <div class="legend-item"><span class="dot dot--selected"></span>Sélectionné: {{ selectedSlot.day }} {{ selectedSlot.time }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="orbit-actions">
+        <button class="btn-primary" [disabled]="!selectedSlot" (click)="goToStep(3)">
+          Continuer → Confirmation
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ── STEP 3: Confirmation ── -->
+  @if (currentStep === 3 && selectedDoctor && selectedSlot) {
+    <div class="step-content page-enter">
+      <h2 class="display" style="margin-bottom:20px;">Confirmer le rendez-vous</h2>
+
+      <div class="confirm-card card">
+        <div class="confirm-row">
+          <span class="text-muted">Médecin</span>
+          <span>{{ selectedDoctor.name }}</span>
+        </div>
+        <div class="confirm-row">
+          <span class="text-muted">Spécialité</span>
+          <span class="badge badge-cyan">{{ selectedDoctor.specialty }}</span>
+        </div>
+        <div class="confirm-row">
+          <span class="text-muted">Date</span>
+          <span class="mono text-cyan">{{ selectedSlot.day }} {{ selectedSlot.date }}</span>
+        </div>
+        <div class="confirm-row">
+          <span class="text-muted">Heure</span>
+          <span class="mono text-cyan">{{ selectedSlot.time }}</span>
+        </div>
+        <div class="confirm-row">
+          <span class="text-muted">Secteur</span>
+          <span>{{ selectedDoctor.sector }}</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:20px;">
+        <label>Motif de la consultation</label>
+        <textarea class="input-field" [(ngModel)]="motif"
+          placeholder="Décrivez brièvement votre motif de visite..."
+          rows="3" style="resize:vertical;"></textarea>
+      </div>
+
+      <div class="third-toggle" (click)="forThird = !forThird">
+        <div class="toggle-box" [class.active]="forThird"></div>
+        <span>Pour un tiers (enfant, parent…)</span>
+      </div>
+
+      <div class="confirm-actions">
+        <button class="btn-ghost" (click)="goToStep(2)">← Retour</button>
+        <button class="btn-primary" (click)="confirm()">
+          ✓ Confirmer le rendez-vous
+        </button>
+      </div>
+    </div>
+  }
+
+</div>

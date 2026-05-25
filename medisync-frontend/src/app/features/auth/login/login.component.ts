@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ElementRef, signal, computed
+  Component, OnInit, signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -52,6 +52,7 @@ import { LucideAngularModule } from 'lucide-angular';
               <p class="form-sub">Connectez-vous à votre compte MediSync</p>
             </div>
 
+            @if (!showTwoFactor()) {
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form stagger" novalidate>
               <!-- Email -->
               <div class="form-group">
@@ -135,6 +136,59 @@ import { LucideAngularModule } from 'lucide-angular';
               </p>
             </form>
 
+            } @else {
+              <div class="twofa-inline animate-slide-down">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                  <lucide-icon name="lock-keyhole" [size]="24" style="color:#2A4A38;" />
+                  <div>
+                    <p style="font-size:15px;font-weight:700;color:#1B2520;margin:0;">Authentification à deux facteurs</p>
+                    <p style="font-size:12px;color:#7A8A82;margin:2px 0 0;">Entrez le code à 6 chiffres de votre application</p>
+                  </div>
+                </div>
+
+                @if (rescanQr()) {
+                  <div style="text-align:center;margin-bottom:16px;">
+                    <p style="font-size:12px;color:#7A8A82;margin-bottom:10px;">Scannez ce QR code avec Google Authenticator</p>
+                    <img [src]="rescanQr()!" alt="QR Code" width="160" height="160"
+                      style="border:2px solid rgba(42,74,56,0.15);border-radius:10px;padding:8px;background:#fff;" />
+                    <button style="display:block;margin:8px auto 0;background:none;border:none;font-size:11px;color:#7A8A82;cursor:pointer;"
+                      (click)="hideRescan()">Masquer le QR code</button>
+                  </div>
+                }
+
+                <div class="otp-inputs" style="margin-bottom:16px;">
+                  @for (i of [0,1,2,3,4,5]; track i) {
+                    <input type="text" maxlength="1" class="otp-box glass-input"
+                      [id]="'login-otp-' + i"
+                      (input)="onOtpInput($event, i)"
+                      (keydown.backspace)="onOtpBackspace($event, i)"
+                      autocomplete="off" inputmode="numeric" pattern="[0-9]*" />
+                  }
+                </div>
+                @if (twoFaError()) {
+                  <div class="error-banner" style="margin-bottom:12px;">
+                    <lucide-icon name="triangle-alert" [size]="14" />
+                    <span>{{ twoFaError() }}</span>
+                  </div>
+                }
+                <button class="btn-primary submit-btn" (click)="submitTwoFa()"
+                  [disabled]="isLoading() || otpCode.length !== 6">
+                  @if (isLoading()) { <span class="spinner"></span> Vérification... }
+                  @else { Vérifier le code }
+                </button>
+                <button class="forgot-link" style="display:block;text-align:center;margin-top:10px;background:none;border:none;cursor:pointer;width:100%;font-size:12px;color:#7A8A82;"
+                  (click)="showRescanQr()" [disabled]="rescanLoading()">
+                  @if (rescanLoading()) { <span class="spinner" style="width:13px;height:13px;border-width:2px;"></span> Chargement... }
+                  @else { <lucide-icon name="smartphone" [size]="13" style="flex-shrink:0;" /> J'ai supprimé mon application — rescanner le QR code }
+                </button>
+                <button class="forgot-link" style="display:block;text-align:center;margin-top:8px;background:none;border:none;cursor:pointer;width:100%;"
+                  (click)="cancelTwoFa()">
+                  ← Retour à la connexion
+                </button>
+              </div>
+            }
+
+            @if (!showTwoFactor()) {
             <div class="divider">
               <span>ou continuer avec</span>
             </div>
@@ -178,6 +232,7 @@ import { LucideAngularModule } from 'lucide-angular';
               Nouveau patient ?
               <a routerLink="/auth/register">Créer votre compte →</a>
             </p>
+            }
           </div>
         </div>
       </div>
@@ -488,6 +543,19 @@ import { LucideAngularModule } from 'lucide-angular';
       a { color: #2A4A38; font-weight: 600; }
     }
 
+    /* ── Inline 2FA ── */
+    .twofa-inline { padding: 4px 0; }
+    .otp-inputs { display: flex; gap: 10px; justify-content: center; }
+    .otp-box {
+      width: 48px !important;
+      height: 56px !important;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      padding: 0 !important;
+      border-radius: 12px;
+    }
+
     /* ── Particles ── */
     .particle {
       position: absolute;
@@ -537,9 +605,23 @@ export class LoginComponent implements OnInit {
   oauthProvider  = signal<'google' | 'microsoft' | null>(null);
   oauthLoading   = signal(false);
 
+  private _showTwoFactor = signal(false);
+  private _twoFaError    = signal('');
+  readonly showTwoFactor = this._showTwoFactor.asReadonly();
+  readonly twoFaError    = this._twoFaError.asReadonly();
+
   readonly showPassword = this._showPassword.asReadonly();
   readonly isLoading    = this._isLoading.asReadonly();
   readonly errorMsg     = this._errorMsg.asReadonly();
+
+  otpCode = '';
+  private otpValues: string[] = ['', '', '', '', '', ''];
+  private pendingUserId = '';
+
+  private _rescanQr      = signal<string | null>(null);
+  private _rescanLoading = signal(false);
+  readonly rescanQr      = this._rescanQr.asReadonly();
+  readonly rescanLoading = this._rescanLoading.asReadonly();
 
   private readonly _oauthAccounts = {
     google: [
@@ -585,6 +667,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      const role = this.authService.userRole();
+      if (role) {
+        const map: Record<string, string> = {
+          PATIENT:   '/patient/dashboard',
+          DOCTOR:    '/doctor/dashboard',
+          SECRETARY: '/secretary/dashboard',
+          ADMIN:     '/admin/dashboard',
+        };
+        this.router.navigate([map[role] ?? '/']);
+        return;
+      }
+    }
     this.particles = Array.from({ length: 22 }, (_, i) => ({
       style: `left:${Math.random() * 100}%;bottom:0;font-size:${12 + Math.random() * 16}px;animation-duration:${8 + Math.random() * 14}s;animation-delay:${Math.random() * 10}s;`,
     }));
@@ -605,6 +700,74 @@ export class LoginComponent implements OnInit {
     this._showPassword.update(v => !v);
   }
 
+  onOtpInput(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    const val = input.value.replace(/\D/g, '').slice(-1);
+    input.value = val;
+    this.otpValues[index] = val;
+    this.otpCode = this.otpValues.join('');
+    if (val && index < 5) {
+      (document.getElementById(`login-otp-${index + 1}`) as HTMLInputElement)?.focus();
+    }
+  }
+
+  onOtpBackspace(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.value && index > 0) {
+      this.otpValues[index - 1] = '';
+      this.otpCode = this.otpValues.join('');
+      const prev = document.getElementById(`login-otp-${index - 1}`) as HTMLInputElement;
+      if (prev) { prev.value = ''; prev.focus(); }
+    }
+  }
+
+  submitTwoFa(): void {
+    if (this.otpCode.length !== 6) return;
+    this._isLoading.set(true);
+    this._twoFaError.set('');
+    this.authService.verify2FA(this.pendingUserId, this.otpCode).subscribe({
+      next: () => {
+        this._isLoading.set(false);
+        this.notifSvc.showToast('Bienvenue sur MediSync !', 'success');
+      },
+      error: (err: any) => {
+        this._isLoading.set(false);
+        this._twoFaError.set(err.error?.message || 'Code invalide. Veuillez réessayer.');
+        this.otpValues = ['', '', '', '', '', ''];
+        this.otpCode = '';
+        [0, 1, 2, 3, 4, 5].forEach(i => {
+          const el = document.getElementById(`login-otp-${i}`) as HTMLInputElement;
+          if (el) el.value = '';
+        });
+        (document.getElementById('login-otp-0') as HTMLInputElement)?.focus();
+      },
+    });
+  }
+
+  cancelTwoFa(): void {
+    this._showTwoFactor.set(false);
+    this._twoFaError.set('');
+    this._rescanQr.set(null);
+    this.otpCode = '';
+    this.otpValues = ['', '', '', '', '', ''];
+  }
+
+  showRescanQr(): void {
+    if (this._rescanQr()) { this._rescanQr.set(null); return; }
+    this._rescanLoading.set(true);
+    this.authService.rescan2FA(this.pendingUserId).subscribe({
+      next: (res: any) => {
+        this._rescanQr.set(res.data?.qrCodeUrl ?? null);
+        this._rescanLoading.set(false);
+      },
+      error: () => this._rescanLoading.set(false),
+    });
+  }
+
+  hideRescan(): void {
+    this._rescanQr.set(null);
+  }
+
   onSubmit(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this._isLoading.set(true);
@@ -616,7 +779,8 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this._isLoading.set(false);
         if (res.requiresTwoFactor) {
-          this.router.navigate(['/auth/2fa'], { state: { userId: res.userId } });
+          this.pendingUserId = res.userId;
+          this._showTwoFactor.set(true);
           return;
         }
         this.notifSvc.showToast('Bienvenue sur MediSync !', 'success');

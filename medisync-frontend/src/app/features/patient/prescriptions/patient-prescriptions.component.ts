@@ -38,10 +38,10 @@ import { LucideAngularModule } from 'lucide-angular';
                     <p class="rx-spec">{{ rx.doctor.specialty }}</p>
                   </div>
                   <div style="text-align:right;">
-                    <p class="rx-date">{{ rx.issuedAt | date:'MMM d, yyyy' }}</p>
+                    <p class="rx-date">{{ rx.issuedAt | date:'d MMM yyyy' }}</p>
                     @if (rx.expiresAt) {
                       <p class="rx-expiry" [class.expired]="isExpired(rx.expiresAt)">
-                        {{ isExpired(rx.expiresAt) ? 'Expired' : 'Exp: ' + (rx.expiresAt | date:'MMM d') }}
+                        {{ isExpired(rx.expiresAt) ? 'Expiré' : 'Exp : ' + (rx.expiresAt | date:'d MMM') }}
                       </p>
                     }
                   </div>

@@ -84,7 +84,7 @@ interface StaffForm {
                   @if (activeTab() === 'DOCTOR') {
                     <td style="color:#3A5248;">{{ s.specialty || '—' }}</td>
                     <td style="font-family:'JetBrains Mono',monospace;color:#3D6B4F;font-size:12px;">
-                      {{ s.consultationFee != null ? (s.consultationFee + ' €') : '—' }}
+                      {{ s.consultationFee != null ? (s.consultationFee + ' DH') : '—' }}
                     </td>
                   }
                   <td style="color:#7A8A82;">{{ s.phone || '—' }}</td>
@@ -152,7 +152,7 @@ interface StaffForm {
                 <input class="glass-input" [(ngModel)]="form.specialty" placeholder="ex. Cardiologie, Neurologie..." />
               </div>
               <div class="form-group">
-                <label>Tarif de consultation (€)</label>
+                <label>Tarif de consultation (DH)</label>
                 <input class="glass-input" type="number" min="0" step="5" [(ngModel)]="form.consultationFee" placeholder="ex. 80" />
               </div>
             }
@@ -201,7 +201,10 @@ export class AdminStaffComponent implements OnInit {
   ngOnInit(): void { this.load(); }
 
   load(): void {
-    this.api.get<any>('/admin/staff').subscribe(res => this._staff.set(res.data || []));
+    this.api.get<any>('/admin/staff').subscribe({
+      next: res => this._staff.set(res.data || []),
+      error: () => {},
+    });
   }
 
   filteredStaff() {
@@ -240,12 +243,16 @@ export class AdminStaffComponent implements OnInit {
 
     req.subscribe({
       next: () => {
+        this.saving.set(false);
         this.notif.showToast(id ? 'Membre mis à jour' : 'Membre créé', 'success');
         this.closeModal();
         this.load();
       },
-      error: () => this.notif.showToast('Opération échouée', 'error'),
-      complete: () => this.saving.set(false),
+      error: (err: any) => {
+        this.saving.set(false);
+        const msg = err?.error?.errors?.[0]?.message || err?.error?.message || 'Opération échouée';
+        this.notif.showToast(msg, 'error');
+      },
     });
   }
 

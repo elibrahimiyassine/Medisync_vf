@@ -45,7 +45,7 @@ export const createPatientBySecretary = async (req: AuthRequest, res: Response, 
       include: { patient: true },
     });
 
-    await sendEmail({
+    sendEmail({
       to: email,
       subject: 'Bienvenue sur MediSync — Vos identifiants de connexion',
       html: `<div style="font-family:sans-serif;background:#070B14;color:#E8F4FD;padding:40px;border-radius:12px;max-width:600px;margin:0 auto;border:1px solid rgba(0,212,255,0.3);">
@@ -59,7 +59,7 @@ export const createPatientBySecretary = async (req: AuthRequest, res: Response, 
         <p>Veuillez vous connecter et modifier votre mot de passe dès que possible.</p>
         <p style="color:#5A7A9B;font-size:12px;margin-top:30px;">Message automatique MediSync.</p>
       </div>`,
-    });
+    }).catch(() => {});
 
     res.status(201).json({ success: true, data: { ...user.patient, email, tempPassword } });
   } catch (err) { next(err); }

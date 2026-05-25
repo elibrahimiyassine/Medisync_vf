@@ -66,14 +66,16 @@ import { TopbarComponent } from '../../../shared/components/topbar/topbar.compon
       <div class="overlay" (click)="closeModal()">
         <div class="glass-card modal-card" (click)="$event.stopPropagation()">
           <h3 style="font-family:'Fraunces',Georgia,serif;margin-bottom:20px;">Créer un compte patient</h3>
+          <p style="font-size:12px;color:#7A8A82;margin:-8px 0 14px;line-height:1.5;">
+            Un mot de passe temporaire sera généré automatiquement et envoyé par e-mail au patient.
+          </p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group"><label>Prénom *</label><input class="glass-input" [(ngModel)]="form.firstName" placeholder="Alice" /></div>
             <div class="form-group"><label>Nom *</label><input class="glass-input" [(ngModel)]="form.lastName" placeholder="Bernard" /></div>
             <div class="form-group"><label>E-mail *</label><input class="glass-input" type="email" [(ngModel)]="form.email" placeholder="alice@example.fr" /></div>
-            <div class="form-group"><label>Mot de passe *</label><input class="glass-input" type="password" [(ngModel)]="form.password" placeholder="••••••••" /></div>
             <div class="form-group"><label>Téléphone</label><input class="glass-input" [(ngModel)]="form.phone" placeholder="06 12 34 56 78" /></div>
             <div class="form-group"><label>Date de naissance</label><input class="glass-input" type="date" [(ngModel)]="form.dateOfBirth" /></div>
-            <div class="form-group" style="grid-column:1/-1;">
+            <div class="form-group">
               <label>Groupe sanguin</label>
               <select class="glass-input" [(ngModel)]="form.bloodType">
                 <option value="">— Non renseigné —</option>
@@ -82,19 +84,6 @@ import { TopbarComponent } from '../../../shared/components/topbar/topbar.compon
                 <option value="AB_POS">AB+</option><option value="AB_NEG">AB-</option>
                 <option value="O_POS">O+</option><option value="O_NEG">O-</option>
               </select>
-            </div>
-            <div style="grid-column:1/-1;border-top:1px solid rgba(42,74,56,0.1);padding-top:14px;">
-              <p style="font-size:11px;font-weight:700;color:#3A5248;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Convention entreprise (optionnel)</p>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-                <div class="form-group">
-                  <label>Entreprise / Organisme</label>
-                  <input class="glass-input" [(ngModel)]="form.company" placeholder="ex. Société Générale, SNCF..." />
-                </div>
-                <div class="form-group">
-                  <label>Taux de prise en charge (%)</label>
-                  <input class="glass-input" type="number" [(ngModel)]="form.conventionRate" min="0" max="100" placeholder="ex. 80" />
-                </div>
-              </div>
             </div>
           </div>
           <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
@@ -121,7 +110,7 @@ export class SecretaryPatientsComponent implements OnInit {
 
   showModal = signal(false);
   saving    = signal(false);
-  form = { firstName: '', lastName: '', email: '', password: '', phone: '', dateOfBirth: '', bloodType: '', company: '', conventionRate: null as number | null };
+  form = { firstName: '', lastName: '', email: '', phone: '', dateOfBirth: '', bloodType: '' };
 
   constructor(private api: ApiService, private notif: NotificationService) {}
 
@@ -141,26 +130,27 @@ export class SecretaryPatientsComponent implements OnInit {
 
   closeModal(): void {
     this.showModal.set(false);
-    this.form = { firstName: '', lastName: '', email: '', password: '', phone: '', dateOfBirth: '', bloodType: '', company: '', conventionRate: null };
+    this.form = { firstName: '', lastName: '', email: '', phone: '', dateOfBirth: '', bloodType: '' };
   }
 
   createPatient(): void {
-    if (!this.form.firstName || !this.form.lastName || !this.form.email || !this.form.password) {
-      this.notif.showToast('Veuillez remplir les champs obligatoires', 'warning');
+    if (!this.form.firstName || !this.form.lastName || !this.form.email) {
+      this.notif.showToast('Veuillez remplir les champs obligatoires (prénom, nom, e-mail)', 'warning');
       return;
     }
     this.saving.set(true);
-    this.api.post<any>('/auth/register', { ...this.form, role: 'PATIENT' }).subscribe({
+    this.api.post<any>('/secretary/patients', this.form).subscribe({
       next: (res) => {
-        const newP = res.data?.profile || { ...this.form, id: Date.now().toString() };
+        const newP = res.data || { ...this.form, id: Date.now().toString() };
         this._all.update(l => [newP, ...l]);
         this._patients.update(l => [newP, ...l]);
         this.notif.showToast('Compte patient créé avec succès', 'success');
         this.closeModal();
         this.saving.set(false);
       },
-      error: () => {
-        this.notif.showToast('Échec de la création du compte', 'error');
+      error: (err: any) => {
+        const msg = err?.error?.errors?.[0]?.message || err?.error?.message || 'Échec de la création du compte';
+        this.notif.showToast(msg, 'error');
         this.saving.set(false);
       },
     });

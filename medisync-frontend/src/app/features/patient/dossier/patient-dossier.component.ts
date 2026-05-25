@@ -41,7 +41,7 @@ import { LucideAngularModule } from 'lucide-angular';
             </div>
             <div class="info-section">
               <p class="info-label">Date de naissance</p>
-              <p class="info-value">{{ patient().dateOfBirth | date:'MMMM d, yyyy' }}</p>
+              <p class="info-value">{{ patient().dateOfBirth | date:'d MMMM yyyy' }}</p>
             </div>
             <div class="info-section">
               <p class="info-label">Groupe sanguin</p>
@@ -86,7 +86,7 @@ import { LucideAngularModule } from 'lucide-angular';
                           <p class="entry-doctor">Dr. {{ rec.doctor.firstName }} {{ rec.doctor.lastName }}</p>
                         </div>
                         <div class="entry-meta">
-                          <p class="entry-date">{{ rec.createdAt | date:'MMM d, yyyy' }}</p>
+                          <p class="entry-date">{{ rec.createdAt | date:'d MMM yyyy' }}</p>
                           <span class="expand-icon"><lucide-icon [name]="expandedId() === rec.id ? 'chevron-up' : 'chevron-down'" [size]="12" /></span>
                         </div>
                       </div>
@@ -109,7 +109,7 @@ import { LucideAngularModule } from 'lucide-angular';
                           }
                           @if (rec.prescription) {
                             <div class="prescription-badge">
-                              <lucide-icon name="pill" [size]="13" style="margin-right:4px;" /> Prescription issued — <a [routerLink]="['/patient/prescriptions']" style="color:#2A4A38;">View →</a>
+                              <lucide-icon name="pill" [size]="13" style="margin-right:4px;" /> Ordonnance émise — <a [routerLink]="['/patient/prescriptions']" style="color:#2A4A38;">Voir →</a>
                             </div>
                           }
                         </div>
@@ -142,7 +142,7 @@ import { LucideAngularModule } from 'lucide-angular';
                     </div>
                     <div class="doc-info">
                       <p class="doc-name">{{ doc.fileName }}</p>
-                      <p class="doc-meta">{{ doc.uploadedAt | date:'MMM d, yyyy' }} · {{ formatSize(doc.fileSize) }}</p>
+                      <p class="doc-meta">{{ doc.uploadedAt | date:'d MMM yyyy' }} · {{ formatSize(doc.fileSize) }}</p>
                     </div>
                     <a [href]="doc.fileUrl" target="_blank" class="btn-icon" title="Download"><lucide-icon name="download" [size]="14" /></a>
                   </div>

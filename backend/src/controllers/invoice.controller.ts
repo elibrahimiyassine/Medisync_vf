@@ -4,15 +4,29 @@ import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { generateInvoicePDF, generateFeuilleSoinsPDF } from '../utils/pdf';
 import { sendInvoiceEmail } from '../utils/email';
-import { v4 as uuidv4 } from 'uuid';
+
 
 export const createInvoice = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { patientId, appointmentId, acts, dueDate } = req.body;
-    const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+    const { appointmentId, acts, dueDate } = req.body;
+    let { patientId } = req.body;
+
+    // Derive patientId from the appointment when not supplied by the client
+    if (!patientId && appointmentId) {
+      const appt = await prisma.appointment.findUnique({ where: { id: appointmentId }, select: { patientId: true } });
+      if (!appt) throw new AppError('Appointment not found', 404);
+      patientId = appt.patientId;
+    }
+
+    // Support both act.amount (raw) and act.quantity * act.unitPrice (form fields)
+    const normalizedActs = acts.map((act: any) => ({
+      ...act,
+      amount: act.amount ?? (act.quantity ?? 1) * (act.unitPrice ?? 0),
+    }));
+    const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
 
     const invoice = await prisma.invoice.create({
-      data: { patientId, appointmentId, acts, amount, dueDate: dueDate ? new Date(dueDate) : undefined },
+      data: { patientId, appointmentId, acts: normalizedActs, amount, dueDate: dueDate ? new Date(dueDate) : undefined },
       include: { patient: { include: { user: true } }, appointment: { include: { slot: true } } },
     });
 

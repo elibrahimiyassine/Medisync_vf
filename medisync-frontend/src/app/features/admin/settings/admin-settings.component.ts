@@ -587,7 +587,18 @@ export class AdminSettingsComponent implements OnInit {
     });
     this.api.get<any>('/admin/permissions').subscribe({
       next: (res) => {
-        if (res.data) this.settings.permissions = res.data;
+        if (!res.data) return;
+        // Backend: { DOCTOR: { dashboard: {...} }, SECRETARY: {...} }
+        // Template needs: { dashboard: { DOCTOR: {...}, SECRETARY: {...} } }
+        const byRole = res.data;
+        const byModule: any = {};
+        for (const mod of this.permModules) {
+          byModule[mod.key] = {};
+          for (const role of ['DOCTOR', 'SECRETARY']) {
+            byModule[mod.key][role] = byRole[role]?.[mod.key] ?? { view: false, edit: false, delete: false };
+          }
+        }
+        this.settings.permissions = byModule;
       },
     });
     this.loadRooms();
@@ -618,18 +629,20 @@ export class AdminSettingsComponent implements OnInit {
     this.loadingTotp.set(true);
     this.api.get<any>('/admin/totp/setup').subscribe({
       next: (res) => {
-        const secret = res.data?.secret || 'JBSWY3DPEHPK3PXP';
+        const secret = res.data?.secret;
+        if (!secret) {
+          this.notif.showToast('Erreur de configuration 2FA. Reconnectez-vous et réessayez.', 'error');
+          this.loadingTotp.set(false);
+          return;
+        }
         const otpauth = `otpauth://totp/MediSync:admin?secret=${secret}&issuer=MediSync`;
         const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(otpauth)}`;
         this.totpSetup.set({ qrCodeUrl, secret });
         this.totpCode = '';
       },
       error: () => {
-        const secret = 'JBSWY3DPEHPK3PXP';
-        const otpauth = `otpauth://totp/MediSync:admin?secret=${secret}&issuer=MediSync`;
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(otpauth)}`;
-        this.totpSetup.set({ qrCodeUrl, secret });
-        this.totpCode = '';
+        this.notif.showToast('Impossible de configurer la 2FA. Reconnectez-vous et réessayez.', 'error');
+        this.loadingTotp.set(false);
       },
       complete: () => this.loadingTotp.set(false),
     });
@@ -682,9 +695,14 @@ export class AdminSettingsComponent implements OnInit {
     this.saving.set(true);
     if (this.activeSection() === 'permissions') {
       const roles = ['DOCTOR', 'SECRETARY', 'PATIENT'] as const;
-      const calls = roles.map(role =>
-        this.api.put<any>(`/admin/permissions/${role}`, this.settings.permissions[role] || {})
-      );
+      // Transform back: module→role→action  →  role→module→action (backend format)
+      const calls = roles.map(role => {
+        const rolePerms: any = {};
+        for (const mod of this.permModules) {
+          rolePerms[mod.key] = this.settings.permissions[mod.key]?.[role] ?? { view: false, edit: false, delete: false };
+        }
+        return this.api.put<any>(`/admin/permissions/${role}`, rolePerms);
+      });
       let done = 0;
       for (const call of calls) {
         call.subscribe({

@@ -1,15 +1,13 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../services/notification.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const auth   = inject(AuthService);
-  const router = inject(Router);
-  const notif  = inject(NotificationService);
-  const token  = auth.token();
+  const auth  = inject(AuthService);
+  const notif = inject(NotificationService);
+  const token = auth.token();
 
   const authReq = req.clone({
     withCredentials: true,
@@ -18,12 +16,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 403 && err.error?.code === 'ADMIN_2FA_REQUIRED') {
-        notif.showToast('Activez la 2FA pour accéder au panneau admin', 'error');
-        router.navigate(['/admin/settings'], { queryParams: { section: 'security' } });
-        return throwError(() => err);
-      }
-      if (err.status === 401 && !req.url.includes('/auth/')) {
+      if (err.status === 401 && !req.url.includes('/auth/') && auth.isAuthenticated()) {
+        // Only attempt token refresh when we have an active session. Without this guard,
+        // stale requests from a previously-active admin component (still in flight after
+        // logout or while on the 2FA page) trigger a refresh with no valid cookie, causing
+        // a spurious auth.logout() that lands the user on the home page.
         return auth.refreshToken().pipe(
           switchMap(() => {
             const newToken = auth.token();
@@ -33,6 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             return next(retryReq);
           }),
           catchError(() => {
+            notif.showToast('Session expirée. Veuillez vous reconnecter.', 'warning');
             auth.logout();
             return throwError(() => err);
           }),

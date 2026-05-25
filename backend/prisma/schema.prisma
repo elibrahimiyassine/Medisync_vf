@@ -237,7 +237,7 @@ model MedicalRecord {
 
 model Prescription {
   id              String   @id @default(uuid())
-  medicalRecordId String   @unique
+  medicalRecordId String?  @unique
   doctorId        String
   patientId       String
   medications     Json[]
@@ -245,7 +245,7 @@ model Prescription {
   issuedAt        DateTime @default(now())
   expiresAt       DateTime?
 
-  medicalRecord MedicalRecord @relation(fields: [medicalRecordId], references: [id])
+  medicalRecord MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
   doctor        Doctor        @relation(fields: [doctorId], references: [id])
   patient       Patient       @relation(fields: [patientId], references: [id])
 

@@ -210,7 +210,7 @@ const CONSULT_TYPES = [
         @if (viewMode() === 'week') {
           <div class="view-nav">
             <button class="btn-icon" (click)="prevWeek()"><lucide-icon name="chevron-left" [size]="16" /></button>
-            <span class="view-label">{{ weekStart() | date:'MMM d' }} — {{ weekEnd() | date:'MMM d, yyyy' }}</span>
+            <span class="view-label">{{ weekStart() | date:'d MMM' }} — {{ weekEnd() | date:'d MMM yyyy' }}</span>
             <button class="btn-icon" (click)="nextWeek()"><lucide-icon name="chevron-right" [size]="16" /></button>
           </div>
           <div class="calendar-grid">

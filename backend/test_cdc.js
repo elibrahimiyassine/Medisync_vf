@@ -62,9 +62,17 @@ async function login(email, password) {
 async function run() {
   console.log('=== MediSync CDC Functional Test Suite ===\n');
 
-  // Reset admin 2FA to false so normal login works for ADMIN_TOKEN
   const { PrismaClient } = require('@prisma/client');
   const prisma = new PrismaClient();
+
+  // Always restore admin 2FA on exit (crash, Ctrl+C, or normal end)
+  const restoreAdmin = () => prisma.user.update({ where: { email: 'admin@medisync.ma' }, data: { twoFactorEnabled: false } }).catch(()=>{});
+  process.on('exit',    () => { /* sync — already handled below */ });
+  process.on('SIGINT',  async () => { await restoreAdmin(); process.exit(1); });
+  process.on('SIGTERM', async () => { await restoreAdmin(); process.exit(1); });
+  process.on('uncaughtException', async (e) => { console.error(e); await restoreAdmin(); process.exit(1); });
+
+  // Reset admin 2FA to false so normal login works for ADMIN_TOKEN
   await prisma.user.update({ where: { email: 'admin@medisync.ma' }, data: { twoFactorEnabled: false } });
 
   // ── BLOCK 1: AUTHENTICATION ──────────────────────────────────────────────────
@@ -565,6 +573,9 @@ async function run() {
   });
   test('TEST-BONUS', '[REQ-77] Swagger UI at /api-docs', swaggerR, 200,
     `HTTP ${swaggerR}`);
+
+  // Restore admin 2FA to false so the demo account works after tests
+  await prisma.user.update({ where: { email: 'admin@medisync.ma' }, data: { twoFactorEnabled: false } });
 
   await prisma.$disconnect();
 

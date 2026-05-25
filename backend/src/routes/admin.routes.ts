@@ -16,7 +16,7 @@ import { validate } from '../middlewares/validate.middleware';
 import { createStaffSchema, updateStaffSchema, updateSettingsSchema } from '../schemas';
 
 const router = Router();
-router.use(authenticate, authorize('ADMIN'), requireAdmin2FA);
+router.use(authenticate, authorize('ADMIN'));
 
 router.get('/stats',          getStats);
 router.get('/stats/monthly',  getMonthlyStats);

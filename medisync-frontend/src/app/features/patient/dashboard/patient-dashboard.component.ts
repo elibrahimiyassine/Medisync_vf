@@ -149,7 +149,7 @@ import { LucideAngularModule } from 'lucide-angular';
                     <div class="timeline-content">
                       <p class="timeline-title">{{ rec.diagnosis }}</p>
                       <p class="timeline-meta">Dr. {{ rec.doctor.firstName }} {{ rec.doctor.lastName }}</p>
-                      <p class="timeline-date">{{ rec.createdAt | date:'MMM d, yyyy' }}</p>
+                      <p class="timeline-date">{{ rec.createdAt | date:'d MMM yyyy' }}</p>
                     </div>
                   </div>
                 }
@@ -188,8 +188,8 @@ import { LucideAngularModule } from 'lucide-angular';
 
     <!-- Signalement modal -->
     @if (signalModalOpen()) {
-      <div class="overlay" (click)="closeSignalModal()"></div>
-      <div class="signal-modal glass-card animate-scale-in">
+      <div class="modal-backdrop" (click)="closeSignalModal()">
+      <div class="signal-modal glass-card animate-scale-in" (click)="$event.stopPropagation()">
         <div class="modal-header">
           <h3>Signalement de symptôme</h3>
           <button class="btn-icon" (click)="closeSignalModal()"><lucide-icon name="x" [size]="16" /></button>
@@ -241,6 +241,7 @@ import { LucideAngularModule } from 'lucide-angular';
           </div>
         </form>
       </div>
+      </div>
     }
   `,
   styles: [`
@@ -285,7 +286,8 @@ import { LucideAngularModule } from 'lucide-angular';
     .signal-sub { font-size: 12px; color: #7A8A82; margin-top: 2px; }
     .signal-cta { white-space: nowrap; flex-shrink: 0; }
 
-    .signal-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; width: min(520px, 94vw); padding: 28px; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(27,37,32,0.45); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .signal-modal { position: relative; z-index: 1001; width: min(520px, 94vw); padding: 28px; }
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .modal-header h3 { font-size: 17px; font-weight: 700; color: #1B2520; font-family: 'Fraunces', Georgia, serif; }
     .btn-icon { background: none; border: none; font-size: 22px; cursor: pointer; color: #7A8A82; line-height: 1; padding: 0 4px; &:hover { color: #C24040; } }
@@ -294,8 +296,6 @@ import { LucideAngularModule } from 'lucide-angular';
     .urgency-btn { flex: 1; min-width: 100px; padding: 10px 14px; border: 1.5px solid rgba(42,74,56,0.15); border-radius: 10px; background: transparent; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.18s; font-family: 'Geist', 'Inter', sans-serif; color: #3A5248; &:hover { border-color: rgba(42,74,56,0.35); } &.selected { font-weight: 700; } }
 
     .critical-warning { background: rgba(194,64,64,0.08); border: 1px solid rgba(194,64,64,0.25); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #C24040; margin-bottom: 14px; line-height: 1.5; }
-
-    .overlay { position: fixed; inset: 0; background: rgba(27,37,32,0.45); backdrop-filter: blur(4px); z-index: 1000; }
   `],
 })
 export class PatientDashboardComponent implements OnInit {
@@ -357,6 +357,10 @@ export class PatientDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboard();
+    this.api.get<any>('/doctors').subscribe({
+      next: res => this._recentDoctors.set(res.data || []),
+      error: () => {},
+    });
   }
 
   openSignalModal(): void {
@@ -401,14 +405,6 @@ export class PatientDashboardComponent implements OnInit {
           pendingInvoices: 0,
         });
         this._loadingAppts.set(false);
-
-        const doctors: any[] = [];
-        (data.appointments || []).forEach((a: any) => {
-          if (a.doctor && !doctors.find(d => d.id === a.doctor.id)) {
-            doctors.push(a.doctor);
-          }
-        });
-        this._recentDoctors.set(doctors.slice(0, 5));
       },
       error: () => this._loadingAppts.set(false),
     });

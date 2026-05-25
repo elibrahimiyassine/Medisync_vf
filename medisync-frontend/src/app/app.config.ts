@@ -1,6 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection, APP_INITIALIZER } from '@angular/core';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 import { routes } from './app.routes';
 import { AuthService } from './core/services/auth.service';
@@ -8,7 +10,7 @@ import { LUCIDE_ICONS, LucideIconProvider } from 'lucide-angular';
 import {
   LayoutDashboard, Calendar, ClipboardList, Pill, Star, Users, Receipt,
   ChartBar, Search, Settings, User, LogOut, ChevronLeft, ChevronRight,
-  Building2, Banknote, CircleDollarSign, DoorOpen, Shield, LockKeyhole,
+  Building2, Banknote, CircleDollarSign, DoorOpen, Shield, ShieldCheck, LockKeyhole,
   Key, Stethoscope, Euro, TriangleAlert, X, Download, Mail, Bell,
   TreePalm, ArrowLeft, Lock, Briefcase, Paperclip, FileText, Folder,
   Image, Microscope, Inbox, Coffee, Siren, ChevronUp, ChevronDown,
@@ -26,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' })),
     provideAnimations(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide:  APP_INITIALIZER,
       useFactory: initAuth,
@@ -38,7 +41,7 @@ export const appConfig: ApplicationConfig = {
       useValue: new LucideIconProvider({
         LayoutDashboard, Calendar, ClipboardList, Pill, Star, Users, Receipt,
         ChartBar, Search, Settings, User, LogOut, ChevronLeft, ChevronRight,
-        Building2, Banknote, CircleDollarSign, DoorOpen, Shield, LockKeyhole,
+        Building2, Banknote, CircleDollarSign, DoorOpen, Shield, ShieldCheck, LockKeyhole,
         Key, Stethoscope, Euro, TriangleAlert, X, Download, Mail, Bell,
         TreePalm, ArrowLeft, Lock, Briefcase, Paperclip, FileText, Folder,
         Image, Microscope, Inbox, Coffee, Siren, ChevronUp, ChevronDown,

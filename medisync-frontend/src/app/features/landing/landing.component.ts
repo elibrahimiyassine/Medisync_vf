@@ -27,8 +27,8 @@ import { NotificationService } from '../../core/services/notification.service';
       <a href="#auth-section" class="nav-link">Connexion</a>
     </div>
     <div class="nav-actions">
-      <button class="btn-ghost-nav" (click)="scrollToAuth('login')">Se connecter</button>
-      <button class="btn-primary-nav" (click)="scrollToAuth('register')">S'inscrire</button>
+      <a routerLink="/auth/login" class="btn-ghost-nav">Se connecter</a>
+      <a routerLink="/auth/register" class="btn-primary-nav">S'inscrire</a>
     </div>
   </div>
 </nav>
@@ -700,7 +700,12 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/patient/dashboard']);
+      const map: Record<string, string> = {
+        PATIENT: '/patient/dashboard', DOCTOR: '/doctor/dashboard',
+        SECRETARY: '/secretary/dashboard', ADMIN: '/admin/dashboard',
+      };
+      const role = this.authService.userRole();
+      this.router.navigate([role ? (map[role] ?? '/') : '/']);
     }
     this.loginForm.get('email')?.valueChanges.subscribe(v => this.loginEmailRole.set(detectRole(v || '')));
     this.registerForm.get('email')?.valueChanges.subscribe(v => this.registerEmailRole.set(detectRole(v || '')));
@@ -750,7 +755,12 @@ export class LandingComponent implements OnInit {
     this.errorMsg.set('');
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
-      next:  () => this.submitting.set(false),
+      next: (res) => {
+        this.submitting.set(false);
+        if (res.requiresTwoFactor) {
+          this.router.navigate(['/auth/2fa'], { queryParams: { userId: res.userId } });
+        }
+      },
       error: (e) => {
         this.submitting.set(false);
         this.errorMsg.set(e.error?.message || 'Identifiants invalides');

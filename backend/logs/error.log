@@ -1,0 +1,2428 @@
+2026-05-23 15:29:43 [error]: POST /api/v1/auth/refresh — No refresh token
+2026-05-23 15:38:13 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490417b3cccsm40059875e9.9 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 15:42:13 [error]: POST /api/v1/auth/refresh — No refresh token
+2026-05-23 15:42:58 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 15:47:23 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 15:59:51 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49045284855sm110276005e9.0 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 15:59:59 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 16:01:31 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490456274ebsm109686865e9.15 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 16:12:49 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428d3e9esm54270955e9.7 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 16:18:05 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 20:59:49 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 21:09:43 [error]: POST /api/v1/auth/register — Email already registered
+2026-05-23 21:11:42 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 21:17:21 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 21:36:54 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6c9f598sm14667749f8f.6 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 22:53:13 [error]: GET /api/v1/doctors/me — Doctor not found
+2026-05-23 23:02:49 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 23:02:55 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:02:55 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:02:56 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6cd351csm15248178f8f.14 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:02:56 [error]: POST /api/v1/appointments — Time slot not available
+2026-05-23 23:02:57 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428d698fsm45071255e9.19 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:02:57 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d70c51sm15634447f8f.36 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:02:57 [error]: POST /api/v1/patients/1f618fd6-753a-4139-90cb-f2a0eb9d6129/documents — No file uploaded
+2026-05-23 23:02:57 [error]: GET /api/v1/doctors/medications — Doctor not found
+2026-05-23 23:02:58 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49045262c8dsm73463985e9.2 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:02:58 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: "1f618fd6-753a-4139-90cb-f2a0eb9d6129",
+         appointmentId: "13214268-971d-488e-8568-1f227b51f0d9",
+         acts: [
+           {
+             code: "C",
+             label: "Consultation générale",
+             price: 320,
+             quantity: 1
+           },
+           {
+             code: "ECG",
+             label: "Électrocardiogramme",
+             price: 150,
+             quantity: 1
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-23 23:02:58 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: "1f618fd6-753a-4139-90cb-f2a0eb9d6129",
+         appointmentId: "13214268-971d-488e-8568-1f227b51f0d9",
+         acts: [
+           {
+             code: "C",
+             label: "Consultation générale",
+             price: 320,
+             quantity: 1
+           },
+           {
+             code: "ECG",
+             label: "Électrocardiogramme",
+             price: 150,
+             quantity: 1
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-23 23:03:16 [error]: POST /api/v1/auth/refresh — Invalid refresh token
+2026-05-23 23:11:21 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:27 [error]: POST /api/v1/patients/1f618fd6-753a-4139-90cb-f2a0eb9d6129/documents — No file uploaded
+2026-05-23 23:11:27 [error]: Prisma Error: 
+Invalid `prisma.timeSlot.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\slot.controller.ts:75:44
+
+  72 
+  73 for (const dateStr of dates) {
+  74   try {
+→ 75     const slot = await prisma.timeSlot.create(
+Unique constraint failed on the fields: (`doctorId`,`date`,`startTime`)
+2026-05-23 23:11:28 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428d63f8sm46343415e9.18 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:11:28 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454a0cd5sm165997155e9.10 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-23 23:14:13 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-23 23:16:40 [error]: POST /api/v1/auth/refresh — No refresh token
+2026-05-24 00:52:41 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 01:20:43 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6c9b980sm13913296f8f.3 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 01:21:32 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d4850dsm14408013f8f.17 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 01:22:25 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45ec7fcd7f9sm2339825f8f.37 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 01:22:56 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "321a01f9-aa21-40b0-a24e-4d35cc9b9b64",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:22:56 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "321a01f9-aa21-40b0-a24e-4d35cc9b9b64",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:22:58 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "321a01f9-aa21-40b0-a24e-4d35cc9b9b64",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:22:58 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "321a01f9-aa21-40b0-a24e-4d35cc9b9b64",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:23:27 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:23:27 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:23:28 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:23:28 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:14:42
+
+  11 const { patientId, appointmentId, acts, dueDate } = req.body;
+  12 const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+  13 
+→ 14 const invoice = await prisma.invoice.create({
+       data: {
+         patientId: undefined,
+         appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+         acts: [
+           {
+             description: "Radiographie",
+             quantity: 1,
+             unitPrice: 300
+           }
+         ],
+         amount: NaN,
+         dueDate: undefined,
+     +   patient: {
+     +     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
+     +     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
+     +     connect: PatientWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         appointment: {
+           include: {
+             slot: true
+           }
+         }
+       }
+     })
+
+Argument `patient` is missing.
+2026-05-24 01:27:14 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "Radiographie",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:14 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "Radiographie",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:15 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "Radiographie",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:15 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "Radiographie",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:28 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:28 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:29 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:29 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:30 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:27:31 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "d5719e1b-49f1-4082-9416-0930cbe962bc",
+    acts: [
+      {
+        description: "drrd",
+        quantity: 1,
+        unitPrice: 40
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:30:06 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+    acts: [
+      {
+        description: "Consultation",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:30:06 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation:
+
+{
+  data: {
+    patientId: undefined,
+    appointmentId: "87d86cbc-5d70-4036-bd3d-4e8cb4800035",
+    acts: [
+      {
+        description: "Consultation",
+        quantity: 1,
+        unitPrice: 300
+      }
+    ],
+    amount: NaN,
+    dueDate: undefined,
++   patient: {
++     create: PatientCreateWithoutInvoicesInput | PatientUncheckedCreateWithoutInvoicesInput,
++     connectOrCreate: PatientCreateOrConnectWithoutInvoicesInput,
++     connect: PatientWhereUniqueInput
++   }
+  },
+  include: {
+    patient: {
+      include: {
+        user: true
+      }
+    },
+    appointment: {
+      include: {
+        slot: true
+      }
+    }
+  }
+}
+
+Argument `patient` is missing.
+2026-05-24 01:31:24 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:31:24 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:32:37 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:32:37 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:32:38 [error]: Prisma Error: 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:32:38 [error]: POST /api/v1/invoices — 
+Invalid `prisma.invoice.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\invoice.controller.ts:28:42
+
+  25 }));
+  26 const amount = normalizedActs.reduce((sum: number, act: any) => sum + act.amount, 0);
+  27 
+→ 28 const invoice = await prisma.invoice.create(
+Unique constraint failed on the fields: (`appointmentId`)
+2026-05-24 01:45:04 [error]: POST /api/v1/auth/refresh — Invalid refresh token
+2026-05-24 01:52:14 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 01:54:38 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6cd1780sm16568293f8f.16 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 01:55:37 [error]: Prisma Error: 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "08fbbf18-0e22-487f-b66b-385d9b335b14",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Doliprane",
+             dosage: "3 fois",
+             frequency: "",
+             duration: "7j"
+           }
+         ],
+         instructions: "apres repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:55:37 [error]: POST /api/v1/prescriptions — 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "08fbbf18-0e22-487f-b66b-385d9b335b14",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Doliprane",
+             dosage: "3 fois",
+             frequency: "",
+             duration: "7j"
+           }
+         ],
+         instructions: "apres repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:55:38 [error]: Prisma Error: 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "08fbbf18-0e22-487f-b66b-385d9b335b14",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Doliprane",
+             dosage: "3 fois",
+             frequency: "",
+             duration: "7j"
+           }
+         ],
+         instructions: "apres repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:55:38 [error]: POST /api/v1/prescriptions — 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "08fbbf18-0e22-487f-b66b-385d9b335b14",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Doliprane",
+             dosage: "3 fois",
+             frequency: "",
+             duration: "7j"
+           }
+         ],
+         instructions: "apres repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:59:16 [error]: Prisma Error: 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "18d7e458-012a-4a74-9d49-4b85a6511022",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Paracétamol 500mg",
+             dosage: "3x/jour",
+             frequency: "",
+             duration: "7 jours"
+           }
+         ],
+         instructions: "Prendre après les repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:59:16 [error]: POST /api/v1/prescriptions — 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "18d7e458-012a-4a74-9d49-4b85a6511022",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Paracétamol 500mg",
+             dosage: "3x/jour",
+             frequency: "",
+             duration: "7 jours"
+           }
+         ],
+         instructions: "Prendre après les repas",
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:59:38 [error]: Prisma Error: 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "18d7e458-012a-4a74-9d49-4b85a6511022",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Paracétamol 500mg",
+             dosage: "3x/jour",
+             frequency: "",
+             duration: "7 jours"
+           }
+         ],
+         instructions: undefined,
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 01:59:38 [error]: POST /api/v1/prescriptions — 
+Invalid `prisma.prescription.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\prescription.controller.ts:46:52
+
+  43   if (byEmail) resolvedPatientId = byEmail.id;
+  44 }
+  45 
+→ 46 const prescription = await prisma.prescription.create({
+       data: {
+         doctorId: "18d7e458-012a-4a74-9d49-4b85a6511022",
+         patientId: "b003c081-2528-4e51-b302-d6bfece65f50",
+         medications: [
+           {
+             name: "Paracétamol 500mg",
+             dosage: "3x/jour",
+             frequency: "",
+             duration: "7 jours"
+           }
+         ],
+         instructions: undefined,
+         expiresAt: undefined,
+     +   medicalRecord: {
+     +     create: MedicalRecordCreateWithoutPrescriptionInput | MedicalRecordUncheckedCreateWithoutPrescriptionInput,
+     +     connectOrCreate: MedicalRecordCreateOrConnectWithoutPrescriptionInput,
+     +     connect: MedicalRecordWhereUniqueInput
+     +   }
+       },
+       include: {
+         patient: {
+           include: {
+             user: true
+           }
+         },
+         doctor: true
+       }
+     })
+
+Argument `medicalRecord` is missing.
+2026-05-24 02:00:01 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6cd10acsm12771529f8f.15 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:00:03 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6cce01asm15939804f8f.11 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:00:04 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904561a33dsm135972875e9.11 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:00:04 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d4741bsm15947149f8f.22 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:00:05 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d5e484sm14978364f8f.30 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:26:54 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428f6786sm57905085e9.25 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 02:52:51 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 03:00:47 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:00:47 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:01:13 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:01:13 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:02:51 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:02:51 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:05:30 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:05:30 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:12:35 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:12:35 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:13:10 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 03:16:41 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:16:41 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:57:59 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 03:57:59 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 04:13:58 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 04:13:58 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-24 15:20:10 [error]: POST /api/v1/auth/refresh — No refresh token
+2026-05-24 15:20:42 [error]: Prisma Error: Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbError { severity: "FATAL", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: "terminating connection due to administrator command", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("postgres.c"), line: Some(3356), routine: Some("ProcessInterrupts") }) }
+2026-05-24 15:20:42 [error]: Prisma Error: Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbError { severity: "FATAL", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: "terminating connection due to administrator command", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("postgres.c"), line: Some(3356), routine: Some("ProcessInterrupts") }) }
+2026-05-24 15:20:42 [error]: Prisma Error: Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbError { severity: "FATAL", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: "terminating connection due to administrator command", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("postgres.c"), line: Some(3356), routine: Some("ProcessInterrupts") }) }
+2026-05-24 15:21:28 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49042d081f5sm81365805e9.5 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 15:21:37 [error]: POST /api/v1/patients/1f618fd6-753a-4139-90cb-f2a0eb9d6129/documents — ENOENT: no such file or directory, open 'C:\Users\ja3boo9i\Documents\Medisync\backend\uploads\06afcbec-57ee-44cf-962c-fc6fbad1e1fa.pdf'
+2026-05-24 15:21:54 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 15:45:38 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6c9f548sm21193308f8f.2 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 15:46:53 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428ee444sm63732305e9.24 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 15:48:33 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 16:51:24 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 18:18:09 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49059fb42dasm71400165e9.7 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:19:02 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904527526dsm207495655e9.4 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:24:03 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 18:26:42 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6ccd04dsm19729789f8f.9 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:30:56 [error]: Prisma Error: 
+Invalid `prisma.appointment.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\appointment.controller.ts:108:50
+
+  105   resolvedPatientId = patient!.id;
+  106 }
+  107 
+→ 108 const appointment = await prisma.appointment.create(
+Unique constraint failed on the fields: (`slotId`)
+2026-05-24 18:30:56 [error]: POST /api/v1/appointments — 
+Invalid `prisma.appointment.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\appointment.controller.ts:108:50
+
+  105   resolvedPatientId = patient!.id;
+  106 }
+  107 
+→ 108 const appointment = await prisma.appointment.create(
+Unique constraint failed on the fields: (`slotId`)
+2026-05-24 18:30:57 [error]: POST /api/v1/appointments — Time slot not available
+2026-05-24 18:31:21 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45ec7fcd7f9sm7397659f8f.37 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:31:56 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904561a33dsm175884335e9.11 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:33:32 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904526ca21sm185062565e9.3 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 18:35:38 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 18:35:56 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-24 18:41:53 [error]: Prisma Error: 
+Invalid `prisma.appointment.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\appointment.controller.ts:108:50
+
+  105   resolvedPatientId = patient!.id;
+  106 }
+  107 
+→ 108 const appointment = await prisma.appointment.create(
+Unique constraint failed on the fields: (`slotId`)
+2026-05-24 18:41:53 [error]: POST /api/v1/appointments — 
+Invalid `prisma.appointment.create()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\appointment.controller.ts:108:50
+
+  105   resolvedPatientId = patient!.id;
+  106 }
+  107 
+→ 108 const appointment = await prisma.appointment.create(
+Unique constraint failed on the fields: (`slotId`)
+2026-05-24 18:41:55 [error]: POST /api/v1/appointments — Time slot not available
+2026-05-24 19:22:01 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454ea134sm213495265e9.8 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-24 19:24:15 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6c9f548sm22453720f8f.2 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 02:00:00 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d5e363sm23388434f8f.28 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 02:00:01 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904561f682sm225521425e9.13 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 02:00:02 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49045284855sm204767875e9.0 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 02:00:03 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490428ec538sm71202885e9.23 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 02:00:04 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454b7d57sm205137105e9.15 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 16:30:18 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:30:21 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:30:21 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:30:21 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:30:22 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:32 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:34 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:34 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:34 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:34 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:35 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:35 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:35 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:35 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 16:58:35 [error]: POST /api/v1/admin/staff — Email already exists
+2026-05-25 17:13:04 [error]: POST /api/v1/auth/refresh — Invalid refresh token
+2026-05-25 17:27:07 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 17:27:07 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 18:45:45 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 18:45:45 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 18:48:29 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d64eb1sm31952296f8f.32 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 18:49:24 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454c5eb0sm280469375e9.2 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 18:50:23 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d5cb76sm24763957f8f.25 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 18:54:16 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d49132sm28584921f8f.24 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:10:59 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-49042af0ac1sm87927175e9.31 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:15:07 [error]: Prisma Error: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:178:25
+
+  175 export const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  176   try {
+  177     if (req.user) {
+→ 178       await prisma.user.update(
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+2026-05-25 19:15:07 [error]: POST /api/v1/auth/logout — 
+Invalid `prisma.user.update()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:178:25
+
+  175 export const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  176   try {
+  177     if (req.user) {
+→ 178       await prisma.user.update(
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+2026-05-25 19:16:25 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 19:16:25 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 19:16:40 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 19:16:40 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-25 19:24:06 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490417a3be1sm124505485e9.3 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:24:53 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d71688sm30507046f8f.33 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:25:59 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d5cb9asm30974931f8f.27 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:27:04 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4904561f2dfsm247981125e9.12 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:30:45 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454b7d57sm260175755e9.15 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:35:23 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454b1ab3sm300408085e9.14 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 19:36:17 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6d5e484sm27671061f8f.30 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 21:06:28 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45eb6c9f598sm29902774f8f.6 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-25 21:10:55 [error]: Prisma Error: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:178:25
+
+  175 export const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  176   try {
+  177     if (req.user) {
+→ 178       await prisma.user.update(
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+2026-05-25 21:10:55 [error]: POST /api/v1/auth/logout — 
+Invalid `prisma.user.update()` invocation in
+C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:178:25
+
+  175 export const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  176   try {
+  177     if (req.user) {
+→ 178       await prisma.user.update(
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+2026-05-25 21:20:42 [error]: POST /api/v1/auth/2fa/rescan — Invalid request

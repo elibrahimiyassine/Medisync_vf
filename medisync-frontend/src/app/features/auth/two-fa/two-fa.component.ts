@@ -1,9 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LucideAngularModule } from 'lucide-angular';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-two-fa',
@@ -42,6 +43,21 @@ import { LucideAngularModule } from 'lucide-angular';
           </button>
         </form>
 
+        @if (rescanQr()) {
+          <div style="text-align:center;margin:16px 0;">
+            <p style="font-size:12px;color:#7A8A82;margin-bottom:10px;">Scannez ce QR code avec Google Authenticator</p>
+            <img [src]="rescanQr()!" alt="QR Code" width="160" height="160"
+              style="border:2px solid rgba(42,74,56,0.15);border-radius:10px;padding:8px;background:#fff;" />
+            <button style="display:block;margin:8px auto 0;background:none;border:none;font-size:11px;color:#7A8A82;cursor:pointer;font-family:'Geist','Inter',sans-serif;"
+              (click)="hideRescan()">Masquer le QR code</button>
+          </div>
+        }
+
+        <button class="rescan-btn" (click)="showRescanQr()" [disabled]="rescanLoading()">
+          @if (rescanLoading()) { <span class="spinner" style="width:13px;height:13px;border-width:2px;border-top-color:#7A8A82;border-color:rgba(0,0,0,0.15);"></span> Chargement... }
+          @else { <lucide-icon name="smartphone" [size]="13" /> J'ai supprimé mon application — rescanner le QR code }
+        </button>
+
         <a routerLink="/auth/login" class="back-link" style="display:inline-flex;align-items:center;justify-content:center;gap:5px;"><lucide-icon name="arrow-left" [size]="13" /> Retour à la connexion</a>
       </div>
     </div>
@@ -59,27 +75,38 @@ import { LucideAngularModule } from 'lucide-angular';
     .submit-btn { width:100%; justify-content:center; padding:13px; }
     .spinner { width:15px; height:15px; border:2px solid rgba(0,0,0,0.3); border-top-color:#000; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
     .back-link { display:block; margin-top:20px; font-size:13px; color:#7A8A82; &:hover{color:#2A4A38;} }
+    .rescan-btn { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px; background:none; border:1px solid rgba(42,74,56,0.15); border-radius:10px; padding:9px 14px; font-size:12px; color:#7A8A82; cursor:pointer; width:100%; font-family:'Geist','Inter',sans-serif; transition:all .2s; &:hover:not(:disabled){border-color:#2A4A38;color:#2A4A38;} &:disabled{opacity:.5;cursor:not-allowed;} }
     @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   `],
 })
 export class TwoFaComponent implements OnInit {
-  private _isLoading = signal(false);
-  private _errorMsg  = signal('');
-  readonly isLoading = this._isLoading.asReadonly();
-  readonly errorMsg  = this._errorMsg.asReadonly();
+  private _isLoading    = signal(false);
+  private _errorMsg     = signal('');
+  private _rescanQr     = signal<string | null>(null);
+  private _rescanLoading = signal(false);
+
+  readonly isLoading     = this._isLoading.asReadonly();
+  readonly errorMsg      = this._errorMsg.asReadonly();
+  readonly rescanQr      = this._rescanQr.asReadonly();
+  readonly rescanLoading = this._rescanLoading.asReadonly();
 
   private userId = '';
   private otpValues = ['', '', '', '', '', ''];
 
   form!: ReturnType<FormBuilder['group']>;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private notif: NotificationService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
     this.form = this.fb.group({ code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]] });
   }
 
   ngOnInit(): void {
-    const state = this.router.getCurrentNavigation()?.extras.state as any;
-    this.userId = state?.userId || '';
+    this.userId = this.route.snapshot.queryParamMap.get('userId') || '';
     if (!this.userId) this.router.navigate(['/auth/login']);
   }
 
@@ -114,5 +141,24 @@ export class TwoFaComponent implements OnInit {
         this._errorMsg.set(err.error?.message || 'Code invalide. Veuillez réessayer.');
       },
     });
+  }
+
+  showRescanQr(): void {
+    if (this._rescanQr()) { this._rescanQr.set(null); return; }
+    this._rescanLoading.set(true);
+    this.authService.rescan2FA(this.userId).subscribe({
+      next: (res: any) => {
+        this._rescanQr.set(res.data?.qrCodeUrl ?? null);
+        this._rescanLoading.set(false);
+      },
+      error: () => {
+        this.notif.showToast('Impossible de charger le QR code', 'error');
+        this._rescanLoading.set(false);
+      },
+    });
+  }
+
+  hideRescan(): void {
+    this._rescanQr.set(null);
   }
 }
