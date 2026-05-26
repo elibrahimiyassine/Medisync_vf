@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+node_modules/
+dist/
+.env
+=======
+.claude/
+node_modules/
+dist/
+.angular/
+*.env
+.env*
+>>>>>>> ccd408b (Initial commit — MediSync full-stack clinic management platform)

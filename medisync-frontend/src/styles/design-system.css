@@ -1,0 +1,57 @@
+/**
+ * MediSync Design System — CSS Custom Properties
+ * Warm editorial / healthtech theme
+ */
+
+:root {
+  /* ── Palette ──────────────────────────────────────────────── */
+  --bg:           #EFEAE0;   /* bone cream page background */
+  --surface:      #FAF7F1;   /* warm white card surface */
+  --surface-alt:  #F2EDE4;   /* slightly deeper surface */
+  --ink:          #1B2520;   /* deep forest ink */
+  --ink-muted:    #3A5248;   /* muted body text */
+  --ink-faint:    #7A8A82;   /* faint labels / placeholders */
+
+  --primary:      #2A4A38;   /* forest green — actions */
+  --primary-dim:  rgba(42, 74, 56, 0.10);
+  --primary-mid:  rgba(42, 74, 56, 0.35);
+  --accent:       #C9633C;   /* terracotta — highlights */
+  --accent-dim:   rgba(201, 99, 60, 0.12);
+  --sand:         #D4A574;   /* warm sand */
+  --sand-dim:     rgba(212, 165, 116, 0.20);
+
+  --success:      #3D6B4F;
+  --success-dim:  rgba(61, 107, 79, 0.12);
+  --warning:      #B8792A;
+  --warning-dim:  rgba(184, 121, 42, 0.14);
+  --danger:       #C24040;
+  --danger-dim:   rgba(194, 64, 64, 0.12);
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'Geist', 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  --sidebar-w:    260px;
+  --topbar-h:     64px;
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    16px;
+  --radius-full:  9999px;
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-card:       0 2px 12px rgba(27, 37, 32, 0.07), 0 1px 3px rgba(27, 37, 32, 0.05);
+  --shadow-hover:      0 8px 28px rgba(27, 37, 32, 0.11), 0 2px 8px rgba(27, 37, 32, 0.07);
+  --shadow-modal:      0 20px 60px rgba(27, 37, 32, 0.18), 0 4px 16px rgba(27, 37, 32, 0.10);
+
+  /* ── Borders ──────────────────────────────────────────────── */
+  --border:       rgba(42, 74, 56, 0.14);
+  --border-hover: rgba(42, 74, 56, 0.40);
+
+  /* ── Transitions ──────────────────────────────────────────── */
+  --t-fast:   all 0.15s ease;
+  --t-base:   all 0.18s ease;
+  --t-slow:   all 0.30s ease;
+  --t-spring: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
