@@ -29,7 +29,11 @@ export const register = async (req: Request, res: Response, next: NextFunction):
           create: {
             firstName,
             lastName,
+<<<<<<< HEAD
             ...(dateOfBirth && { dateOfBirth: new Date(dateOfBirth) }),
+=======
+            dateOfBirth: new Date(dateOfBirth),
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             phone,
           },
         },
@@ -46,7 +50,11 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
+<<<<<<< HEAD
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+=======
+      sameSite: 'strict',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -86,7 +94,11 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
+<<<<<<< HEAD
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+=======
+      sameSite: 'strict',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -94,11 +106,16 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
     res.json({
       success: true,
+<<<<<<< HEAD
       data: { accessToken, user: { id: user.id, email: user.email, role: user.role, twoFactorEnabled: user.twoFactorEnabled, profile } },
+=======
+      data: { accessToken, user: { id: user.id, email: user.email, role: user.role, profile } },
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   } catch (err) { next(err); }
 };
 
+<<<<<<< HEAD
 export const rescan2FA = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { userId } = req.body;
@@ -121,6 +138,8 @@ export const rescan2FA = async (req: Request, res: Response, next: NextFunction)
   } catch (err) { next(err); }
 };
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 export const verify2FA = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { userId, token } = req.body;
@@ -150,12 +169,20 @@ export const verify2FA = async (req: Request, res: Response, next: NextFunction)
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
+<<<<<<< HEAD
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+=======
+      sameSite: 'strict',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     const profile = user.patient || user.doctor || user.secretary || user.admin;
+<<<<<<< HEAD
     res.json({ success: true, data: { accessToken, user: { id: user.id, email: user.email, role: user.role, twoFactorEnabled: user.twoFactorEnabled, profile } } });
+=======
+    res.json({ success: true, data: { accessToken, user: { id: user.id, email: user.email, role: user.role, profile } } });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   } catch (err) { next(err); }
 };
 
@@ -223,7 +250,11 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     res.cookie('refreshToken', newRefreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
+<<<<<<< HEAD
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+=======
+      sameSite: 'strict',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 

@@ -27,8 +27,13 @@ import { NotificationService } from '../../core/services/notification.service';
       <a href="#auth-section" class="nav-link">Connexion</a>
     </div>
     <div class="nav-actions">
+<<<<<<< HEAD
       <a routerLink="/auth/login" class="btn-ghost-nav">Se connecter</a>
       <a routerLink="/auth/register" class="btn-primary-nav">S'inscrire</a>
+=======
+      <button class="btn-ghost-nav" (click)="scrollToAuth('login')">Se connecter</button>
+      <button class="btn-primary-nav" (click)="scrollToAuth('register')">S'inscrire</button>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     </div>
   </div>
 </nav>
@@ -700,12 +705,16 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
+<<<<<<< HEAD
       const map: Record<string, string> = {
         PATIENT: '/patient/dashboard', DOCTOR: '/doctor/dashboard',
         SECRETARY: '/secretary/dashboard', ADMIN: '/admin/dashboard',
       };
       const role = this.authService.userRole();
       this.router.navigate([role ? (map[role] ?? '/') : '/']);
+=======
+      this.router.navigate(['/patient/dashboard']);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     }
     this.loginForm.get('email')?.valueChanges.subscribe(v => this.loginEmailRole.set(detectRole(v || '')));
     this.registerForm.get('email')?.valueChanges.subscribe(v => this.registerEmailRole.set(detectRole(v || '')));
@@ -755,12 +764,16 @@ export class LandingComponent implements OnInit {
     this.errorMsg.set('');
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
+<<<<<<< HEAD
       next: (res) => {
         this.submitting.set(false);
         if (res.requiresTwoFactor) {
           this.router.navigate(['/auth/2fa'], { queryParams: { userId: res.userId } });
         }
       },
+=======
+      next:  () => this.submitting.set(false),
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       error: (e) => {
         this.submitting.set(false);
         this.errorMsg.set(e.error?.message || 'Identifiants invalides');

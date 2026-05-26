@@ -21,7 +21,10 @@ import { LucideAngularModule } from 'lucide-angular';
           <h2 style="font-family:'Fraunces',Georgia,serif;">Gestion des rendez-vous</h2>
           <div style="display:flex;gap:10px;align-items:center;">
             <input type="date" class="glass-input" style="width:180px;" (change)="filterDate($event)" />
+<<<<<<< HEAD
             <button class="btn-secondary" (click)="openNewPatient()">+ Nouveau patient</button>
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             <button class="btn-primary" (click)="openNewAppt()">+ Nouveau RDV</button>
           </div>
         </div>
@@ -36,7 +39,11 @@ import { LucideAngularModule } from 'lucide-angular';
                 <tr>
                   <td><strong style="color:#1B2520;">{{ a.patient?.firstName }} {{ a.patient?.lastName }}</strong></td>
                   <td style="color:#3A5248;">Dr. {{ a.doctor?.firstName }} {{ a.doctor?.lastName }}</td>
+<<<<<<< HEAD
                   <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7A8A82;">{{ a.slot?.date | date:'d MMM' }} · {{ a.slot?.startTime }}</td>
+=======
+                  <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7A8A82;">{{ a.slot?.date | date:'MMM d' }} · {{ a.slot?.startTime }}</td>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                   <td style="color:#3A5248;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.motif }}</td>
                   <td><span class="badge {{ a.status.toLowerCase() }}">{{ translateStatus(a.status) }}</span></td>
                   <td>
@@ -62,6 +69,7 @@ import { LucideAngularModule } from 'lucide-angular';
       </div>
     </main>
 
+<<<<<<< HEAD
     <!-- New patient modal -->
     @if (showPatientModal()) {
       <div class="overlay" (click)="closePatientModal()">
@@ -124,6 +132,8 @@ import { LucideAngularModule } from 'lucide-angular';
       </div>
     }
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     <!-- New appointment modal -->
     @if (showModal()) {
       <div class="overlay" (click)="closeModal()">
@@ -211,6 +221,7 @@ export class SecretaryAppointmentsComponent implements OnInit {
   readonly patients     = this._patients.asReadonly();
   readonly doctors      = this._doctors.asReadonly();
 
+<<<<<<< HEAD
   showModal        = signal(false);
   saving           = signal(false);
   showPatientModal = signal(false);
@@ -220,6 +231,13 @@ export class SecretaryAppointmentsComponent implements OnInit {
 
   newApptForm!: ReturnType<FormBuilder['group']>;
   newPatientForm!: ReturnType<FormBuilder['group']>;
+=======
+  showModal = signal(false);
+  saving    = signal(false);
+  today     = new Date().toISOString().slice(0, 10);
+
+  newApptForm!: ReturnType<FormBuilder['group']>;
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   constructor(
     private api: ApiService,
@@ -235,6 +253,7 @@ export class SecretaryAppointmentsComponent implements OnInit {
       type:      ['GENERAL'],
       motif:     [''],
     });
+<<<<<<< HEAD
     this.newPatientForm = this.fb.group({
       firstName:   ['', Validators.required],
       lastName:    ['', Validators.required],
@@ -243,6 +262,8 @@ export class SecretaryAppointmentsComponent implements OnInit {
       dateOfBirth: [''],
       bloodType:   [''],
     });
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   }
 
   ngOnInit(): void {
@@ -267,6 +288,7 @@ export class SecretaryAppointmentsComponent implements OnInit {
 
   closeModal(): void { this.showModal.set(false); }
 
+<<<<<<< HEAD
   openNewPatient(): void {
     this.newPatientForm.reset();
     this.createdPatientCreds.set(null);
@@ -306,6 +328,8 @@ export class SecretaryAppointmentsComponent implements OnInit {
     });
   }
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   createAppt(): void {
     if (this.newApptForm.invalid) return;
     this.saving.set(true);

@@ -11,7 +11,11 @@ async function main() {
   // Admin
   const adminUser = await prisma.user.create({
     data: {
+<<<<<<< HEAD
       email: 'admin@medisync.ma',
+=======
+      email: 'admin@medisync.fr',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       passwordHash: await hash('Admin123!'),
       role: 'ADMIN',
       admin: { create: { firstName: 'Sophie', lastName: 'Martin' } },
@@ -22,7 +26,11 @@ async function main() {
   // Secretary
   const secUser = await prisma.user.create({
     data: {
+<<<<<<< HEAD
       email: 'secretary@medisync.ma',
+=======
+      email: 'secretary@medisync.fr',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       passwordHash: await hash('Secretary123!'),
       role: 'SECRETARY',
       secretary: { create: { firstName: 'Marie', lastName: 'Dupont', phone: '01 23 45 67 89' } },
@@ -33,7 +41,11 @@ async function main() {
   const doctors = await Promise.all([
     prisma.user.create({
       data: {
+<<<<<<< HEAD
         email: 'dr.chen@medisync.ma',
+=======
+        email: 'dr.chen@medisync.fr',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         passwordHash: await hash('Doctor123!'),
         role: 'DOCTOR',
         doctor: {
@@ -46,8 +58,11 @@ async function main() {
             consultationRate: 60,
             bio: 'Dr. Chen is a renowned cardiologist with 15 years of experience in interventional cardiology and heart failure management.',
             licenseNumber: 'RPPS-10234567',
+<<<<<<< HEAD
             city: 'Casablanca',
             address: 'Clinique MediSync, Avenue Mohammed V, Casablanca',
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           },
         },
       },
@@ -55,7 +70,11 @@ async function main() {
     }),
     prisma.user.create({
       data: {
+<<<<<<< HEAD
         email: 'dr.moreau@medisync.ma',
+=======
+        email: 'dr.moreau@medisync.fr',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         passwordHash: await hash('Doctor123!'),
         role: 'DOCTOR',
         doctor: {
@@ -68,8 +87,11 @@ async function main() {
             consultationRate: 25,
             bio: 'Dr. Moreau provides comprehensive primary care with a focus on preventive medicine and chronic disease management.',
             licenseNumber: 'RPPS-20345678',
+<<<<<<< HEAD
             city: 'Rabat',
             address: 'Clinique MediSync, Avenue Hassan II, Rabat',
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           },
         },
       },
@@ -77,7 +99,11 @@ async function main() {
     }),
     prisma.user.create({
       data: {
+<<<<<<< HEAD
         email: 'dr.garcia@medisync.ma',
+=======
+        email: 'dr.garcia@medisync.fr',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         passwordHash: await hash('Doctor123!'),
         role: 'DOCTOR',
         doctor: {
@@ -90,8 +116,11 @@ async function main() {
             consultationRate: 80,
             bio: 'Dr. Garcia specializes in neurological disorders including epilepsy, migraines, and neurodegenerative diseases.',
             licenseNumber: 'RPPS-30456789',
+<<<<<<< HEAD
             city: 'Marrakech',
             address: 'Clinique MediSync, Boulevard Mohammed VI, Marrakech',
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           },
         },
       },
@@ -300,11 +329,19 @@ async function main() {
 
   console.log('\n🎉 Seed complete!');
   console.log('\n📋 Test Credentials:');
+<<<<<<< HEAD
   console.log('Admin:     admin@medisync.ma     / Admin123!');
   console.log('Secretary: secretary@medisync.ma / Secretary123!');
   console.log('Doctor 1:  dr.chen@medisync.ma   / Doctor123!');
   console.log('Doctor 2:  dr.moreau@medisync.ma / Doctor123!');
   console.log('Doctor 3:  dr.garcia@medisync.ma / Doctor123!');
+=======
+  console.log('Admin:     admin@medisync.fr     / Admin123!');
+  console.log('Secretary: secretary@medisync.fr / Secretary123!');
+  console.log('Doctor 1:  dr.chen@medisync.fr   / Doctor123!');
+  console.log('Doctor 2:  dr.moreau@medisync.fr / Doctor123!');
+  console.log('Doctor 3:  dr.garcia@medisync.fr / Doctor123!');
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   console.log('Patient 1: alice.bernard@email.fr / Patient123!');
 }
 

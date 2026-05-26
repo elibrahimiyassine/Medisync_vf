@@ -1,13 +1,18 @@
 import { Router } from 'express';
+<<<<<<< HEAD
 import {
   getAllDoctors, getDoctorById, getDoctorSlots,
   getDoctorAppointments, updateDoctor, updateDoctorMe,
   getDoctorDashboard, getDoctorProfile,
 } from '../controllers/doctor.controller';
+=======
+import { getAllDoctors, getDoctorById, getDoctorSlots, getDoctorAppointments, updateDoctor, getDoctorDashboard } from '../controllers/doctor.controller';
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 import { authenticate, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
+<<<<<<< HEAD
 // Public routes
 router.get('/', getAllDoctors);
 router.get('/:id/slots', getDoctorSlots);
@@ -39,6 +44,15 @@ router.put('/me',              authorize('DOCTOR'), updateDoctorMe);
 router.get('/me/appointments', authorize('DOCTOR'), getDoctorAppointments);
 
 router.get('/:id', getDoctorById);
+=======
+router.get('/', getAllDoctors);
+router.get('/:id', getDoctorById);
+router.get('/:id/slots', getDoctorSlots);
+
+router.use(authenticate);
+router.get('/me/dashboard', authorize('DOCTOR'), getDoctorDashboard);
+router.get('/me/appointments', authorize('DOCTOR'), getDoctorAppointments);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 router.put('/:id', authorize('DOCTOR', 'ADMIN'), updateDoctor);
 
 export default router;

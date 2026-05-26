@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken, JWTPayload } from '../utils/jwt';
 import { Role } from '@prisma/client';
+<<<<<<< HEAD
 import { prisma } from '../utils/prisma';
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 export interface AuthRequest extends Request {
   user?: JWTPayload;
@@ -24,6 +27,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
   }
 };
 
+<<<<<<< HEAD
 export const requireAdmin2FA = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   if (req.path.startsWith('/totp')) return next();
   if (req.user?.role !== 'ADMIN') return next();
@@ -39,6 +43,8 @@ export const requireAdmin2FA = async (req: AuthRequest, res: Response, next: Nex
   next();
 };
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 export const authorize = (...roles: Role[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction): void => {
     if (!req.user) {

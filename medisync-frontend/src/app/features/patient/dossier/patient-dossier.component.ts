@@ -41,7 +41,11 @@ import { LucideAngularModule } from 'lucide-angular';
             </div>
             <div class="info-section">
               <p class="info-label">Date de naissance</p>
+<<<<<<< HEAD
               <p class="info-value">{{ patient().dateOfBirth | date:'d MMMM yyyy' }}</p>
+=======
+              <p class="info-value">{{ patient().dateOfBirth | date:'MMMM d, yyyy' }}</p>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             </div>
             <div class="info-section">
               <p class="info-label">Groupe sanguin</p>
@@ -86,7 +90,11 @@ import { LucideAngularModule } from 'lucide-angular';
                           <p class="entry-doctor">Dr. {{ rec.doctor.firstName }} {{ rec.doctor.lastName }}</p>
                         </div>
                         <div class="entry-meta">
+<<<<<<< HEAD
                           <p class="entry-date">{{ rec.createdAt | date:'d MMM yyyy' }}</p>
+=======
+                          <p class="entry-date">{{ rec.createdAt | date:'MMM d, yyyy' }}</p>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                           <span class="expand-icon"><lucide-icon [name]="expandedId() === rec.id ? 'chevron-up' : 'chevron-down'" [size]="12" /></span>
                         </div>
                       </div>
@@ -109,7 +117,11 @@ import { LucideAngularModule } from 'lucide-angular';
                           }
                           @if (rec.prescription) {
                             <div class="prescription-badge">
+<<<<<<< HEAD
                               <lucide-icon name="pill" [size]="13" style="margin-right:4px;" /> Ordonnance émise — <a [routerLink]="['/patient/prescriptions']" style="color:#2A4A38;">Voir →</a>
+=======
+                              <lucide-icon name="pill" [size]="13" style="margin-right:4px;" /> Prescription issued — <a [routerLink]="['/patient/prescriptions']" style="color:#2A4A38;">View →</a>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                             </div>
                           }
                         </div>
@@ -142,7 +154,11 @@ import { LucideAngularModule } from 'lucide-angular';
                     </div>
                     <div class="doc-info">
                       <p class="doc-name">{{ doc.fileName }}</p>
+<<<<<<< HEAD
                       <p class="doc-meta">{{ doc.uploadedAt | date:'d MMM yyyy' }} · {{ formatSize(doc.fileSize) }}</p>
+=======
+                      <p class="doc-meta">{{ doc.uploadedAt | date:'MMM d, yyyy' }} · {{ formatSize(doc.fileSize) }}</p>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                     </div>
                     <a [href]="doc.fileUrl" target="_blank" class="btn-icon" title="Download"><lucide-icon name="download" [size]="14" /></a>
                   </div>

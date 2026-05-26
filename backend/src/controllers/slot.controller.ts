@@ -5,6 +5,7 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 
 export const getSlots = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const { doctorId, date, dateFrom, dateTo } = req.query;
 
     // Doctor viewing their own planning: return ALL slots (booked + available) with appointment info
@@ -58,6 +59,18 @@ export const getSlots = async (req: AuthRequest, res: Response, next: NextFuncti
       orderBy: [{ date: 'asc' }, { startTime: 'asc' }],
     });
 
+=======
+    const { doctorId, date } = req.query;
+    const where: any = { isAvailable: true };
+    if (doctorId) where.doctorId = doctorId;
+    if (date) {
+      const d = new Date(date as string);
+      const next = new Date(d);
+      next.setDate(next.getDate() + 1);
+      where.date = { gte: d, lt: next };
+    }
+    const slots = await prisma.timeSlot.findMany({ where, orderBy: [{ date: 'asc' }, { startTime: 'asc' }] });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     res.json({ success: true, data: slots });
   } catch (err) { next(err); }
 };

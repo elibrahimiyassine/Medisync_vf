@@ -3,14 +3,25 @@ import { prisma } from '../utils/prisma';
 import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import bcrypt from 'bcryptjs';
+<<<<<<< HEAD
 import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
+=======
+import fs from 'fs';
+import path from 'path';
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 // ── Stats ──────────────────────────────────────────────────────────────────────
 export const getStats = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const today      = new Date(); today.setHours(0, 0, 0, 0);
     const thisMonth  = new Date(today.getFullYear(), today.getMonth(), 1);
+=======
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
     const [
       totalPatients, totalDoctors, totalAppointments,
@@ -39,6 +50,7 @@ export const getStats = async (_req: AuthRequest, res: Response, next: NextFunct
   } catch (err) { next(err); }
 };
 
+<<<<<<< HEAD
 // ── Monthly Stats ─────────────────────────────────────────────────────────────
 export const getMonthlyStats = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -68,11 +80,17 @@ export const getMonthlyStats = async (_req: AuthRequest, res: Response, next: Ne
   } catch (err) { next(err); }
 };
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 // ── Audit Logs ─────────────────────────────────────────────────────────────────
 export const getAuditLogs = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { page = 1, limit = 500, action } = req.query;
+<<<<<<< HEAD
     const skip  = (Number(page) - 1) * Number(limit);
+=======
+    const skip = (Number(page) - 1) * Number(limit);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const where: any = {};
     if (action) where.action = { contains: action as string, mode: 'insensitive' };
 
@@ -85,6 +103,10 @@ export const getAuditLogs = async (req: AuthRequest, res: Response, next: NextFu
       prisma.auditLog.count({ where }),
     ]);
 
+<<<<<<< HEAD
+=======
+    // Normalise field name (timestamp → createdAt) for frontend
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const normalised = logs.map((l: any) => ({ ...l, createdAt: l.timestamp }));
     res.json({ success: true, data: normalised, meta: { total, page: Number(page) } });
   } catch (err) { next(err); }
@@ -102,6 +124,7 @@ export const getStaff = async (_req: AuthRequest, res: Response, next: NextFunct
       }),
     ]);
 
+<<<<<<< HEAD
     const staff = [
       ...doctors.map((d: any) => ({
         ...d,
@@ -116,6 +139,12 @@ export const getStaff = async (_req: AuthRequest, res: Response, next: NextFunct
         isActive: s.user?.isActive ?? true,
         email:    s.user?.email,
       })),
+=======
+    // Return unified array — each item has role, id = profile record id
+    const staff = [
+      ...doctors.map((d: any) => ({ ...d, role: 'DOCTOR' })),
+      ...secretaries.map((s: any) => ({ ...s, role: 'SECRETARY' })),
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     ];
 
     res.json({ success: true, data: staff });
@@ -124,6 +153,7 @@ export const getStaff = async (_req: AuthRequest, res: Response, next: NextFunct
 
 export const createStaff = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const { email, password, role, firstName, lastName, specialty, sectorType, consultationRate, consultationFee, bio, phone } = req.body;
 
     const existing = await prisma.user.findUnique({ where: { email } });
@@ -131,6 +161,14 @@ export const createStaff = async (req: AuthRequest, res: Response, next: NextFun
     if (!password) throw new AppError('Password is required', 400);
 
     const rate = Number(consultationRate || consultationFee || 50);
+=======
+    const { email, password, role, firstName, lastName, specialty, sectorType, consultationRate, bio, phone } = req.body;
+
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) throw new AppError('Email already exists', 409);
+
+    if (!password) throw new AppError('Password is required', 400);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const passwordHash = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
@@ -140,10 +178,17 @@ export const createStaff = async (req: AuthRequest, res: Response, next: NextFun
           doctor: {
             create: {
               firstName, lastName,
+<<<<<<< HEAD
               specialty:       specialty || 'Médecine générale',
               sectorType:      sectorType || 'SECTOR_1',
               consultationRate: rate,
               bio:             bio || '',
+=======
+              specialty: specialty || 'General Medicine',
+              sectorType: sectorType || 'SECTOR_1',
+              consultationRate: Number(consultationRate) || 50,
+              bio: bio || '',
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             },
           },
         }),
@@ -160,14 +205,22 @@ export const createStaff = async (req: AuthRequest, res: Response, next: NextFun
 
 export const updateStaff = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const { firstName, lastName, phone, specialty, email, consultationFee, consultationRate, isActive } = req.body;
     const profileId = req.params.id;
     const rate = consultationRate ?? consultationFee;
 
+=======
+    const { firstName, lastName, phone, specialty, email } = req.body;
+    const profileId = req.params.id;
+
+    // Try doctor first, then secretary
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const doctor = await prisma.doctor.findUnique({ where: { id: profileId } });
     if (doctor) {
       await prisma.doctor.update({
         where: { id: profileId },
+<<<<<<< HEAD
         data: {
           ...(firstName !== undefined && { firstName }),
           ...(lastName  !== undefined && { lastName }),
@@ -177,6 +230,11 @@ export const updateStaff = async (req: AuthRequest, res: Response, next: NextFun
       });
       if (email    !== undefined) await prisma.user.update({ where: { id: doctor.userId }, data: { email } });
       if (isActive !== undefined) await prisma.user.update({ where: { id: doctor.userId }, data: { isActive: Boolean(isActive) } });
+=======
+        data: { firstName, lastName, ...(specialty && { specialty }) },
+      });
+      if (email) await prisma.user.update({ where: { id: doctor.userId }, data: { email } });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       return res.json({ success: true, message: 'Staff updated' }) as any;
     }
 
@@ -184,6 +242,7 @@ export const updateStaff = async (req: AuthRequest, res: Response, next: NextFun
     if (secretary) {
       await prisma.secretary.update({
         where: { id: profileId },
+<<<<<<< HEAD
         data: {
           ...(firstName !== undefined && { firstName }),
           ...(lastName  !== undefined && { lastName }),
@@ -192,6 +251,11 @@ export const updateStaff = async (req: AuthRequest, res: Response, next: NextFun
       });
       if (email    !== undefined) await prisma.user.update({ where: { id: secretary.userId }, data: { email } });
       if (isActive !== undefined) await prisma.user.update({ where: { id: secretary.userId }, data: { isActive: Boolean(isActive) } });
+=======
+        data: { firstName, lastName, ...(phone && { phone }) },
+      });
+      if (email) await prisma.user.update({ where: { id: secretary.userId }, data: { email } });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       return res.json({ success: true, message: 'Staff updated' }) as any;
     }
 
@@ -222,6 +286,7 @@ export const deleteStaff = async (req: AuthRequest, res: Response, next: NextFun
 // ── Finance ────────────────────────────────────────────────────────────────────
 export const getFinanceReport = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const { month, date, year, week } = req.query as Record<string, string | undefined>;
     let startDate: Date, endDate: Date;
 
@@ -245,11 +310,20 @@ export const getFinanceReport = async (req: AuthRequest, res: Response, next: Ne
       endDate   = new Date(y, 11, 31, 23, 59, 59, 999);
     } else if (month) {
       // month view: ?month=YYYY-MM
+=======
+    const { month } = req.query as { month?: string };
+
+    let startDate: Date, endDate: Date;
+    if (month) {
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       const [y, m] = month.split('-').map(Number);
       startDate = new Date(y, m - 1, 1);
       endDate   = new Date(y, m, 0, 23, 59, 59, 999);
     } else {
+<<<<<<< HEAD
       // default: current month
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       const now = new Date();
       startDate = new Date(now.getFullYear(), now.getMonth(), 1);
       endDate   = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
@@ -258,18 +332,35 @@ export const getFinanceReport = async (req: AuthRequest, res: Response, next: Ne
     const invoices = await prisma.invoice.findMany({
       where: { issuedAt: { gte: startDate, lte: endDate } },
       include: {
+<<<<<<< HEAD
         patient:     { select: { firstName: true, lastName: true } },
         appointment: { include: { doctor: { select: { firstName: true, lastName: true } } } },
+=======
+        patient: { select: { firstName: true, lastName: true } },
+        appointment: {
+          include: {
+            doctor: { select: { firstName: true, lastName: true } },
+          },
+        },
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       },
       orderBy: { issuedAt: 'desc' },
     });
 
     const paid    = invoices.filter((i: any) => i.status === 'PAID');
     const pending = invoices.filter((i: any) => i.status === 'PENDING');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const totalRevenue   = paid.reduce((s: number, i: any) => s + Number(i.amount), 0);
     const pendingRevenue = pending.reduce((s: number, i: any) => s + Number(i.amount), 0);
     const avgAmount      = invoices.length ? (totalRevenue + pendingRevenue) / invoices.length : 0;
 
+<<<<<<< HEAD
+=======
+    // Revenue grouped by doctor
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     const doctorMap: Record<string, { doctorId: string; doctorName: string; revenue: number }> = {};
     paid.forEach((inv: any) => {
       const doc = inv.appointment?.doctor;
@@ -278,17 +369,26 @@ export const getFinanceReport = async (req: AuthRequest, res: Response, next: Ne
       if (!doctorMap[key]) doctorMap[key] = { doctorId: key, doctorName: `${doc.firstName} ${doc.lastName}`, revenue: 0 };
       doctorMap[key].revenue += Number(inv.amount);
     });
+<<<<<<< HEAD
+=======
+    const byDoctor = Object.values(doctorMap).sort((a, b) => b.revenue - a.revenue);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
     res.json({
       success: true,
       data: {
+<<<<<<< HEAD
         summary: { totalRevenue, paidCount: paid.length, pendingRevenue, avgAmount, byDoctor: Object.values(doctorMap).sort((a, b) => b.revenue - a.revenue) },
+=======
+        summary: { totalRevenue, paidCount: paid.length, pendingRevenue, avgAmount, byDoctor },
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         invoices,
       },
     });
   } catch (err) { next(err); }
 };
 
+<<<<<<< HEAD
 // ── Room Occupancy ────────────────────────────────────────────────────────────
 export const getRoomOccupancy = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -357,11 +457,56 @@ export const getSettings = async (_req: AuthRequest, res: Response, next: NextFu
       create: { id: 'singleton' },
     });
     res.json({ success: true, data: settings });
+=======
+// ── Settings ───────────────────────────────────────────────────────────────────
+const SETTINGS_FILE = path.join(process.cwd(), 'data', 'settings.json');
+
+const defaultSettings = {
+  clinicName: 'MediSync Clinic',
+  address: '',
+  phone: '',
+  email: '',
+  timezone: 'Europe/Paris',
+  apptDuration: 30,
+  maxApptPerDay: 20,
+  cancelWindow: 24,
+  autoConfirm: false,
+  emailReminders: true,
+  currency: 'EUR',
+  defaultFee: 50,
+  vatRate: 20,
+  invoiceNote: 'Thank you for your visit. Payment due within 30 days.',
+  require2FA: false,
+  ipAllowlist: false,
+  sessionTimeout: 60,
+  maxLoginAttempts: 5,
+};
+
+function readSettings() {
+  try {
+    if (fs.existsSync(SETTINGS_FILE)) {
+      return { ...defaultSettings, ...JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf-8')) };
+    }
+  } catch { /* ignore */ }
+  return { ...defaultSettings };
+}
+
+function writeSettings(data: any) {
+  const dir = path.dirname(SETTINGS_FILE);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(SETTINGS_FILE, JSON.stringify(data, null, 2));
+}
+
+export const getSettings = async (_req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    res.json({ success: true, data: readSettings() });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   } catch (err) { next(err); }
 };
 
 export const updateSettings = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+<<<<<<< HEAD
     const {
       clinicName, address, phone, email,
       slotDuration, workingHoursStart, workingHoursEnd,
@@ -501,5 +646,11 @@ export const updateAdminProfile = async (req: AuthRequest, res: Response, next: 
       },
     });
     res.json({ success: true, data: admin });
+=======
+    const current = readSettings();
+    const updated = { ...current, ...req.body };
+    writeSettings(updated);
+    res.json({ success: true, data: updated });
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   } catch (err) { next(err); }
 };

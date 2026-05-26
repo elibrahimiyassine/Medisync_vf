@@ -131,7 +131,11 @@ import { LucideAngularModule } from 'lucide-angular';
                   <div class="doc-details">
                     <p class="doc-name">Dr. {{ doc.firstName }} {{ doc.lastName }}</p>
                     <p class="doc-spec">{{ doc.specialty }}</p>
+<<<<<<< HEAD
                     <p class="doc-rate">{{ doc.consultationRate }} DH · Secteur {{ doc.sectorType?.replace('SECTOR_','') }}</p>
+=======
+                    <p class="doc-rate">€{{ doc.consultationRate }} · Sector {{ doc.sectorType?.replace('SECTOR_','') }}</p>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                   </div>
                   @if (doc.avgRating) {
                     <div class="doc-rating" style="display:flex;align-items:center;gap:3px;"><lucide-icon name="star" [size]="12" /> {{ doc.avgRating | number:'1.1-1' }}</div>
@@ -175,7 +179,11 @@ import { LucideAngularModule } from 'lucide-angular';
               <p style="margin-top:6px;"><strong style="color:#2A4A38;">Spécialité :</strong> {{ selectedDoctor()?.specialty }}</p>
               <p style="margin-top:6px;"><strong style="color:#2A4A38;">Date :</strong> {{ bookingForm.get('date')?.value | date:'EEEE d MMMM' }}</p>
               <p style="margin-top:6px;"><strong style="color:#2A4A38;">Heure :</strong> {{ selectedSlot()?.startTime }}</p>
+<<<<<<< HEAD
               <p style="margin-top:6px;"><strong style="color:#2A4A38;">Honoraires :</strong> {{ selectedDoctor()?.consultationRate }} DH</p>
+=======
+              <p style="margin-top:6px;"><strong style="color:#2A4A38;">Honoraires :</strong> €{{ selectedDoctor()?.consultationRate }}</p>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             </div>
 
             <div class="form-group">
@@ -414,8 +422,13 @@ export class PatientAppointmentsComponent implements OnInit {
     const lng = this._languageFilter;
     this._filteredDocs.set(
       this._doctors().filter(d => {
+<<<<<<< HEAD
         const matchText = !q || `${d.firstName} ${d.lastName} ${d.specialty} ${d.city ?? ''}`.toLowerCase().includes(q);
         const matchLoc  = !loc || (d.city ?? '').toLowerCase().includes(loc.toLowerCase());
+=======
+        const matchText = !q || `${d.firstName} ${d.lastName} ${d.specialty}`.toLowerCase().includes(q);
+        const matchLoc  = !loc || !d.location || d.location === loc;
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         const matchLng  = !lng || !d.languages?.length || d.languages.includes(lng);
         return matchText && matchLoc && matchLng;
       })

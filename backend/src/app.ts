@@ -21,6 +21,7 @@ import adminRoutes from './routes/admin.routes';
 import notificationRoutes from './routes/notification.routes';
 import documentRoutes from './routes/document.routes';
 import reviewRoutes from './routes/review.routes';
+<<<<<<< HEAD
 import leaveRoutes from './routes/leave.routes';
 import secretaryRoutes from './routes/secretary.routes';
 
@@ -30,6 +31,12 @@ import { errorHandler } from './middlewares/error.middleware';
 import { setupSocketIO } from './utils/socket';
 import { logger } from './utils/logger';
 import { scheduleReminders } from './utils/reminders';
+=======
+
+import { errorHandler } from './middlewares/error.middleware';
+import { setupSocketIO } from './utils/socket';
+import { logger } from './utils/logger';
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 dotenv.config();
 
@@ -80,10 +87,13 @@ app.get('/health', (_, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), service: 'MediSync API' });
 });
 
+<<<<<<< HEAD
 // API docs (Swagger UI) — disable CSP only for this path so the UI loads
 app.use('/api-docs', (req: express.Request, res: express.Response, next: express.NextFunction) => { res.setHeader('Content-Security-Policy', ''); next(); }, swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customSiteTitle: 'MediSync API Docs' }));
 app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 // API Routes
 const apiPrefix = '/api/v1';
 app.use(`${apiPrefix}/auth`, authRoutes);
@@ -92,16 +102,22 @@ app.use(`${apiPrefix}/doctors`, doctorRoutes);
 app.use(`${apiPrefix}/appointments`, appointmentRoutes);
 app.use(`${apiPrefix}/slots`, slotRoutes);
 app.use(`${apiPrefix}/records`, recordRoutes);
+<<<<<<< HEAD
 app.use(`${apiPrefix}/medical-records`, recordRoutes);
 app.use(`${apiPrefix}/dossier`, recordRoutes);
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 app.use(`${apiPrefix}/prescriptions`, prescriptionRoutes);
 app.use(`${apiPrefix}/invoices`, invoiceRoutes);
 app.use(`${apiPrefix}/admin`, adminRoutes);
 app.use(`${apiPrefix}/notifications`, notificationRoutes);
 app.use(`${apiPrefix}/documents`, documentRoutes);
 app.use(`${apiPrefix}/reviews`, reviewRoutes);
+<<<<<<< HEAD
 app.use(`${apiPrefix}/doctor/leaves`, leaveRoutes);
 app.use(`${apiPrefix}/secretary`, secretaryRoutes);
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 // Error handler (must be last)
 app.use(errorHandler);
@@ -111,7 +127,10 @@ const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
   logger.info(`MediSync API running on port ${PORT}`);
   logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+<<<<<<< HEAD
   scheduleReminders();
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 });
 
 export { app, io };

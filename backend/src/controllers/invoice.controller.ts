@@ -2,6 +2,7 @@ import { Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma';
 import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
+<<<<<<< HEAD
 import { generateInvoicePDF, generateFeuilleSoinsPDF } from '../utils/pdf';
 import { sendInvoiceEmail } from '../utils/email';
 
@@ -27,6 +28,18 @@ export const createInvoice = async (req: AuthRequest, res: Response, next: NextF
 
     const invoice = await prisma.invoice.create({
       data: { patientId, appointmentId, acts: normalizedActs, amount, dueDate: dueDate ? new Date(dueDate) : undefined },
+=======
+import { generateInvoicePDF } from '../utils/pdf';
+import { v4 as uuidv4 } from 'uuid';
+
+export const createInvoice = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { patientId, appointmentId, acts, dueDate } = req.body;
+    const amount = acts.reduce((sum: number, act: any) => sum + act.amount, 0);
+
+    const invoice = await prisma.invoice.create({
+      data: { patientId, appointmentId, acts, amount, dueDate: dueDate ? new Date(dueDate) : undefined },
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       include: { patient: { include: { user: true } }, appointment: { include: { slot: true } } },
     });
 
@@ -73,6 +86,7 @@ export const updateInvoice = async (req: AuthRequest, res: Response, next: NextF
   } catch (err) { next(err); }
 };
 
+<<<<<<< HEAD
 export const getFeuilleSoins = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const invoice = await prisma.invoice.findUnique({
@@ -118,6 +132,8 @@ export const sendInvoiceByEmail = async (req: AuthRequest, res: Response, next: 
   } catch (err) { next(err); }
 };
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 export const getInvoicePDF = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const invoice = await prisma.invoice.findUnique({

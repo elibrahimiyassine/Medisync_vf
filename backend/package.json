@@ -1,4 +1,27 @@
 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "exxpress": "^1.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.3"
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   "name": "medisync-backend",
   "version": "1.0.0",
   "description": "MediSync Medical Clinic Management System - Backend API",
@@ -26,6 +49,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+<<<<<<< HEAD
     "node-cron": "^4.2.1",
     "nodemailer": "^6.9.12",
     "pdfkit": "^0.14.0",
@@ -37,6 +61,15 @@
     "uuid": "^9.0.1",
     "winston": "^3.12.0",
     "zod": "^4.4.3"
+=======
+    "nodemailer": "^6.9.12",
+    "pdfkit": "^0.14.0",
+    "socket.io": "^4.7.4",
+    "speakeasy": "^2.0.0",
+    "qrcode": "^1.5.3",
+    "uuid": "^9.0.1",
+    "winston": "^3.12.0"
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -47,6 +80,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.11",
+<<<<<<< HEAD
     "@types/node": "^20.11.25",
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.14",
@@ -56,9 +90,21 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/uuid": "^9.0.8",
+=======
+    "@types/nodemailer": "^6.4.14",
+    "@types/node": "^20.11.25",
+    "@types/pdfkit": "^0.13.4",
+    "@types/speakeasy": "^2.0.10",
+    "@types/uuid": "^9.0.8",
+    "@types/qrcode": "^1.5.5",
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     "prisma": "^5.10.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.2"
+<<<<<<< HEAD
+=======
+>>>>>>> ccd408b (Initial commit — MediSync full-stack clinic management platform)
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   }
 }

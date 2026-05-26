@@ -17,7 +17,10 @@ enum Role {
 enum AppointmentStatus {
   PENDING
   CONFIRMED
+<<<<<<< HEAD
   SCHEDULED
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   CANCELLED
   COMPLETED
   NO_SHOW
@@ -85,7 +88,11 @@ model Patient {
   userId               String    @unique
   firstName            String
   lastName             String
+<<<<<<< HEAD
   dateOfBirth          DateTime?
+=======
+  dateOfBirth          DateTime
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   phone                String?
   address              String?
   bloodType            BloodType?
@@ -93,9 +100,12 @@ model Patient {
   socialSecurityNumber String?   @unique
   emergencyContact     String?
   emergencyPhone       String?
+<<<<<<< HEAD
   guardianName         String?
   guardianPhone        String?
   guardianRelationship String?
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   avatar               String?
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
@@ -107,7 +117,10 @@ model Patient {
   documents      Document[]
   invoices       Invoice[]
   reviews        Review[]
+<<<<<<< HEAD
   reports        Report[]
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   @@map("patients")
 }
@@ -124,8 +137,11 @@ model Doctor {
   bio              String?
   avatar           String?
   licenseNumber    String?    @unique
+<<<<<<< HEAD
   city             String?
   address          String?
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   isAvailable      Boolean    @default(true)
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
@@ -136,7 +152,10 @@ model Doctor {
   medicalRecords MedicalRecord[]
   prescriptions  Prescription[]
   reviews        Review[]
+<<<<<<< HEAD
   leaves         Leave[]
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   @@map("doctors")
 }
@@ -183,7 +202,10 @@ model TimeSlot {
   appointment Appointment?
 
   @@unique([doctorId, date, startTime])
+<<<<<<< HEAD
   @@index([date])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("time_slots")
 }
 
@@ -207,9 +229,12 @@ model Appointment {
   invoice       Invoice?
   review        Review?
 
+<<<<<<< HEAD
   @@index([patientId])
   @@index([doctorId])
   @@index([status])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("appointments")
 }
 
@@ -230,14 +255,21 @@ model MedicalRecord {
   appointment  Appointment  @relation(fields: [appointmentId], references: [id])
   prescription Prescription?
 
+<<<<<<< HEAD
   @@index([patientId])
   @@index([doctorId])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("medical_records")
 }
 
 model Prescription {
   id              String   @id @default(uuid())
+<<<<<<< HEAD
   medicalRecordId String?  @unique
+=======
+  medicalRecordId String   @unique
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   doctorId        String
   patientId       String
   medications     Json[]
@@ -245,12 +277,19 @@ model Prescription {
   issuedAt        DateTime @default(now())
   expiresAt       DateTime?
 
+<<<<<<< HEAD
   medicalRecord MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
   doctor        Doctor        @relation(fields: [doctorId], references: [id])
   patient       Patient       @relation(fields: [patientId], references: [id])
 
   @@index([patientId])
   @@index([doctorId])
+=======
+  medicalRecord MedicalRecord @relation(fields: [medicalRecordId], references: [id])
+  doctor        Doctor        @relation(fields: [doctorId], references: [id])
+  patient       Patient       @relation(fields: [patientId], references: [id])
+
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("prescriptions")
 }
 
@@ -267,7 +306,10 @@ model Document {
 
   patient Patient @relation(fields: [patientId], references: [id])
 
+<<<<<<< HEAD
   @@index([patientId])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("documents")
 }
 
@@ -285,8 +327,11 @@ model Invoice {
   patient     Patient     @relation(fields: [patientId], references: [id])
   appointment Appointment @relation(fields: [appointmentId], references: [id])
 
+<<<<<<< HEAD
   @@index([patientId])
   @@index([status])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("invoices")
 }
 
@@ -312,8 +357,11 @@ model AuditLog {
 
   user User @relation(fields: [userId], references: [id])
 
+<<<<<<< HEAD
   @@index([userId])
   @@index([timestamp])
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   @@map("audit_logs")
 }
 
@@ -328,6 +376,7 @@ model Notification {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+<<<<<<< HEAD
   @@index([userId, isRead])
   @@map("notifications")
 }
@@ -363,6 +412,11 @@ model Report {
   @@map("reports")
 }
 
+=======
+  @@map("notifications")
+}
+
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 model Review {
   id            String   @id @default(uuid())
   patientId     String
@@ -376,6 +430,7 @@ model Review {
   doctor      Doctor      @relation(fields: [doctorId], references: [id])
   appointment Appointment @relation(fields: [appointmentId], references: [id])
 
+<<<<<<< HEAD
   @@index([doctorId])
   @@index([patientId])
   @@map("reviews")
@@ -408,3 +463,7 @@ model RolePermission {
 
   @@map("role_permissions")
 }
+=======
+  @@map("reviews")
+}
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567

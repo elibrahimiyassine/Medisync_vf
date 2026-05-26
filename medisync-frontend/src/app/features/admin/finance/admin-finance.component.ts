@@ -5,7 +5,10 @@ import { ApiService } from '../../../core/services/api.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
 import { TopbarComponent } from '../../../shared/components/topbar/topbar.component';
 import { LucideAngularModule } from 'lucide-angular';
+<<<<<<< HEAD
 import ExcelJS from 'exceljs';
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 @Component({
   selector: 'app-admin-finance',
@@ -26,16 +29,22 @@ import ExcelJS from 'exceljs';
             <!-- Period tabs -->
             <div class="period-tabs">
               <button class="period-btn" [class.active]="period() === 'day'"   (click)="setPeriod('day')">Jour</button>
+<<<<<<< HEAD
               <button class="period-btn" [class.active]="period() === 'week'"  (click)="setPeriod('week')">Semaine</button>
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
               <button class="period-btn" [class.active]="period() === 'month'" (click)="setPeriod('month')">Mois</button>
               <button class="period-btn" [class.active]="period() === 'year'"  (click)="setPeriod('year')">Année</button>
             </div>
             @if (period() === 'day') {
               <input type="date" class="glass-input" style="width:160px;" [(ngModel)]="selectedDay" (change)="load()" />
             }
+<<<<<<< HEAD
             @if (period() === 'week') {
               <input type="date" class="glass-input" style="width:160px;" [(ngModel)]="selectedWeek" (change)="load()" />
             }
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             @if (period() === 'month') {
               <input type="month" class="glass-input" style="width:160px;" [(ngModel)]="selectedMonth" (change)="load()" />
             }
@@ -46,7 +55,11 @@ import ExcelJS from 'exceljs';
                 }
               </select>
             }
+<<<<<<< HEAD
             <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:5px;" (click)="exportXlsx()"><lucide-icon name="download" [size]="13" /> Excel</button>
+=======
+            <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:5px;" (click)="exportCsv()"><lucide-icon name="download" [size]="13" /> CSV</button>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           </div>
         </div>
 
@@ -113,7 +126,11 @@ import ExcelJS from 'exceljs';
                 <tr>
                   <td><strong style="color:#1B2520;">{{ inv.patient?.firstName }} {{ inv.patient?.lastName }}</strong></td>
                   <td style="color:#3A5248;">Dr. {{ inv.appointment?.doctor?.lastName }}</td>
+<<<<<<< HEAD
                   <td style="color:#7A8A82;font-size:12px;">{{ inv.issuedAt | date:'d MMM yyyy' }}</td>
+=======
+                  <td style="color:#7A8A82;font-size:12px;">{{ inv.issuedAt | date:'MMM d, yyyy' }}</td>
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                   <td style="font-family:'JetBrains Mono',monospace;color:#2A4A38;font-weight:700;">{{ inv.amount | number:'1.2-2' }} DH</td>
                   <td><span class="badge {{ inv.status.toLowerCase() }}">{{ translateStatus(inv.status) }}</span></td>
                   <td>
@@ -146,12 +163,19 @@ export class AdminFinanceComponent implements OnInit {
   readonly report   = this._report.asReadonly();
   readonly invoices = this._invoices.asReadonly();
 
+<<<<<<< HEAD
   private _period = signal<'day'|'week'|'month'|'year'>('month');
+=======
+  private _period = signal<'day'|'month'|'year'>('month');
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   readonly period = this._period.asReadonly();
 
   selectedMonth = this.currentMonth();
   selectedDay   = new Date().toISOString().slice(0, 10);
+<<<<<<< HEAD
   selectedWeek  = new Date().toISOString().slice(0, 10);
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   selectedYear  = new Date().getFullYear();
   readonly years = Array.from({ length: 6 }, (_, i) => new Date().getFullYear() - i);
 
@@ -164,7 +188,11 @@ export class AdminFinanceComponent implements OnInit {
 
   ngOnInit(): void { this.load(); }
 
+<<<<<<< HEAD
   setPeriod(p: 'day'|'week'|'month'|'year'): void {
+=======
+  setPeriod(p: 'day'|'month'|'year'): void {
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     this._period.set(p);
     this.load();
   }
@@ -173,7 +201,10 @@ export class AdminFinanceComponent implements OnInit {
     const p = this._period();
     const params =
       p === 'day'   ? { date:  this.selectedDay } :
+<<<<<<< HEAD
       p === 'week'  ? { week:  this.selectedWeek } :
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       p === 'year'  ? { year:  String(this.selectedYear) } :
                       { month: this.selectedMonth };
     this.api.get<any>('/admin/finance', params).subscribe(res => {
@@ -206,6 +237,7 @@ export class AdminFinanceComponent implements OnInit {
     w.print();
   }
 
+<<<<<<< HEAD
   async exportXlsx(): Promise<void> {
     const wb = new ExcelJS.Workbook();
     wb.creator  = 'MediSync';
@@ -254,6 +286,24 @@ export class AdminFinanceComponent implements OnInit {
     a.href = url;
     a.download = `factures-${this.selectedMonth}.xlsx`;
     a.click();
+=======
+  exportCsv(): void {
+    const rows = [['Patient', 'Médecin', 'Date', 'Montant', 'Statut']];
+    this._invoices().forEach(inv => {
+      rows.push([
+        `${inv.patient?.firstName} ${inv.patient?.lastName}`,
+        `Dr. ${inv.appointment?.doctor?.lastName || '—'}`,
+        new Date(inv.issuedAt).toLocaleDateString('fr-FR'),
+        inv.amount?.toFixed(2) + ' DH',
+        this.translateStatus(inv.status),
+      ]);
+    });
+    const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `factures-${this.selectedMonth}.csv`; a.click();
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     URL.revokeObjectURL(url);
   }
 }

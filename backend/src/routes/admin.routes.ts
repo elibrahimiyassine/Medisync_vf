@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+<<<<<<< HEAD
   getStats, getMonthlyStats, getAuditLogs,
   getStaff, createStaff, updateStaff, deleteStaff,
   getFinanceReport,
@@ -14,10 +15,20 @@ import { authenticate, authorize, requireAdmin2FA } from '../middlewares/auth.mi
 import { auditLog } from '../middlewares/audit.middleware';
 import { validate } from '../middlewares/validate.middleware';
 import { createStaffSchema, updateStaffSchema, updateSettingsSchema } from '../schemas';
+=======
+  getStats, getAuditLogs,
+  getStaff, createStaff, updateStaff, deleteStaff,
+  getFinanceReport,
+  getSettings, updateSettings,
+} from '../controllers/admin.controller';
+import { authenticate, authorize } from '../middlewares/auth.middleware';
+import { auditLog } from '../middlewares/audit.middleware';
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 const router = Router();
 router.use(authenticate, authorize('ADMIN'));
 
+<<<<<<< HEAD
 router.get('/stats',          getStats);
 router.get('/stats/monthly',  getMonthlyStats);
 router.get('/audit',          getAuditLogs);
@@ -39,5 +50,16 @@ router.get('/reports',              getReports);
 router.patch('/reports/:id',        updateReportStatus);
 router.get('/permissions',          getPermissions);
 router.put('/permissions/:role',    updatePermissions);
+=======
+router.get('/stats',        getStats);
+router.get('/audit',        getAuditLogs);
+router.get('/staff',        getStaff);
+router.post('/staff',       auditLog('CREATE_STAFF', 'user'), createStaff);
+router.put('/staff/:id',    auditLog('UPDATE_STAFF', 'user'), updateStaff);
+router.delete('/staff/:id', auditLog('DELETE_STAFF', 'user'), deleteStaff);
+router.get('/finance',      getFinanceReport);
+router.get('/settings',     getSettings);
+router.put('/settings',     auditLog('UPDATE_SETTINGS', 'system'), updateSettings);
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 export default router;

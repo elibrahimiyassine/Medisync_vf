@@ -60,6 +60,7 @@ export const sendAppointmentConfirmation = async (
   });
 };
 
+<<<<<<< HEAD
 export const sendInvoiceEmail = async (
   email: string,
   patientName: string,
@@ -99,6 +100,8 @@ export const sendInvoiceEmail = async (
   });
 };
 
+=======
+>>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 export const sendPasswordResetEmail = async (email: string, resetUrl: string): Promise<void> => {
   await sendEmail({
     to: email,
