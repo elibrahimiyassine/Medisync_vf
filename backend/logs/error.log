@@ -2426,3 +2426,18 @@ C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:
 → 178       await prisma.user.update(
 An operation failed because it depends on one or more records that were required but not found. Record to update not found.
 2026-05-25 21:20:42 [error]: POST /api/v1/auth/2fa/rescan — Invalid request
+2026-05-26 22:43:25 [error]: POST /api/v1/auth/refresh — No refresh token
+2026-05-26 22:43:39 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-26 22:46:03 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-26 22:46:07 [error]: POST /api/v1/auth/login — Invalid credentials
+2026-05-26 22:50:20 [error]: Error: Missing credentials for "PLAIN"
+    at SMTPConnection._formatError (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection.login (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:454:38)
+    at C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-transport\index.js:272:32
+    at SMTPConnection.<anonymous> (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:215:17)
+    at Object.onceWrapper (node:events:630:28)
+    at SMTPConnection.emit (node:events:509:28)
+    at SMTPConnection._actionEHLO (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1371:14)
+    at SMTPConnection._processResponse (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\alpha\Medisync-new\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
