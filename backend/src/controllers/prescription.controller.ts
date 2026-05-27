@@ -4,7 +4,6 @@ import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { generatePrescriptionPDF } from '../utils/pdf';
 
-<<<<<<< HEAD
 // Normalize to array format for storage; accept both single-med and array
 function normalizeMedications(body: any): any[] {
   if (Array.isArray(body.medications) && body.medications.length > 0) {
@@ -53,22 +52,11 @@ export const createPrescription = async (req: AuthRequest, res: Response, next: 
         instructions,
         expiresAt: expiresAt ? new Date(expiresAt) : undefined,
       },
-=======
-export const createPrescription = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    const { medicalRecordId, patientId, medications, instructions, expiresAt } = req.body;
-    const doctor = await prisma.doctor.findUnique({ where: { userId: req.user!.userId } });
-    if (!doctor) throw new AppError('Doctor not found', 404);
-
-    const prescription = await prisma.prescription.create({
-      data: { medicalRecordId, doctorId: doctor.id, patientId, medications, instructions, expiresAt: expiresAt ? new Date(expiresAt) : undefined },
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       include: { patient: { include: { user: true } }, doctor: true },
     });
 
     await prisma.notification.create({
       data: {
-<<<<<<< HEAD
         userId:  prescription.patient.userId,
         message: `Nouvelle ordonnance émise par Dr. ${doctor.firstName} ${doctor.lastName}`,
         type:    'PRESCRIPTION_ISSUED',
@@ -77,16 +65,6 @@ export const createPrescription = async (req: AuthRequest, res: Response, next: 
     });
 
     res.status(201).json({ success: true, data: withFlatFields(prescription) });
-=======
-        userId: prescription.patient.userId,
-        message: `New prescription issued by Dr. ${doctor.firstName} ${doctor.lastName}`,
-        type: 'PRESCRIPTION_ISSUED',
-        data: { prescriptionId: prescription.id },
-      },
-    });
-
-    res.status(201).json({ success: true, data: prescription });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   } catch (err) { next(err); }
 };
 
@@ -105,7 +83,6 @@ export const getPrescriptions = async (req: AuthRequest, res: Response, next: Ne
 
     const prescriptions = await prisma.prescription.findMany({
       where,
-<<<<<<< HEAD
       include: {
         patient: { select: { firstName: true, lastName: true } },
         doctor:  { select: { firstName: true, lastName: true, specialty: true } },
@@ -137,12 +114,6 @@ export const deletePrescription = async (req: AuthRequest, res: Response, next: 
   try {
     await prisma.prescription.delete({ where: { id: req.params.id } });
     res.json({ success: true });
-=======
-      include: { patient: { select: { firstName: true, lastName: true } }, doctor: { select: { firstName: true, lastName: true, specialty: true } } },
-      orderBy: { issuedAt: 'desc' },
-    });
-    res.json({ success: true, data: prescriptions });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   } catch (err) { next(err); }
 };
 
@@ -155,19 +126,11 @@ export const getPrescriptionPDF = async (req: AuthRequest, res: Response, next: 
     if (!prescription) throw new AppError('Prescription not found', 404);
 
     generatePrescriptionPDF(res, {
-<<<<<<< HEAD
       patientName:  `${prescription.patient.firstName} ${prescription.patient.lastName}`,
       doctorName:   `${prescription.doctor.firstName} ${prescription.doctor.lastName}`,
       specialty:    prescription.doctor.specialty,
       date:         new Date(prescription.issuedAt).toLocaleDateString('fr-FR'),
       medications:  prescription.medications as any[],
-=======
-      patientName: `${prescription.patient.firstName} ${prescription.patient.lastName}`,
-      doctorName: `${prescription.doctor.firstName} ${prescription.doctor.lastName}`,
-      specialty: prescription.doctor.specialty,
-      date: new Date(prescription.issuedAt).toLocaleDateString('fr-FR'),
-      medications: prescription.medications as any[],
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       instructions: prescription.instructions || undefined,
     });
   } catch (err) { next(err); }

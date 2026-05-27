@@ -104,7 +104,6 @@ export const generateInvoicePDF = (
   doc.moveDown();
   doc.moveTo(50, doc.y).lineTo(550, doc.y).strokeColor('#ccc').stroke();
   doc.fontSize(12).fillColor('#333').text('Total:', 50, doc.y + 5, { continued: true });
-<<<<<<< HEAD
   doc.fillColor('#00D4FF').text(`${data.total.toFixed(2)} DH`, { align: 'right' });
 
   doc.end();
@@ -193,9 +192,6 @@ export const generateFeuilleSoinsPDF = (
   doc.fontSize(8).fillColor('#7A8A82').text("Signature de l'assuré", 337, sigY + 8);
 
   doc.fontSize(7).fillColor('#A0B8A8').text('Document généré par MediSync · À conserver pour votre dossier', 50, sigY + 100, { align: 'center', width: 495 });
-=======
-  doc.fillColor('#00D4FF').text(`€${data.total.toFixed(2)}`, { align: 'right' });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   doc.end();
 };

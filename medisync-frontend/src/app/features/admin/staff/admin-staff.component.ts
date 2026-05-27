@@ -84,11 +84,7 @@ interface StaffForm {
                   @if (activeTab() === 'DOCTOR') {
                     <td style="color:#3A5248;">{{ s.specialty || '—' }}</td>
                     <td style="font-family:'JetBrains Mono',monospace;color:#3D6B4F;font-size:12px;">
-<<<<<<< HEAD
                       {{ s.consultationFee != null ? (s.consultationFee + ' DH') : '—' }}
-=======
-                      {{ s.consultationFee != null ? (s.consultationFee + ' €') : '—' }}
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                     </td>
                   }
                   <td style="color:#7A8A82;">{{ s.phone || '—' }}</td>
@@ -156,11 +152,7 @@ interface StaffForm {
                 <input class="glass-input" [(ngModel)]="form.specialty" placeholder="ex. Cardiologie, Neurologie..." />
               </div>
               <div class="form-group">
-<<<<<<< HEAD
                 <label>Tarif de consultation (DH)</label>
-=======
-                <label>Tarif de consultation (€)</label>
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                 <input class="glass-input" type="number" min="0" step="5" [(ngModel)]="form.consultationFee" placeholder="ex. 80" />
               </div>
             }
@@ -209,14 +201,10 @@ export class AdminStaffComponent implements OnInit {
   ngOnInit(): void { this.load(); }
 
   load(): void {
-<<<<<<< HEAD
     this.api.get<any>('/admin/staff').subscribe({
       next: res => this._staff.set(res.data || []),
       error: () => {},
     });
-=======
-    this.api.get<any>('/admin/staff').subscribe(res => this._staff.set(res.data || []));
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   }
 
   filteredStaff() {
@@ -255,24 +243,16 @@ export class AdminStaffComponent implements OnInit {
 
     req.subscribe({
       next: () => {
-<<<<<<< HEAD
         this.saving.set(false);
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         this.notif.showToast(id ? 'Membre mis à jour' : 'Membre créé', 'success');
         this.closeModal();
         this.load();
       },
-<<<<<<< HEAD
       error: (err: any) => {
         this.saving.set(false);
         const msg = err?.error?.errors?.[0]?.message || err?.error?.message || 'Opération échouée';
         this.notif.showToast(msg, 'error');
       },
-=======
-      error: () => this.notif.showToast('Opération échouée', 'error'),
-      complete: () => this.saving.set(false),
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   }
 

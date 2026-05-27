@@ -185,7 +185,6 @@ import { LucideAngularModule } from 'lucide-angular';
             <p class="stat-value" style="color:#3D6B4F;">{{ stats().totalDoctors }}</p>
           </div>
         </div>
-<<<<<<< HEAD
 
         <!-- Room occupancy -->
         <div class="glass-card" style="padding:24px;margin-top:20px;">
@@ -224,8 +223,6 @@ import { LucideAngularModule } from 'lucide-angular';
             </div>
           }
         </div>
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       </div>
     </main>
   `,
@@ -262,13 +259,9 @@ export class AdminDashboardComponent implements OnInit {
     monthAppointments: 0, pendingInvoices: 0, totalRevenue: 0,
     noShowRate: 0, appointmentsByStatus: [],
   });
-<<<<<<< HEAD
   private _animated    = signal<any>({ totalPatients: 0, totalDoctors: 0, monthAppointments: 0, totalRevenue: 0 });
   private _roomOccupancy = signal<any[]>([]);
   readonly roomOccupancy = this._roomOccupancy.asReadonly();
-=======
-  private _animated = signal<any>({ totalPatients: 0, totalDoctors: 0, monthAppointments: 0, totalRevenue: 0 });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   private readonly MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
   private _monthlyStats = signal<any[]>(this.MONTHS.map((month, i) => ({
@@ -446,12 +439,9 @@ export class AdminDashboardComponent implements OnInit {
         if (res.data?.length) this._monthlyStats.set(res.data);
       },
     });
-<<<<<<< HEAD
     this.api.get<any>('/admin/rooms/occupancy').subscribe({
       next: (res) => { if (res.data) this._roomOccupancy.set(res.data); },
     });
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   }
 
   private animateCounters(data: any): void {

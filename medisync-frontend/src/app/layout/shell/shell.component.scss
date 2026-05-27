@@ -1,9 +1,0 @@
-@use 'styles/variables' as *;
-
-.shell-main {
-  margin-left: 260px;
-  padding-top: 64px;
-  min-height: 100vh;
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: $bg-deep;
-}

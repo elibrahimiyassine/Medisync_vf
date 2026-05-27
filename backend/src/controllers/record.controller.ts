@@ -2,7 +2,6 @@ import { Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma';
 import { AppError } from '../middlewares/error.middleware';
 import { AuthRequest } from '../middlewares/auth.middleware';
-<<<<<<< HEAD
 import { RequestHandler } from 'express';
 
 export const getRecords = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -30,8 +29,6 @@ export const getRecords = async (req: AuthRequest, res: Response, next: NextFunc
     res.json({ success: true, data: records });
   } catch (err) { next(err); }
 };
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 export const createRecord = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -71,7 +68,6 @@ export const updateRecord = async (req: AuthRequest, res: Response, next: NextFu
     res.json({ success: true, data: record });
   } catch (err) { next(err); }
 };
-<<<<<<< HEAD
 
 export const uploadRecordDocument: RequestHandler = async (req: any, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -99,5 +95,3 @@ export const uploadRecordDocument: RequestHandler = async (req: any, res: Respon
     res.status(201).json({ success: true, data: document });
   } catch (err) { next(err); }
 };
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567

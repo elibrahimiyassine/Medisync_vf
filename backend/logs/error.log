@@ -2426,3 +2426,31 @@ C:\Users\ja3boo9i\Documents\Medisync\backend\src\controllers\auth.controller.ts:
 → 178       await prisma.user.update(
 An operation failed because it depends on one or more records that were required but not found. Record to update not found.
 2026-05-25 21:20:42 [error]: POST /api/v1/auth/2fa/rescan — Invalid request
+2026-05-26 03:09:39 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-26 03:09:39 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-26 03:09:51 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-26 03:09:51 [error]: POST /api/v1/admin/totp/verify — Code 2FA invalide
+2026-05-26 03:22:53 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454cfcaesm281632205e9.4 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)
+2026-05-26 03:40:04 [error]: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-490454c600esm283986005e9.3 - gsmtp
+    at SMTPConnection._formatError (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1588:34)
+    at SMTPConnection.<anonymous> (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at TLSSocket.SMTPConnection._onSocketData (C:\Users\ja3boo9i\Documents\Medisync\backend\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at TLSSocket.Readable.push (node:internal/streams/readable:394:5)

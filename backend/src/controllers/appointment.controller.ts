@@ -63,7 +63,6 @@ export const getAppointmentById = async (req: AuthRequest, res: Response, next: 
 
 export const createAppointment = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-<<<<<<< HEAD
     const { patientId, doctorId, slotId, motif, notes, slot: inlineSlot } = req.body;
     const io = req.app.get('io');
 
@@ -99,13 +98,6 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
       if (!slot || !slot.isAvailable) throw new AppError('Time slot not available', 409);
       await prisma.timeSlot.update({ where: { id: resolvedSlotId }, data: { isAvailable: false } });
     }
-=======
-    const { patientId, doctorId, slotId, motif, notes } = req.body;
-    const io = req.app.get('io');
-
-    const slot = await prisma.timeSlot.findUnique({ where: { id: slotId } });
-    if (!slot || !slot.isAvailable) throw new AppError('Time slot not available', 409);
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
     let resolvedPatientId = patientId;
     if (req.user!.role === 'PATIENT') {
@@ -116,15 +108,9 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
     const appointment = await prisma.appointment.create({
       data: {
         patientId: resolvedPatientId,
-<<<<<<< HEAD
         doctorId: resolvedDoctorId,
         slotId: resolvedSlotId,
         motif: motif || 'Urgence médicale',
-=======
-        doctorId,
-        slotId,
-        motif,
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         notes,
         secretaryId: req.user!.role === 'SECRETARY'
           ? (await prisma.secretary.findUnique({ where: { userId: req.user!.userId } }))?.id
@@ -138,7 +124,6 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
       },
     });
 
-<<<<<<< HEAD
     // Notify doctor
     emitToUser(io, appointment.doctor.userId, 'new_appointment', appointment);
 
@@ -146,24 +131,11 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
       data: {
         userId: appointment.doctor.userId,
         message: `Nouveau rendez-vous de ${appointment.patient.firstName} ${appointment.patient.lastName}`,
-=======
-    await prisma.timeSlot.update({ where: { id: slotId }, data: { isAvailable: false } });
-
-    // Notify doctor
-    emitToUser(io, appointment.doctor.userId, 'new_appointment', appointment);
-
-    // Create notification
-    await prisma.notification.create({
-      data: {
-        userId: appointment.doctor.userId,
-        message: `New appointment request from ${appointment.patient.firstName} ${appointment.patient.lastName}`,
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         type: 'APPOINTMENT_BOOKED',
         data: { appointmentId: appointment.id },
       },
     });
 
-<<<<<<< HEAD
     // Notify all secretaries
     const secretaries = await prisma.secretary.findMany({ select: { userId: true } });
     if (secretaries.length > 0) {
@@ -179,8 +151,6 @@ export const createAppointment = async (req: AuthRequest, res: Response, next: N
       secretaries.forEach(s => emitToUser(io, s.userId, 'new_appointment', appointment));
     }
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     // Send email confirmation
     await sendAppointmentConfirmation(
       appointment.patient.user.email,

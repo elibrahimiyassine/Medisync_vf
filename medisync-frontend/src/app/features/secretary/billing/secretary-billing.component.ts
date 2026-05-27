@@ -1,10 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormArray, Validators } from '@angular/forms';
-<<<<<<< HEAD
 import { forkJoin } from 'rxjs';
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 import { ApiService } from '../../../core/services/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
@@ -45,10 +42,7 @@ import { LucideAngularModule } from 'lucide-angular';
                         <button class="btn-primary" style="font-size:11px;padding:5px 10px;" (click)="markPaid(inv.id)">Marquer payé</button>
                       }
                       <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="printInvoice(inv)"><lucide-icon name="download" [size]="12" /> PDF</button>
-<<<<<<< HEAD
                       <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="downloadFeuilleSoins(inv.id)"><lucide-icon name="file-text" [size]="12" /> Feuille</button>
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                       <button class="btn-secondary" style="font-size:11px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;" (click)="sendEmail(inv.id)" [disabled]="sendingEmailId() === inv.id">
                         @if (sendingEmailId() !== inv.id) { <lucide-icon name="mail" [size]="12" /> } {{ sendingEmailId() === inv.id ? '...' : 'E-mail' }}
                       </button>
@@ -233,7 +227,6 @@ export class SecretaryBillingComponent implements OnInit {
   openActModal(): void {
     this.buildActForm();
     this._actModalOpen.set(true);
-<<<<<<< HEAD
 
     forkJoin({
       appts: this.api.get<any>('/appointments'),
@@ -245,11 +238,6 @@ export class SecretaryBillingComponent implements OnInit {
         (a.status === 'CONFIRMED' || a.status === 'COMPLETED' || a.status === 'PENDING')
         && !invoicedIds.has(a.id)
       ));
-=======
-    this.api.get<any>('/appointments').subscribe(res => {
-      const all: any[] = res.data || [];
-      this._appointments.set(all.filter(a => a.status === 'CONFIRMED' || a.status === 'COMPLETED'));
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   }
 
@@ -311,7 +299,6 @@ export class SecretaryBillingComponent implements OnInit {
     return map[s] || s;
   }
 
-<<<<<<< HEAD
   downloadFeuilleSoins(id: string): void {
     const token = localStorage.getItem('accessToken');
     const url = `${this.apiBase}/invoices/${id}/feuille-soins`;
@@ -337,14 +324,6 @@ export class SecretaryBillingComponent implements OnInit {
     this.api.post<any>(`/invoices/${id}/send-email`, {}).subscribe({
       next: () => { this.sendingEmailId.set(null); this.notifSvc.showToast('Facture envoyée par e-mail', 'success'); },
       error: () => { this.sendingEmailId.set(null); this.notifSvc.showToast('Échec de l\'envoi', 'error'); },
-=======
-  sendEmail(id: string): void {
-    this.sendingEmailId.set(id);
-    this.api.post<any>(`/invoices/${id}/send-email`, {}).subscribe({
-      next: () => this.notifSvc.showToast('Facture envoyée par e-mail', 'success'),
-      error: () => this.notifSvc.showToast('Échec de l\'envoi', 'error'),
-      complete: () => this.sendingEmailId.set(null),
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   }
 

@@ -365,29 +365,18 @@ export class DoctorConsultationComponent implements OnInit {
       return;
     }
 
-<<<<<<< HEAD
     const recordId  = this._appt()?.medicalRecord?.id;
     const patientId = this._appt()?.patientId || this._appt()?.patient?.id;
     if (!recordId && !patientId) return;
-=======
-    const patientId = this._appt()?.patientId || this._appt()?.patient?.id;
-    if (!patientId) return;
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
     this._docUploading.set(true);
     const fd = new FormData();
     fd.append('file', file);
     const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
-<<<<<<< HEAD
     fd.append('documentType', ['dcm', 'dicom'].includes(ext) ? 'IMAGING' : 'CONSULTATION');
 
     const endpoint = recordId ? `/records/${recordId}/documents` : `/patients/${patientId}/documents`;
     this.api.upload<any>(endpoint, fd).subscribe({
-=======
-    fd.append('documentType', ['dcm', 'dicom'].includes(ext) ? 'IMAGING' : 'OTHER');
-
-    this.api.upload<any>(`/patients/${patientId}/documents`, fd).subscribe({
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       next: (res) => {
         this._patientDocs.update(d => [res.data, ...d]);
         this._docUploading.set(false);

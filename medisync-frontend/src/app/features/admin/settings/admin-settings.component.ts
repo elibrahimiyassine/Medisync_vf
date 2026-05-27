@@ -1,10 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 import { ApiService } from '../../../core/services/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
@@ -26,7 +23,6 @@ import { LucideAngularModule } from 'lucide-angular';
           <p style="color:#7A8A82;font-size:13px;margin-top:4px;">Configurer la clinique et les préférences système</p>
         </div>
 
-<<<<<<< HEAD
         @if (needs2FASetup()) {
           <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(194,64,64,0.08);border:1px solid rgba(194,64,64,0.3);border-radius:12px;margin-bottom:24px;">
             <lucide-icon name="shield-alert" [size]="20" style="color:#C24040;flex-shrink:0;" />
@@ -40,8 +36,6 @@ import { LucideAngularModule } from 'lucide-angular';
           </div>
         }
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         <div style="display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start;">
 
           <!-- Settings nav -->
@@ -487,10 +481,7 @@ import { LucideAngularModule } from 'lucide-angular';
 export class AdminSettingsComponent implements OnInit {
   activeSection = signal('clinic');
   saving        = signal(false);
-<<<<<<< HEAD
   needs2FASetup = signal(false);
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   private _rooms = signal<any[]>([]);
   readonly rooms = this._rooms.asReadonly();
@@ -573,7 +564,6 @@ export class AdminSettingsComponent implements OnInit {
     { id: 'security',     label: 'Sécurité',        icon: 'lock-keyhole' },
   ];
 
-<<<<<<< HEAD
   constructor(
     private api: ApiService,
     private notif: NotificationService,
@@ -611,14 +601,6 @@ export class AdminSettingsComponent implements OnInit {
         this.settings.permissions = byModule;
       },
     });
-=======
-  constructor(private api: ApiService, private notif: NotificationService) {}
-
-  ngOnInit(): void {
-    this.api.get<any>('/admin/settings').subscribe({
-      next: (res) => { if (res.data) Object.assign(this.settings, res.data); },
-    });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     this.loadRooms();
   }
 
@@ -647,32 +629,20 @@ export class AdminSettingsComponent implements OnInit {
     this.loadingTotp.set(true);
     this.api.get<any>('/admin/totp/setup').subscribe({
       next: (res) => {
-<<<<<<< HEAD
         const secret = res.data?.secret;
         if (!secret) {
           this.notif.showToast('Erreur de configuration 2FA. Reconnectez-vous et réessayez.', 'error');
           this.loadingTotp.set(false);
           return;
         }
-=======
-        const secret = res.data?.secret || 'JBSWY3DPEHPK3PXP';
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         const otpauth = `otpauth://totp/MediSync:admin?secret=${secret}&issuer=MediSync`;
         const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(otpauth)}`;
         this.totpSetup.set({ qrCodeUrl, secret });
         this.totpCode = '';
       },
       error: () => {
-<<<<<<< HEAD
         this.notif.showToast('Impossible de configurer la 2FA. Reconnectez-vous et réessayez.', 'error');
         this.loadingTotp.set(false);
-=======
-        const secret = 'JBSWY3DPEHPK3PXP';
-        const otpauth = `otpauth://totp/MediSync:admin?secret=${secret}&issuer=MediSync`;
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(otpauth)}`;
-        this.totpSetup.set({ qrCodeUrl, secret });
-        this.totpCode = '';
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       },
       complete: () => this.loadingTotp.set(false),
     });
@@ -686,14 +656,11 @@ export class AdminSettingsComponent implements OnInit {
         this.notif.showToast('2FA activé avec succès', 'success');
         this.totpSetup.set(null);
         this.settings.require2FA = true;
-<<<<<<< HEAD
         this.needs2FASetup.set(false);
         try {
           const u = JSON.parse(localStorage.getItem('user') || '{}');
           localStorage.setItem('user', JSON.stringify({ ...u, twoFactorEnabled: true }));
         } catch {}
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       },
       error: () => this.notif.showToast('Code invalide — réessayez', 'error'),
       complete: () => this.verifyingTotp.set(false),
@@ -726,7 +693,6 @@ export class AdminSettingsComponent implements OnInit {
 
   save(): void {
     this.saving.set(true);
-<<<<<<< HEAD
     if (this.activeSection() === 'permissions') {
       const roles = ['DOCTOR', 'SECRETARY', 'PATIENT'] as const;
       // Transform back: module→role→action  →  role→module→action (backend format)
@@ -749,12 +715,6 @@ export class AdminSettingsComponent implements OnInit {
     this.api.put<any>('/admin/settings', this.settings).subscribe({
       next: () => { this.saving.set(false); this.notif.showToast('Paramètres sauvegardés', 'success'); },
       error: () => { this.saving.set(false); this.notif.showToast('Échec de la sauvegarde', 'error'); },
-=======
-    this.api.put<any>('/admin/settings', this.settings).subscribe({
-      next: () => this.notif.showToast('Paramètres sauvegardés', 'success'),
-      error: () => this.notif.showToast('Échec de la sauvegarde', 'error'),
-      complete: () => this.saving.set(false),
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   }
 }

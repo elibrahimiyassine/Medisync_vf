@@ -1,9 +1,5 @@
 import {
-<<<<<<< HEAD
   Component, OnInit, signal
-=======
-  Component, OnInit, ElementRef, signal, computed
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -56,10 +52,7 @@ import { LucideAngularModule } from 'lucide-angular';
               <p class="form-sub">Connectez-vous à votre compte MediSync</p>
             </div>
 
-<<<<<<< HEAD
             @if (!showTwoFactor()) {
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form stagger" novalidate>
               <!-- Email -->
               <div class="form-group">
@@ -143,7 +136,6 @@ import { LucideAngularModule } from 'lucide-angular';
               </p>
             </form>
 
-<<<<<<< HEAD
             } @else {
               <div class="twofa-inline animate-slide-down">
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
@@ -197,8 +189,6 @@ import { LucideAngularModule } from 'lucide-angular';
             }
 
             @if (!showTwoFactor()) {
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
             <div class="divider">
               <span>ou continuer avec</span>
             </div>
@@ -242,10 +232,7 @@ import { LucideAngularModule } from 'lucide-angular';
               Nouveau patient ?
               <a routerLink="/auth/register">Créer votre compte →</a>
             </p>
-<<<<<<< HEAD
             }
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           </div>
         </div>
       </div>
@@ -556,7 +543,6 @@ import { LucideAngularModule } from 'lucide-angular';
       a { color: #2A4A38; font-weight: 600; }
     }
 
-<<<<<<< HEAD
     /* ── Inline 2FA ── */
     .twofa-inline { padding: 4px 0; }
     .otp-inputs { display: flex; gap: 10px; justify-content: center; }
@@ -570,8 +556,6 @@ import { LucideAngularModule } from 'lucide-angular';
       border-radius: 12px;
     }
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     /* ── Particles ── */
     .particle {
       position: absolute;
@@ -621,19 +605,15 @@ export class LoginComponent implements OnInit {
   oauthProvider  = signal<'google' | 'microsoft' | null>(null);
   oauthLoading   = signal(false);
 
-<<<<<<< HEAD
   private _showTwoFactor = signal(false);
   private _twoFaError    = signal('');
   readonly showTwoFactor = this._showTwoFactor.asReadonly();
   readonly twoFaError    = this._twoFaError.asReadonly();
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   readonly showPassword = this._showPassword.asReadonly();
   readonly isLoading    = this._isLoading.asReadonly();
   readonly errorMsg     = this._errorMsg.asReadonly();
 
-<<<<<<< HEAD
   otpCode = '';
   private otpValues: string[] = ['', '', '', '', '', ''];
   private pendingUserId = '';
@@ -643,8 +623,6 @@ export class LoginComponent implements OnInit {
   readonly rescanQr      = this._rescanQr.asReadonly();
   readonly rescanLoading = this._rescanLoading.asReadonly();
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   private readonly _oauthAccounts = {
     google: [
       { email: 'sophie.martin@gmail.com',  firstName: 'Sophie', lastName: 'Martin', avatar: 'SM', color: '#4285F4' },
@@ -689,7 +667,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-<<<<<<< HEAD
     if (this.authService.isAuthenticated()) {
       const role = this.authService.userRole();
       if (role) {
@@ -703,8 +680,6 @@ export class LoginComponent implements OnInit {
         return;
       }
     }
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     this.particles = Array.from({ length: 22 }, (_, i) => ({
       style: `left:${Math.random() * 100}%;bottom:0;font-size:${12 + Math.random() * 16}px;animation-duration:${8 + Math.random() * 14}s;animation-delay:${Math.random() * 10}s;`,
     }));
@@ -725,7 +700,6 @@ export class LoginComponent implements OnInit {
     this._showPassword.update(v => !v);
   }
 
-<<<<<<< HEAD
   onOtpInput(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     const val = input.value.replace(/\D/g, '').slice(-1);
@@ -794,8 +768,6 @@ export class LoginComponent implements OnInit {
     this._rescanQr.set(null);
   }
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
   onSubmit(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this._isLoading.set(true);
@@ -807,12 +779,8 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this._isLoading.set(false);
         if (res.requiresTwoFactor) {
-<<<<<<< HEAD
           this.pendingUserId = res.userId;
           this._showTwoFactor.set(true);
-=======
-          this.router.navigate(['/auth/2fa'], { state: { userId: res.userId } });
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
           return;
         }
         this.notifSvc.showToast('Bienvenue sur MediSync !', 'success');

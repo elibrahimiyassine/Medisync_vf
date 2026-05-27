@@ -24,7 +24,6 @@ export const getMe = async (req: AuthRequest, res: Response, next: NextFunction)
 
 export const updateMe = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-<<<<<<< HEAD
     const {
       firstName, lastName, phone, address, dateOfBirth, bloodType, allergies,
       emergencyContact, emergencyPhone,
@@ -39,13 +38,6 @@ export const updateMe = async (req: AuthRequest, res: Response, next: NextFuncti
         bloodType, allergies, emergencyContact, emergencyPhone,
         guardianName, guardianPhone, guardianRelationship,
       },
-=======
-    const { firstName, lastName, phone, address, dateOfBirth, bloodType, allergies, emergencyContact, emergencyPhone } = req.body;
-
-    const patient = await prisma.patient.update({
-      where: { userId: req.user!.userId },
-      data: { firstName, lastName, phone, address, dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined, bloodType, allergies, emergencyContact, emergencyPhone },
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
     res.json({ success: true, data: patient });
   } catch (err) { next(err); }
@@ -101,7 +93,6 @@ export const getPatientRecords = async (req: AuthRequest, res: Response, next: N
   } catch (err) { next(err); }
 };
 
-<<<<<<< HEAD
 export const getLabResults = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const results = await prisma.document.findMany({
@@ -184,8 +175,6 @@ export const updateReportStatus = async (req: AuthRequest, res: Response, next: 
   } catch (err) { next(err); }
 };
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 export const uploadDocument = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const file = req.file;

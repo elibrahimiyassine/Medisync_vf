@@ -1,16 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-<<<<<<< HEAD
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { NotificationService } from '../../../core/services/notification.service';
-=======
-import { RouterModule, Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { LucideAngularModule } from 'lucide-angular';
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 @Component({
   selector: 'app-two-fa',
@@ -49,7 +43,6 @@ import { LucideAngularModule } from 'lucide-angular';
           </button>
         </form>
 
-<<<<<<< HEAD
         @if (rescanQr()) {
           <div style="text-align:center;margin:16px 0;">
             <p style="font-size:12px;color:#7A8A82;margin-bottom:10px;">Scannez ce QR code avec Google Authenticator</p>
@@ -65,8 +58,6 @@ import { LucideAngularModule } from 'lucide-angular';
           @else { <lucide-icon name="smartphone" [size]="13" /> J'ai supprimé mon application — rescanner le QR code }
         </button>
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
         <a routerLink="/auth/login" class="back-link" style="display:inline-flex;align-items:center;justify-content:center;gap:5px;"><lucide-icon name="arrow-left" [size]="13" /> Retour à la connexion</a>
       </div>
     </div>
@@ -84,15 +75,11 @@ import { LucideAngularModule } from 'lucide-angular';
     .submit-btn { width:100%; justify-content:center; padding:13px; }
     .spinner { width:15px; height:15px; border:2px solid rgba(0,0,0,0.3); border-top-color:#000; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
     .back-link { display:block; margin-top:20px; font-size:13px; color:#7A8A82; &:hover{color:#2A4A38;} }
-<<<<<<< HEAD
     .rescan-btn { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px; background:none; border:1px solid rgba(42,74,56,0.15); border-radius:10px; padding:9px 14px; font-size:12px; color:#7A8A82; cursor:pointer; width:100%; font-family:'Geist','Inter',sans-serif; transition:all .2s; &:hover:not(:disabled){border-color:#2A4A38;color:#2A4A38;} &:disabled{opacity:.5;cursor:not-allowed;} }
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   `],
 })
 export class TwoFaComponent implements OnInit {
-<<<<<<< HEAD
   private _isLoading    = signal(false);
   private _errorMsg     = signal('');
   private _rescanQr     = signal<string | null>(null);
@@ -102,19 +89,12 @@ export class TwoFaComponent implements OnInit {
   readonly errorMsg      = this._errorMsg.asReadonly();
   readonly rescanQr      = this._rescanQr.asReadonly();
   readonly rescanLoading = this._rescanLoading.asReadonly();
-=======
-  private _isLoading = signal(false);
-  private _errorMsg  = signal('');
-  readonly isLoading = this._isLoading.asReadonly();
-  readonly errorMsg  = this._errorMsg.asReadonly();
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   private userId = '';
   private otpValues = ['', '', '', '', '', ''];
 
   form!: ReturnType<FormBuilder['group']>;
 
-<<<<<<< HEAD
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -122,19 +102,11 @@ export class TwoFaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-=======
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     this.form = this.fb.group({ code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]] });
   }
 
   ngOnInit(): void {
-<<<<<<< HEAD
     this.userId = this.route.snapshot.queryParamMap.get('userId') || '';
-=======
-    const state = this.router.getCurrentNavigation()?.extras.state as any;
-    this.userId = state?.userId || '';
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     if (!this.userId) this.router.navigate(['/auth/login']);
   }
 
@@ -170,7 +142,6 @@ export class TwoFaComponent implements OnInit {
       },
     });
   }
-<<<<<<< HEAD
 
   showRescanQr(): void {
     if (this._rescanQr()) { this._rescanQr.set(null); return; }
@@ -190,6 +161,4 @@ export class TwoFaComponent implements OnInit {
   hideRescan(): void {
     this._rescanQr.set(null);
   }
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 }

@@ -8,11 +8,7 @@ A full-stack web application for managing a medical clinic, built with Angular 2
 |-------|------------|
 | Frontend | Angular 21, Angular Signals, SCSS, Angular Animations |
 | Backend | Node.js, Express.js, TypeScript |
-<<<<<<< HEAD
-| Database | PostgreSQL 16 via Prisma ORM |
-=======
 | Database | PostgreSQL 18 via Prisma ORM |
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 | Auth | JWT (15 min access token + 7 day refresh cookie), bcrypt, TOTP 2FA |
 | Realtime | Socket.io |
 | Email | Nodemailer |
@@ -25,20 +21,12 @@ A full-stack web application for managing a medical clinic, built with Angular 2
 ## Prerequisites
 
 - **Node.js 20+** — [nodejs.org](https://nodejs.org)
-<<<<<<< HEAD
-- **PostgreSQL 16** — must be running locally
-=======
 - **PostgreSQL 18** — must be running locally
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 - **Angular CLI** — `npm install -g @angular/cli`
 
 ---
 
-<<<<<<< HEAD
-## Quick Start (Windows)
-=======
 ## Quick Start
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 ### 1. Install dependencies
 
@@ -54,21 +42,6 @@ npm install
 
 ### 2. Configure the backend environment
 
-<<<<<<< HEAD
-A `.env` file already exists at `backend/.env`. Verify or update the following values:
-
-```env
-DATABASE_URL="postgresql://postgres:12345678@localhost:5432/medisync"
-JWT_SECRET=supersecretjwtkey123456789
-JWT_REFRESH_SECRET=superrefreshjwtkey123456789
-PORT=3000
-NODE_ENV=development
-```
-
-> If your PostgreSQL password is different, update `DATABASE_URL` accordingly.
-
-### 3. Initialize the database
-=======
 Copy the example file and fill in your values:
 
 ```bash
@@ -111,27 +84,18 @@ createdb -U postgres medisync
 ```
 
 ### 4. Initialize the database
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 Run this once to apply all migrations and load demo data:
 
 ```bash
 cd backend
-<<<<<<< HEAD
-npx prisma migrate reset --force
-=======
 npx prisma migrate reset --force --skip-generate
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 npx ts-node prisma/seed.ts
 ```
 
 This creates all tables and seeds: 1 admin, 1 secretary, 3 doctors, 10 patients, appointments, medical records, prescriptions, invoices, and audit logs.
 
-<<<<<<< HEAD
-### 4. Start the backend
-=======
 ### 5. Start the backend
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 ```bash
 cd backend
@@ -140,11 +104,7 @@ npm run dev
 # Swagger docs at http://localhost:3000/api-docs
 ```
 
-<<<<<<< HEAD
-### 5. Start the frontend
-=======
 ### 6. Start the frontend
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 ```bash
 cd medisync-frontend
@@ -170,11 +130,7 @@ All accounts use the passwords below. Log in at **http://localhost:4200**.
 | **Patient** | alice.bernard@email.fr | Patient123! | /patient/dashboard |
 | **Patient** | bob.martin@email.fr | Patient123! | /patient/dashboard |
 
-<<<<<<< HEAD
-> **2FA note**: Two-factor authentication is **mandatory for the Admin**. On first login, the admin is redirected to a setup page to scan a QR code with Google Authenticator and enter a 6-digit code. All subsequent admin sessions require the same app — no re-scan needed. Other roles (doctor, secretary, patient) do not require 2FA.
-=======
 > **2FA note**: Two-factor authentication is **mandatory for the Admin**. On first login, the admin is redirected to a setup page to scan a QR code with Google Authenticator and enter a 6-digit code. All subsequent admin sessions require the same app. If you lose access to the authenticator app, use the **"Rescanner le QR code"** button on the login page. Other roles do not require 2FA.
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 ---
 
@@ -198,10 +154,7 @@ All accounts use the passwords below. Log in at **http://localhost:4200**.
 - Patient registration and profile management
 - Invoice generation and PDF download
 - Billing dashboard
-<<<<<<< HEAD
-=======
 - Real-time notifications when patients book appointments
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
 ### Patient
 - Appointment booking with doctor selection and time slot picker
@@ -226,12 +179,8 @@ medisync/
 │   │   ├── middlewares/           # Auth, error, audit, upload, rate-limit
 │   │   ├── routes/                # Express router definitions
 │   │   └── utils/                 # JWT, email, PDF, socket helpers
-<<<<<<< HEAD
-│   └── .env
-=======
 │   ├── .env                       # Local env vars (not committed — copy from .env.example)
 │   └── .env.example               # Template for environment variables
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 │
 ├── medisync-frontend/
 │   └── src/app/
@@ -261,10 +210,7 @@ All endpoints are prefixed with `/api/v1/`. Full interactive documentation at **
 | POST | `/auth/register` | Register a new patient |
 | POST | `/auth/login` | Login, returns JWT access token |
 | POST | `/auth/2fa/verify` | Verify TOTP code (if 2FA enabled) |
-<<<<<<< HEAD
-=======
 | POST | `/auth/2fa/rescan` | Re-generate QR code for existing 2FA secret |
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 | GET  | `/auth/me` | Current user profile |
 | GET  | `/doctors` | List all doctors |
 | GET  | `/appointments` | List appointments (role-filtered) |
@@ -288,11 +234,7 @@ If you need to start fresh (re-seed demo data, clear all sessions):
 
 ```bash
 cd backend
-<<<<<<< HEAD
-npx prisma migrate reset --force
-=======
 npx prisma migrate reset --force --skip-generate
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 npx ts-node prisma/seed.ts
 ```
 
@@ -300,8 +242,6 @@ Then clear your browser's localStorage and cookies for `localhost:4200` and log 
 
 ---
 
-<<<<<<< HEAD
-=======
 ## Troubleshooting
 
 **`prisma migrate reset` fails with a permission error on Windows**
@@ -324,7 +264,6 @@ ng serve
 
 ---
 
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 ## License
 
 MIT — created for educational purposes.

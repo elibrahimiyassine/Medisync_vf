@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Component, OnInit, signal, computed } from '@angular/core';
-=======
-import { Component, OnInit, signal } from '@angular/core';
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
@@ -50,7 +46,6 @@ import { TopbarComponent } from '../../../shared/components/topbar/topbar.compon
                   <label>Téléphone d'urgence</label>
                   <input formControlName="emergencyPhone" class="glass-input" type="tel" />
                 </div>
-<<<<<<< HEAD
 
                 @if (isMinor()) {
                   <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(42,74,56,0.1);">
@@ -79,8 +74,6 @@ import { TopbarComponent } from '../../../shared/components/topbar/topbar.compon
                   </div>
                 }
 
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
                 <button type="submit" class="btn-primary" style="width:100%;margin-top:20px;justify-content:center;" [disabled]="saving()">
                   {{ saving() ? 'Enregistrement...' : 'Enregistrer les modifications' }}
                 </button>
@@ -109,15 +102,12 @@ export class PatientProfileComponent implements OnInit {
   private _saving  = signal(false);
   readonly patient  = this._patient.asReadonly();
   readonly saving   = this._saving.asReadonly();
-<<<<<<< HEAD
   readonly isMinor  = computed(() => {
     const dob = this._patient()?.dateOfBirth;
     if (!dob) return false;
     const age = (Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 3600 * 1000);
     return age < 18;
   });
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
 
   bloodTypes = [
     { value: 'A_POS', label: 'A+' }, { value: 'A_NEG', label: 'A-' },
@@ -137,10 +127,7 @@ export class PatientProfileComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [''], lastName: [''], phone: [''], address: [''],
       dateOfBirth: [''], bloodType: [''], emergencyContact: [''], emergencyPhone: [''],
-<<<<<<< HEAD
       guardianName: [''], guardianPhone: [''], guardianRelationship: [''],
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
     });
   }
 
@@ -153,11 +140,8 @@ export class PatientProfileComponent implements OnInit {
         address: p.address || '', dateOfBirth: p.dateOfBirth?.slice(0, 10) || '',
         bloodType: p.bloodType || '', emergencyContact: p.emergencyContact || '',
         emergencyPhone: p.emergencyPhone || '',
-<<<<<<< HEAD
         guardianName: p.guardianName || '', guardianPhone: p.guardianPhone || '',
         guardianRelationship: p.guardianRelationship || '',
-=======
->>>>>>> 70d4349ce362b98ae279bafeba0f294995e85567
       });
     });
   }
