@@ -34,6 +34,13 @@ $text-muted:  $ink-faint;
 $border:       rgba(42, 74, 56, 0.14);
 $border-hover: rgba(42, 74, 56, 0.4);
 
+// Compatibility aliases used by older component styles.
+$bg-deep:       $bg;
+$bg-surface:    $surface;
+$bg-card:       $surface;
+$border-subtle: $border;
+$border-glow:   $border-hover;
+
 // ─── Typography ────────────────────────────────────────────────────────────
 $font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
 $font-body:    'Geist', 'Inter', system-ui, sans-serif;
@@ -61,6 +68,7 @@ $shadow-card-hover: 0 8px 28px rgba(27, 37, 32, 0.11), 0 2px 8px rgba(27, 37, 32
 $shadow-modal:      0 20px 60px rgba(27, 37, 32, 0.18), 0 4px 16px rgba(27, 37, 32, 0.1);
 $shadow-glow:       $shadow-card-hover;
 $shadow-glow-lg:    $shadow-modal;
+$shadow-cyan:       $shadow-card-hover;
 
 // ─── Transitions ───────────────────────────────────────────────────────────
 $transition-fast:   all 0.15s ease;

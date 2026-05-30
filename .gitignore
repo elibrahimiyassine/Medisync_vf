@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.angular/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!backend/.env.example
+
+# Local tool/workspace folders
+.claude/
+.codex_tmp_medisync_latest/
+_main_test/
+
+# Logs and generated files
+*.log
+logs/
+coverage/

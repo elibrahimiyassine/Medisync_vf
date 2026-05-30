@@ -1,269 +1,352 @@
-# MediSync — Medical Clinic Management System
+# MediSync - Systeme de gestion de clinique medicale
 
-A full-stack web application for managing a medical clinic, built with Angular 21 (standalone components, Signals) and Node.js/Express/Prisma/PostgreSQL.
+MediSync est une application web full-stack pour la gestion d'une clinique medicale. Elle couvre les profils demandes dans le cahier des charges: patient, medecin, secretaire et administrateur.
 
-## Tech Stack
+## Stack technique
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | Angular 21, Angular Signals, SCSS, Angular Animations |
+| Couche | Technologie |
+| --- | --- |
+| Frontend | Angular 21, Angular Signals, SCSS |
 | Backend | Node.js, Express.js, TypeScript |
-| Database | PostgreSQL 18 via Prisma ORM |
-| Auth | JWT (15 min access token + 7 day refresh cookie), bcrypt, TOTP 2FA |
-| Realtime | Socket.io |
-| Email | Nodemailer |
+| Base de donnees | PostgreSQL 16, Prisma ORM |
+| Authentification | JWT, refresh token, bcrypt, TOTP 2FA admin |
+| Temps reel | Socket.io |
+| Fichiers | Multer, stockage local |
 | PDF | PDFKit |
-| Storage | Multer (local disk) |
-| Docs | Swagger / OpenAPI 3.0 at `/api-docs` |
+| Documentation API | Swagger / OpenAPI sur `/api-docs` |
 
----
+## Architecture du systeme
 
-## Prerequisites
+L'application suit une architecture en couches:
 
-- **Node.js 20+** — [nodejs.org](https://nodejs.org)
-- **PostgreSQL 18** — must be running locally
-- **Angular CLI** — `npm install -g @angular/cli`
+```text
+Utilisateur web
+    |
+    v
+Frontend Angular
+    |
+    | REST API + JWT
+    v
+Backend Node.js / Express
+    |
+    | Prisma ORM
+    v
+Base de donnees PostgreSQL
+```
 
----
+### Role de chaque couche
 
-## Quick Start
+- **Frontend Angular**: interface utilisateur responsive pour les patients, medecins, secretaires et administrateurs.
+- **Backend Express**: logique metier, authentification, gestion des rendez-vous, dossiers medicaux, factures, prescriptions et notifications.
+- **Prisma ORM**: acces structure a la base de donnees et gestion des migrations.
+- **PostgreSQL**: stockage des utilisateurs, rendez-vous, dossiers, documents, prescriptions, factures, logs d'audit et parametres.
+- **Socket.io**: notifications en temps reel pour les changements de rendez-vous et les alertes.
 
-### 1. Install dependencies
+## Schema de base de donnees
+
+Le schema complet est dans `backend/prisma/schema.prisma`. Les principales tables sont:
+
+| Table | Role |
+| --- | --- |
+| `users` | Comptes, roles, mots de passe, refresh tokens, 2FA |
+| `patients` | Informations patients, securite sociale, contact |
+| `doctors` | Informations medecins, specialite, disponibilite |
+| `secretaries` | Comptes secretaires |
+| `admins` | Comptes administrateurs |
+| `time_slots` | Creneaux disponibles des medecins |
+| `appointments` | Rendez-vous, statut, motif, notes |
+| `medical_records` | Dossiers medicaux et consultations |
+| `prescriptions` | Ordonnances et medicaments |
+| `documents` | Documents uploades du patient |
+| `invoices` | Factures et paiement |
+| `notifications` | Notifications utilisateur |
+| `reviews` | Avis et signalements |
+| `audit_logs` | Journalisation des actions sensibles |
+
+Relations principales:
+
+- `User` est relie a un seul profil selon son role: `Patient`, `Doctor`, `Secretary` ou `Admin`.
+- Un `Patient` peut avoir plusieurs `Appointment`, `MedicalRecord`, `Prescription`, `Document`, `Invoice` et `Review`.
+- Un `Doctor` possede plusieurs `TimeSlot`, `Appointment`, `MedicalRecord` et `Prescription`.
+- Un `Appointment` relie un patient, un medecin, un creneau et peut generer un dossier medical, une facture et un avis.
+
+## Fonctionnalites par profil
+
+### Patient
+
+- Creation de compte patient.
+- Connexion securisee avec JWT.
+- Reservation de rendez-vous avec choix du medecin et du creneau.
+- Consultation du dossier medical.
+- Telechargement des ordonnances en PDF.
+- Upload de documents medicaux.
+- Notifications de changement de rendez-vous.
+- Avis et signalement apres consultation.
+
+### Medecin
+
+- Tableau de bord et planning.
+- Consultation de la liste des patients.
+- Gestion des consultations et dossiers medicaux.
+- Creation d'ordonnances.
+- Ajout de documents et suivi des rendez-vous.
+
+### Secretaire
+
+- Creation et gestion des patients.
+- Gestion des rendez-vous.
+- Facturation.
+- Generation de factures PDF.
+- Notifications lors des reservations.
+
+### Administrateur
+
+- Tableau de bord avec statistiques.
+- Gestion du personnel.
+- Gestion financiere.
+- Journal d'audit.
+- Parametres de la clinique.
+- 2FA obligatoire par application TOTP.
+
+## Prerequis
+
+- Node.js 20 ou plus
+- npm
+- PostgreSQL 16 ou plus
+- Angular CLI, optionnel si vous utilisez `npm run start`
+
+## Guide d'installation locale
+
+### 1. Installer les dependances
+
+Depuis la racine du projet:
 
 ```bash
-# Backend
 cd backend
 npm install
 
-# Frontend
 cd ../medisync-frontend
 npm install
 ```
 
-### 2. Configure the backend environment
+### 2. Configurer le backend
 
-Copy the example file and fill in your values:
+Copier le fichier d'exemple:
 
 ```bash
-# Windows
 copy backend\.env.example backend\.env
+```
 
-# macOS / Linux
+Sur macOS ou Linux:
+
+```bash
 cp backend/.env.example backend/.env
 ```
 
-Then open `backend/.env` and set your PostgreSQL credentials:
+Modifier ensuite `backend/.env` selon votre installation PostgreSQL:
 
 ```env
-DATABASE_URL="postgresql://postgres:YOUR_POSTGRES_PASSWORD@localhost:5432/medisync"
+DATABASE_URL="postgresql://medisync:medisync_secret@localhost:5432/medisync"
+JWT_SECRET="change-this-jwt-secret"
+JWT_REFRESH_SECRET="change-this-refresh-secret"
+PORT=3000
+NODE_ENV=development
+CORS_ORIGIN="http://localhost:4200"
 ```
 
-Replace `YOUR_POSTGRES_PASSWORD` with the password you chose when installing PostgreSQL.
+Si vous utilisez l'utilisateur PostgreSQL `postgres`, l'URL peut devenir:
 
-> **Common passwords**: if you used the default PostgreSQL installer, the superuser is `postgres` and the password is whatever you typed during setup.
-> If you are unsure, open pgAdmin → right-click your server → Properties → Connection to see the username.
-
-The rest of the `.env` values (JWT secrets, CORS, etc.) work as-is for local development.
-
-### 3. Create the database
-
-Open a PostgreSQL client (psql or pgAdmin) and run:
-
-```sql
-CREATE DATABASE medisync;
+```env
+DATABASE_URL="postgresql://postgres:VOTRE_MOT_DE_PASSE@localhost:5432/medisync"
 ```
 
-Or via the command line:
+### 3. Creer la base de donnees
+
+Avec `psql`:
 
 ```bash
-# Windows (run as the postgres user)
 psql -U postgres -c "CREATE DATABASE medisync;"
-
-# macOS / Linux
-createdb -U postgres medisync
 ```
 
-### 4. Initialize the database
+Ou avec pgAdmin: creer une base nommee `medisync`.
 
-Run this once to apply all migrations and load demo data:
+### 4. Initialiser Prisma et les donnees demo
 
 ```bash
 cd backend
 npx prisma migrate reset --force --skip-generate
-npx ts-node prisma/seed.ts
+npx prisma generate
+npm run seed
 ```
 
-This creates all tables and seeds: 1 admin, 1 secretary, 3 doctors, 10 patients, appointments, medical records, prescriptions, invoices, and audit logs.
+Cette commande cree les tables et ajoute des comptes demo: admin, secretaire, medecins, patients, rendez-vous, dossiers, prescriptions, factures et logs.
 
-### 5. Start the backend
+### 5. Lancer le backend
 
 ```bash
 cd backend
 npm run dev
-# API running at http://localhost:3000/api/v1
-# Swagger docs at http://localhost:3000/api-docs
 ```
 
-### 6. Start the frontend
+Backend:
+
+- API: `http://localhost:3000/api/v1`
+- Health check: `http://localhost:3000/health`
+- Swagger: `http://localhost:3000/api-docs`
+
+### 6. Lancer le frontend
+
+Dans un nouveau terminal:
 
 ```bash
 cd medisync-frontend
-ng serve
-# App running at http://localhost:4200
+npm run start
 ```
 
-Open **http://localhost:4200** in your browser.
+Application web:
 
----
+- `http://localhost:4200`
 
-## Demo Credentials
+## Comptes de demonstration
 
-All accounts use the passwords below. Log in at **http://localhost:4200**.
+| Role | Email | Mot de passe |
+| --- | --- | --- |
+| Admin | `admin@medisync.ma` | `Admin123!` |
+| Secretaire | `secretary@medisync.ma` | `Secretary123!` |
+| Medecin | `dr.chen@medisync.ma` | `Doctor123!` |
+| Medecin | `dr.moreau@medisync.ma` | `Doctor123!` |
+| Medecin | `dr.garcia@medisync.ma` | `Doctor123!` |
+| Patient | `alice.bernard@email.fr` | `Patient123!` |
+| Patient | `bob.martin@email.fr` | `Patient123!` |
 
-| Role | Email | Password | Dashboard |
-|------|-------|----------|-----------|
-| **Admin** | admin@medisync.ma | Admin123! | /admin/dashboard |
-| **Secretary** | secretary@medisync.ma | Secretary123! | /secretary/dashboard |
-| **Doctor** | dr.chen@medisync.ma | Doctor123! | /doctor/dashboard |
-| **Doctor** | dr.moreau@medisync.ma | Doctor123! | /doctor/dashboard |
-| **Doctor** | dr.garcia@medisync.ma | Doctor123! | /doctor/dashboard |
-| **Patient** | alice.bernard@email.fr | Patient123! | /patient/dashboard |
-| **Patient** | bob.martin@email.fr | Patient123! | /patient/dashboard |
+Note: la 2FA est obligatoire pour l'administrateur. Au premier login, l'admin doit scanner le QR code avec Google Authenticator, Microsoft Authenticator ou une application compatible TOTP.
 
-> **2FA note**: Two-factor authentication is **mandatory for the Admin**. On first login, the admin is redirected to a setup page to scan a QR code with Google Authenticator and enter a 6-digit code. All subsequent admin sessions require the same app. If you lose access to the authenticator app, use the **"Rescanner le QR code"** button on the login page. Other roles do not require 2FA.
+## Build de l'application compilee
 
----
-
-## Features by Role
-
-### Admin
-- Dashboard with live KPI counters (patients, appointments, revenue, doctors)
-- Staff management: add / edit / remove doctors and secretaries
-- Finance reports with XLSX export
-- Full audit log (all sensitive actions with user, IP, timestamp)
-- Application settings (clinic info, 2FA setup)
-
-### Doctor
-- Personal planning calendar with appointment slots
-- Patient consultation view with medical records
-- Prescription creation and PDF download
-- Lab results and document uploads
-
-### Secretary
-- Appointment booking and management for all patients
-- Patient registration and profile management
-- Invoice generation and PDF download
-- Billing dashboard
-- Real-time notifications when patients book appointments
-
-### Patient
-- Appointment booking with doctor selection and time slot picker
-- Personal medical dossier (diagnoses, medications)
-- Prescription history with PDF download
-- Real-time notifications for appointment status changes
-
----
-
-## Project Structure
-
-```
-medisync/
-├── backend/
-│   ├── prisma/
-│   │   ├── schema.prisma          # Database schema (14+ models)
-│   │   ├── seed.ts                # Demo data seeder
-│   │   └── migrations/            # All Prisma migrations
-│   ├── src/
-│   │   ├── app.ts                 # Express + Socket.io setup
-│   │   ├── controllers/           # Route handlers (auth, admin, doctor, patient, …)
-│   │   ├── middlewares/           # Auth, error, audit, upload, rate-limit
-│   │   ├── routes/                # Express router definitions
-│   │   └── utils/                 # JWT, email, PDF, socket helpers
-│   ├── .env                       # Local env vars (not committed — copy from .env.example)
-│   └── .env.example               # Template for environment variables
-│
-├── medisync-frontend/
-│   └── src/app/
-│       ├── core/
-│       │   ├── guards/            # authGuard, roleGuard
-│       │   ├── interceptors/      # JWT attach + single-flight refresh
-│       │   └── services/          # AuthService, ApiService, NotificationService
-│       ├── features/
-│       │   ├── auth/              # Login, Register, 2FA, Forgot Password
-│       │   ├── patient/           # Dashboard, Appointments, Dossier, Prescriptions
-│       │   ├── doctor/            # Dashboard, Planning, Patients, Consultation
-│       │   ├── secretary/         # Dashboard, Appointments, Patients, Billing
-│       │   └── admin/             # Dashboard, Staff, Finance, Audit, Settings
-│       └── shared/components/     # Sidebar, Topbar, Toast notifications
-│
-└── docker-compose.yml
-```
-
----
-
-## API Overview
-
-All endpoints are prefixed with `/api/v1/`. Full interactive documentation at **http://localhost:3000/api-docs**.
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/auth/register` | Register a new patient |
-| POST | `/auth/login` | Login, returns JWT access token |
-| POST | `/auth/2fa/verify` | Verify TOTP code (if 2FA enabled) |
-| POST | `/auth/2fa/rescan` | Re-generate QR code for existing 2FA secret |
-| GET  | `/auth/me` | Current user profile |
-| GET  | `/doctors` | List all doctors |
-| GET  | `/appointments` | List appointments (role-filtered) |
-| POST | `/appointments` | Book an appointment |
-| GET  | `/invoices` | List invoices (role-filtered) |
-| GET  | `/invoices/:id/pdf` | Download invoice PDF |
-| GET  | `/prescriptions/:id/pdf` | Download prescription PDF |
-| GET  | `/admin/stats` | Admin dashboard KPIs |
-| GET  | `/admin/staff` | List all staff members |
-| POST | `/admin/staff` | Create doctor or secretary |
-| PUT  | `/admin/staff/:id` | Update staff member |
-| DELETE | `/admin/staff/:id` | Remove staff member |
-| GET  | `/admin/audit` | Audit log |
-| GET  | `/admin/finance` | Finance report |
-
----
-
-## Resetting to a Clean State
-
-If you need to start fresh (re-seed demo data, clear all sessions):
+### Backend
 
 ```bash
 cd backend
-npx prisma migrate reset --force --skip-generate
-npx ts-node prisma/seed.ts
+npm run build
+npm run start
 ```
 
-Then clear your browser's localStorage and cookies for `localhost:4200` and log in again.
+### Frontend
 
----
-
-## Troubleshooting
-
-**`prisma migrate reset` fails with a permission error on Windows**
-Add the `--skip-generate` flag: `npx prisma migrate reset --force --skip-generate`
-
-**Backend won't start — `Cannot find module`**
-Make sure you run `npm run dev` from the `backend/` directory. The entry point is `src/app.ts` (not `server.ts`).
-
-**`DATABASE_URL` connection refused**
-- Ensure PostgreSQL 18 service is running.
-- Double-check the password in `backend/.env` matches your PostgreSQL installation.
-- Confirm the `medisync` database exists (Step 3 above).
-
-**Angular build errors after pulling changes**
 ```bash
 cd medisync-frontend
-npm install   # pick up any new packages
-ng serve
+npm run build
 ```
 
----
+Le resultat compile du frontend se trouve dans `medisync-frontend/dist/`.
 
-## License
+## Guide de deploiement
 
-MIT — created for educational purposes.
+### Option Docker locale
+
+Le fichier `docker-compose.yml` lance PostgreSQL, pgAdmin et le backend:
+
+```bash
+docker compose up --build
+```
+
+Services:
+
+- PostgreSQL: `localhost:5432`
+- pgAdmin: `http://localhost:5050`
+- Backend: `http://localhost:3000`
+
+### Option frontend Vercel + backend Render/Railway
+
+1. Deployer le backend sur Render ou Railway.
+2. Ajouter les variables d'environnement backend: `DATABASE_URL`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, `NODE_ENV`, `CORS_ORIGIN`.
+3. Deployer le frontend Angular sur Vercel.
+4. Configurer l'URL API du frontend pour pointer vers l'URL publique du backend.
+5. Verifier:
+   - `GET /health` sur le backend.
+   - Login avec un compte demo.
+   - Reservation d'un rendez-vous.
+   - Telechargement PDF ordonnance/facture.
+
+## Structure du projet
+
+```text
+medisync/
+|-- backend/
+|   |-- prisma/
+|   |   |-- schema.prisma
+|   |   |-- seed.ts
+|   |   `-- migrations/
+|   |-- src/
+|   |   |-- app.ts
+|   |   |-- controllers/
+|   |   |-- middlewares/
+|   |   |-- routes/
+|   |   `-- utils/
+|   |-- uploads/
+|   |-- .env.example
+|   `-- package.json
+|-- medisync-frontend/
+|   |-- src/app/
+|   |   |-- core/
+|   |   |-- features/
+|   |   `-- shared/
+|   |-- angular.json
+|   `-- package.json
+`-- docker-compose.yml
+```
+
+## API principale
+
+Tous les endpoints commencent par `/api/v1`.
+
+| Methode | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/auth/register` | Creation d'un compte patient |
+| POST | `/auth/login` | Connexion et generation JWT |
+| POST | `/auth/2fa/verify` | Verification 2FA |
+| GET | `/auth/me` | Profil utilisateur connecte |
+| GET | `/doctors` | Liste des medecins |
+| GET | `/appointments` | Liste des rendez-vous |
+| POST | `/appointments` | Creation d'un rendez-vous |
+| GET | `/invoices` | Liste des factures |
+| GET | `/invoices/:id/pdf` | Telechargement facture PDF |
+| GET | `/prescriptions/:id/pdf` | Telechargement ordonnance PDF |
+| GET | `/admin/stats` | Statistiques admin |
+| GET | `/admin/staff` | Liste du personnel |
+| GET | `/admin/audit` | Journal d'audit |
+| GET | `/admin/finance` | Rapport financier |
+
+## Depannage rapide
+
+**Erreur `DATABASE_URL connection refused`**
+
+Verifier que PostgreSQL est lance et que la base `medisync` existe.
+
+**Erreur Prisma sur Windows**
+
+Utiliser:
+
+```bash
+npx prisma migrate reset --force --skip-generate
+npx prisma generate
+```
+
+**Frontend ne trouve pas Angular CLI**
+
+Utiliser `npm run start` dans `medisync-frontend` apres `npm install`.
+
+**Login retourne 500**
+
+La cause la plus frequente est une base de donnees non initialisee ou PostgreSQL arrete.
+
+## Livrables recommandes
+
+- Code source complet du frontend et du backend.
+- Application compilee: `backend/dist/` et `medisync-frontend/dist/`.
+- Documentation technique: ce README couvre architecture, schema DB, installation et deploiement.
+- Video de demonstration par profil: patient, medecin, secretaire, administrateur.
+
+## Licence
+
+Projet realise dans un cadre pedagogique.
