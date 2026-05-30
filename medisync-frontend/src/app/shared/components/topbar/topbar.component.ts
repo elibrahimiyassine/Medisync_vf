@@ -209,6 +209,59 @@ import { LucideAngularModule } from 'lucide-angular';
       70%  { box-shadow: 0 0 0 6px rgba(194,64,64,0); }
       100% { box-shadow: 0 0 0 0 rgba(194,64,64,0); }
     }
+
+    @media (max-width: 768px) {
+      .topbar {
+        left: 0;
+        height: 58px;
+        padding: 0 12px;
+      }
+
+      .topbar-left {
+        min-width: 0;
+      }
+
+      .page-title {
+        max-width: 190px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .breadcrumb {
+        display: none;
+      }
+
+      .topbar-right {
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .search-box {
+        display: none;
+      }
+
+      .topbar-avatar {
+        padding: 4px;
+      }
+
+      .avatar-info {
+        display: none;
+      }
+
+      .avatar-circle {
+        width: 34px;
+        height: 34px;
+      }
+
+      .notif-dropdown {
+        position: fixed;
+        top: 62px;
+        left: 12px;
+        right: 12px;
+        width: auto;
+      }
+    }
   `],
 })
 export class TopbarComponent implements OnInit {

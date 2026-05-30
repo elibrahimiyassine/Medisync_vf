@@ -1,0 +1,87 @@
+<div class="dashboard page-enter">
+
+  <!-- Greeting -->
+  <section class="greeting">
+    <div class="greeting__blobs">
+      <div class="greeting__blob greeting__blob--1"></div>
+      <div class="greeting__blob greeting__blob--2"></div>
+    </div>
+    <div class="greeting__text">
+      <h1 class="display">Bonjour, <span class="text-cyan">Yass</span> 👋</h1>
+      <p class="text-muted">Vous avez <strong style="color:#E8F4FD;">2 rendez-vous</strong> à venir cette semaine</p>
+    </div>
+    <div class="greeting__date">
+      <span class="mono text-muted">{{ today }}</span>
+    </div>
+  </section>
+
+  <!-- KPI cards -->
+  <section class="kpi-grid">
+    @for (kpi of kpis; track kpi.label; let i = $index) {
+      <div class="kpi-card card" #kpiCard>
+        <div class="kpi-card__header">
+          <div class="kpi-icon" [style.background]="kpi.color + '18'" [style.color]="kpi.color">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path [attr.d]="kpi.icon"/>
+            </svg>
+          </div>
+          <span class="kpi-trend" [class.kpi-trend--up]="kpi.trendUp" [class.kpi-trend--down]="!kpi.trendUp">
+            {{ kpi.trendUp ? '↑' : '↓' }} {{ kpi.trend }}
+          </span>
+        </div>
+        <div class="kpi-value display" [style.color]="kpi.color">
+          {{ displayValues[i] }}<span class="kpi-suffix">{{ kpi.suffix }}</span>
+        </div>
+        <div class="kpi-label text-muted">{{ kpi.label }}</div>
+      </div>
+    }
+  </section>
+
+  <!-- Upcoming appointments -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="display">Prochains Rendez-vous</h2>
+      <a routerLink="/patient/appointments" class="btn-ghost" style="font-size:0.82rem; padding:6px 16px;">Voir tout →</a>
+    </div>
+    <div class="appt-scroll">
+      @for (appt of appointments; track appt.id) {
+        <div class="appt-card glass-light" [style.border-left-color]="statusColor(appt.status)">
+          <div class="appt-avatar" [style.background]="'linear-gradient(135deg, ' + statusColor(appt.status) + '40, #0D1526)'">
+            {{ appt.initials }}
+          </div>
+          <div class="appt-info">
+            <span class="appt-doctor">{{ appt.doctor }}</span>
+            <span class="text-muted" style="font-size:0.78rem;">{{ appt.specialty }}</span>
+          </div>
+          <div class="appt-time">
+            <span class="mono text-cyan" style="font-size:0.85rem;">{{ appt.time }}</span>
+            <span class="text-muted" style="font-size:0.72rem;">{{ appt.date }}</span>
+          </div>
+          <span [class]="'badge ' + statusBadge(appt.status)">{{ statusLabel(appt.status) }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Recent prescriptions -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="display">Ordonnances Récentes</h2>
+      <a routerLink="/patient/prescriptions" class="btn-ghost" style="font-size:0.82rem; padding:6px 16px;">Voir tout →</a>
+    </div>
+    <div class="presc-list">
+      @for (p of prescriptions; track p.id) {
+        <div class="presc-item card">
+          <div class="presc-icon">💊</div>
+          <div class="presc-info">
+            <span class="presc-name">{{ p.name }}</span>
+            <span class="text-muted" style="font-size:0.78rem;">{{ p.doctor }} · {{ p.dosage }}</span>
+          </div>
+          <span class="mono text-muted" style="font-size:0.75rem;">{{ p.date }}</span>
+          <button class="btn-ghost" style="padding:6px 12px; font-size:0.78rem;">PDF ↓</button>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

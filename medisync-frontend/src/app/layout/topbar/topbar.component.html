@@ -1,0 +1,37 @@
+<header class="topbar glass">
+
+  <div class="ecg-bar">
+    <svg viewBox="0 0 1200 28" preserveAspectRatio="none">
+      <path class="ecg-path"
+        d="M0,14 L200,14 L220,14 L230,2 L240,26 L250,4 L260,20 L270,14
+           L400,14 L420,14 L430,2 L440,26 L450,4 L460,20 L470,14
+           L600,14 L620,14 L630,2 L640,26 L650,4 L660,20 L670,14
+           L800,14 L820,14 L830,2 L840,26 L850,4 L860,20 L870,14
+           L1200,14"
+        stroke="#00D4FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="topbar__content">
+    <div class="topbar__left">
+      <h1 class="page-title display">{{ pageTitle }}</h1>
+    </div>
+
+    <div class="topbar__right">
+      <button class="icon-btn notif-btn" (click)="toggleNotifications()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        @if (unreadCount > 0) {
+          <span class="notif-badge">{{ unreadCount }}</span>
+        }
+      </button>
+
+      <div class="user-chip">
+        <div class="chip-avatar">JA</div>
+        <span class="chip-name">Yass</span>
+      </div>
+    </div>
+  </div>
+</header>

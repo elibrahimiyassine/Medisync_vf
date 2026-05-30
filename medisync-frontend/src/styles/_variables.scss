@@ -34,6 +34,16 @@ $text-muted:  $ink-faint;
 $border:       rgba(42, 74, 56, 0.14);
 $border-hover: rgba(42, 74, 56, 0.4);
 
+// Additional legacy aliases used by older component styles.
+$bg-deep:       $bg;
+$bg-surface:    $surface;
+$bg-card:       $surface;
+$bg-card-hover: $surface-alt;
+$border-subtle: $border;
+$border-glow:   $border-hover;
+$text-dim:      $ink-muted;
+$shadow-cyan:   0 8px 28px rgba(27, 37, 32, 0.11), 0 2px 8px rgba(27, 37, 32, 0.07);
+
 // ─── Typography ────────────────────────────────────────────────────────────
 $font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
 $font-body:    'Geist', 'Inter', system-ui, sans-serif;

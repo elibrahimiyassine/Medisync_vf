@@ -232,6 +232,24 @@ function passwordStrengthValidator(): ValidatorFn {
     .rgpd-banner { padding:12px 14px;background:rgba(42,74,56,0.05);border:1px solid rgba(42,74,56,0.15);border-radius:10px; }
     .login-link { text-align:center; font-size:13px; color:#7A8A82; margin-top:16px; a { color:#2A4A38; font-weight:600; } }
     .particle { position:absolute; color:rgba(42,74,56,0.15); animation:float-up linear infinite; user-select:none; pointer-events:none; }
+    @media (max-width: 640px) {
+      .auth-page { align-items:flex-start;padding:12px;background:#FAF7F1; }
+      .auth-container { border-radius:18px;box-shadow:0 16px 48px rgba(27,37,32,0.12); }
+      .auth-form-panel { padding:28px 20px;max-height:none;overflow-y:visible; }
+      .form-header { margin-bottom:20px; }
+      .form-header h2 { font-size:22px; }
+      .form-row-2 { grid-template-columns:1fr;gap:14px; }
+      .reg-form { gap:14px; }
+      .glass-input { width:100%;min-width:0; }
+      .pwd-reqs { gap:6px 10px; }
+      .terms-label { font-size:12px; }
+      .rgpd-banner { padding:12px; }
+    }
+    @media (max-width: 380px) {
+      .auth-page { padding:0;background:#FAF7F1; }
+      .auth-container { border-radius:0;border-left:0;border-right:0; }
+      .auth-form-panel { padding:24px 16px; }
+    }
     @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
     @keyframes float-up { 0%{transform:translateY(0) rotate(0deg);opacity:.6} 100%{transform:translateY(-100vh) rotate(360deg);opacity:0} }
   `],

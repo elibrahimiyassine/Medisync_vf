@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api/v1',
-  wsUrl: 'http://localhost:3000',
+  production: true,
+  apiUrl: 'https://medisync-api-production-1ace.up.railway.app/api/v1',
+  wsUrl: 'https://medisync-api-production-1ace.up.railway.app',
 };

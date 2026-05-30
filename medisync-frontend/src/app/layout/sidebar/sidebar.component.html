@@ -1,0 +1,45 @@
+<aside class="sidebar" [class.collapsed]="isCollapsed">
+
+  <div class="sidebar__header">
+    @if (!isCollapsed) {
+      <div class="sidebar__logo">
+        <span class="display logo-medi">Medi</span>
+        <span class="display logo-sync">Sync</span>
+      </div>
+    }
+    <button class="toggle-btn" (click)="toggle()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (item of filteredItems; track item.route) {
+      <a [routerLink]="item.route"
+         routerLinkActive="active"
+         class="nav-item"
+         [title]="isCollapsed ? item.label : ''">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path [attr.d]="item.icon"/>
+        </svg>
+        @if (!isCollapsed) {
+          <span class="nav-label">{{ item.label }}</span>
+        }
+      </a>
+    }
+  </nav>
+
+  @if (!isCollapsed) {
+    <div class="sidebar__user">
+      <div class="user-avatar">JA</div>
+      <div class="user-info">
+        <span class="user-name">Yass Jabouri</span>
+        <span class="badge badge-cyan" style="font-size:0.65rem;">{{ currentRole }}</span>
+      </div>
+    </div>
+  }
+</aside>

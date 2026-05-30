@@ -1,10 +1,27 @@
 import { Component, OnInit, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule, FormBuilder, Validators,
+  AbstractControl, ValidatorFn, ValidationErrors,
+} from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService, detectRole } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
+
+function passwordStrengthValidator(): ValidatorFn {
+  return (ctrl: AbstractControl): ValidationErrors | null => {
+    const value: string = ctrl.value || '';
+    if (!value) return null;
+
+    const errors: Record<string, boolean> = {};
+    if (!/[A-Z]/.test(value)) errors['noUppercase'] = true;
+    if (!/[0-9]/.test(value)) errors['noDigit'] = true;
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) errors['noSpecial'] = true;
+
+    return Object.keys(errors).length ? { passwordStrength: errors } : null;
+  };
+}
 
 @Component({
   selector: 'app-landing',
@@ -56,10 +73,10 @@ import { NotificationService } from '../../core/services/notification.service';
       </p>
 
       <div class="hero-cta animate-slide-up">
-        <button class="cta-primary" (click)="scrollToAuth('register')">
+        <a routerLink="/auth/register" class="cta-primary">
           Créer mon compte
           <lucide-icon name="arrow-right" [size]="16" />
-        </button>
+        </a>
         <button class="cta-secondary" (click)="scrollToAuth('login')">
           Déjà inscrit ? Connexion
         </button>
@@ -208,7 +225,7 @@ import { NotificationService } from '../../core/services/notification.service';
       <!-- Tabs -->
       <div class="auth-tabs">
         <button class="auth-tab" [class.active]="activeTab() === 'login'"    (click)="setTab('login')">Se connecter</button>
-        <button class="auth-tab" [class.active]="activeTab() === 'register'" (click)="setTab('register')">S'inscrire</button>
+        <a routerLink="/auth/register" class="auth-tab register-link">S'inscrire</a>
       </div>
 
       <!-- ── LOGIN ── -->
@@ -241,6 +258,23 @@ import { NotificationService } from '../../core/services/notification.service';
                 <lucide-icon [name]="showPwd() ? 'eye-off' : 'eye'" [size]="14" />
               </button>
             </div>
+            <div class="pwd-reqs" aria-live="polite">
+              <span [class.req-ok]="(registerForm.get('password')?.value || '').length >= 8">
+                {{ (registerForm.get('password')?.value || '').length >= 8 ? 'OK' : '-' }} 8 caracteres min.
+              </span>
+              <span [class.req-ok]="registerPwdHas('upper')">
+                {{ registerPwdHas('upper') ? 'OK' : '-' }} 1 majuscule
+              </span>
+              <span [class.req-ok]="registerPwdHas('digit')">
+                {{ registerPwdHas('digit') ? 'OK' : '-' }} 1 chiffre
+              </span>
+              <span [class.req-ok]="registerPwdHas('special')">
+                {{ registerPwdHas('special') ? 'OK' : '-' }} 1 caractere special
+              </span>
+            </div>
+            @if (registerForm.get('password')?.errors?.['passwordStrength'] && registerForm.get('password')?.touched) {
+              <span class="error-msg">Ajoutez une majuscule, un chiffre et un caractere special</span>
+            }
           </div>
 
           @if (errorMsg()) {
@@ -433,7 +467,7 @@ import { NotificationService } from '../../core/services/notification.service';
     .hero-title { font-size:clamp(36px,4.5vw,58px);font-weight:700;color:#1B2520;line-height:1.12;font-family:'Fraunces',Georgia,serif;margin:0; }
     .hero-sub { font-size:15px;color:#3A5248;line-height:1.75;max-width:500px;margin:0; }
     .hero-cta { display:flex;gap:14px;flex-wrap:wrap;align-items:center; }
-    .cta-primary { display:inline-flex;align-items:center;gap:8px;background:#2A4A38;color:#F2EDE4;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;font-family:'Geist','Inter',sans-serif; &:hover{background:#1B3028;transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,74,56,0.25);} }
+    .cta-primary { display:inline-flex;align-items:center;gap:8px;background:#2A4A38;color:#F2EDE4;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;font-family:'Geist','Inter',sans-serif;text-decoration:none; &:hover{background:#1B3028;transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,74,56,0.25);} }
     .cta-secondary { background:none;border:1.5px solid rgba(42,74,56,0.2);border-radius:12px;padding:13px 24px;font-size:14px;font-weight:600;color:#3A5248;cursor:pointer;transition:all .2s;font-family:'Geist','Inter',sans-serif; &:hover{border-color:rgba(42,74,56,0.4);color:#1B2520;} }
 
     /* Hero visual cards */
@@ -509,7 +543,8 @@ import { NotificationService } from '../../core/services/notification.service';
     /* Auth card */
     .auth-card { padding:32px; }
     .auth-tabs { display:flex;border:1px solid rgba(42,74,56,0.12);border-radius:12px;overflow:hidden;margin-bottom:24px; }
-    .auth-tab { flex:1;padding:11px;background:transparent;border:none;font-size:13px;font-weight:600;color:#7A8A82;cursor:pointer;transition:all .2s;font-family:'Geist','Inter',sans-serif; &.active{background:#2A4A38;color:#F2EDE4;} &:hover:not(.active){background:rgba(42,74,56,0.06);color:#3A5248;} }
+    .auth-tab { flex:1;padding:11px;background:transparent;border:none;font-size:13px;font-weight:600;color:#7A8A82;cursor:pointer;transition:all .2s;font-family:'Geist','Inter',sans-serif;text-decoration:none;display:flex;align-items:center;justify-content:center; &.active{background:#2A4A38;color:#F2EDE4;} &:hover:not(.active){background:rgba(42,74,56,0.06);color:#3A5248;} }
+    .auth-tab.register-link { color:#2A4A38; }
     .auth-form { display:flex;flex-direction:column;gap:14px; }
     .form-group { display:flex;flex-direction:column;gap:5px; label{font-size:11px;font-weight:700;color:#3A5248;text-transform:uppercase;letter-spacing:.04em;} }
     .name-row { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
@@ -517,6 +552,9 @@ import { NotificationService } from '../../core/services/notification.service';
     .input-icon { position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#7A8A82;pointer-events:none; }
     .input-wrap .glass-input { padding-left:36px; }
     .pwd-eye { position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#7A8A82;cursor:pointer;padding:4px;display:flex;align-items:center; &:hover{color:#2A4A38;} }
+    .pwd-reqs { display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:4px;line-height:1.4; }
+    .pwd-reqs span { font-size:10px;color:#7A8A82;font-family:'JetBrains Mono',monospace;transition:color .2s; }
+    .pwd-reqs span.req-ok { color:#3D6B4F;font-weight:700; }
     .error-banner { padding:10px 14px;background:rgba(194,64,64,0.08);border:1px solid rgba(194,64,64,0.2);border-radius:10px;font-size:12px;color:#C24040; }
     .error-msg { font-size:11px;color:#C24040;margin-top:2px; }
     .submit-btn { background:#2A4A38;color:#F2EDE4;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Geist','Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px; &:hover:not(:disabled){background:#1B3028;} &:disabled{opacity:.6;cursor:not-allowed;} }
@@ -571,6 +609,47 @@ import { NotificationService } from '../../core/services/notification.service';
     @keyframes slide-up   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
     .animate-slide-down { animation:slide-down .7s ease both; }
     .animate-slide-up   { animation:slide-up   .8s ease both .15s; }
+
+    @media (max-width: 980px) {
+      .nav-inner { padding:0 20px; }
+      .nav-links { display:none; }
+      .hero { min-height:auto;padding:96px 20px 56px; }
+      .hero-inner { grid-template-columns:1fr;gap:32px; }
+      .hero-visual { display:none; }
+      .stats-inner { grid-template-columns:repeat(2,1fr);padding:32px 20px; }
+      .features-section, .roles-section, .auth-section { padding:64px 20px; }
+      .features-grid, .roles-grid { grid-template-columns:1fr 1fr; }
+      .auth-inner { grid-template-columns:1fr;gap:28px; }
+      .auth-pitch { text-align:center; }
+      .auth-perks { max-width:440px;margin-left:auto;margin-right:auto; }
+      .demo-pills { justify-content:center; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-inner { height:64px;padding:0 14px; }
+      .logo-sub, .btn-ghost-nav { display:none; }
+      .btn-primary-nav { padding:9px 14px;white-space:nowrap; }
+      .hero { padding:86px 16px 46px; }
+      .hero-title { font-size:34px; }
+      .hero-sub { font-size:14px; }
+      .hero-cta { flex-direction:column;align-items:stretch; }
+      .cta-primary, .cta-secondary { width:100%;justify-content:center; }
+      .stats-inner, .features-grid, .roles-grid { grid-template-columns:1fr; }
+      .auth-section { padding:48px 14px; }
+      .auth-card { padding:22px 18px;border-radius:16px; }
+      .auth-tabs { margin-bottom:18px; }
+      .auth-form { gap:12px; }
+      .name-row, .oauth-row-sm { grid-template-columns:1fr; }
+      .demo-grid { grid-template-columns:1fr 1fr; }
+      .glass-input { min-width:0;width:100%; }
+      .footer-inner { flex-direction:column;text-align:center; }
+    }
+
+    @media (max-width: 380px) {
+      .demo-grid { grid-template-columns:1fr; }
+      .logo-text { font-size:15px; }
+      .btn-primary-nav { padding:8px 10px;font-size:12px; }
+    }
   `],
 })
 export class LandingComponent implements OnInit {
@@ -694,7 +773,7 @@ export class LandingComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName:  ['', Validators.required],
       email:     ['', [Validators.required, Validators.email]],
-      password:  ['', [Validators.required, Validators.minLength(8)]],
+      password:  ['', [Validators.required, Validators.minLength(8), passwordStrengthValidator()]],
     });
   }
 
@@ -747,6 +826,14 @@ export class LandingComponent implements OnInit {
   roleLabelFor(role: string): string {
     const m: Record<string, string> = { PATIENT: 'Patient', DOCTOR: 'Médecin', SECRETARY: 'Secrétaire', ADMIN: 'Administrateur' };
     return m[role] || 'Patient';
+  }
+
+  registerPwdHas(type: string): boolean {
+    const value: string = this.registerForm.get('password')?.value || '';
+    if (type === 'upper') return /[A-Z]/.test(value);
+    if (type === 'digit') return /[0-9]/.test(value);
+    if (type === 'special') return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+    return false;
   }
 
   submitLogin(): void {

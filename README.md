@@ -8,7 +8,7 @@ A full-stack web application for managing a medical clinic, built with Angular 2
 |-------|------------|
 | Frontend | Angular 21, Angular Signals, SCSS, Angular Animations |
 | Backend | Node.js, Express.js, TypeScript |
-| Database | PostgreSQL 18 via Prisma ORM |
+| Database | PostgreSQL 16 via Prisma ORM |
 | Auth | JWT (15 min access token + 7 day refresh cookie), bcrypt, TOTP 2FA |
 | Realtime | Socket.io |
 | Email | Nodemailer |
@@ -21,12 +21,12 @@ A full-stack web application for managing a medical clinic, built with Angular 2
 ## Prerequisites
 
 - **Node.js 20+** — [nodejs.org](https://nodejs.org)
-- **PostgreSQL 18** — must be running locally
+- **PostgreSQL 16** — must be running locally
 - **Angular CLI** — `npm install -g @angular/cli`
 
 ---
 
-## Quick Start
+## Quick Start (Windows)
 
 ### 1. Install dependencies
 
@@ -42,60 +42,31 @@ npm install
 
 ### 2. Configure the backend environment
 
-Copy the example file and fill in your values:
-
-```bash
-# Windows
-copy backend\.env.example backend\.env
-
-# macOS / Linux
-cp backend/.env.example backend/.env
-```
-
-Then open `backend/.env` and set your PostgreSQL credentials:
+A `.env` file already exists at `backend/.env`. Verify or update the following values:
 
 ```env
-DATABASE_URL="postgresql://postgres:YOUR_POSTGRES_PASSWORD@localhost:5432/medisync"
+DATABASE_URL="postgresql://postgres:12345678@localhost:5432/medisync"
+JWT_SECRET=supersecretjwtkey123456789
+JWT_REFRESH_SECRET=superrefreshjwtkey123456789
+PORT=3000
+NODE_ENV=development
 ```
 
-Replace `YOUR_POSTGRES_PASSWORD` with the password you chose when installing PostgreSQL.
+> If your PostgreSQL password is different, update `DATABASE_URL` accordingly.
 
-> **Common passwords**: if you used the default PostgreSQL installer, the superuser is `postgres` and the password is whatever you typed during setup.
-> If you are unsure, open pgAdmin → right-click your server → Properties → Connection to see the username.
-
-The rest of the `.env` values (JWT secrets, CORS, etc.) work as-is for local development.
-
-### 3. Create the database
-
-Open a PostgreSQL client (psql or pgAdmin) and run:
-
-```sql
-CREATE DATABASE medisync;
-```
-
-Or via the command line:
-
-```bash
-# Windows (run as the postgres user)
-psql -U postgres -c "CREATE DATABASE medisync;"
-
-# macOS / Linux
-createdb -U postgres medisync
-```
-
-### 4. Initialize the database
+### 3. Initialize the database
 
 Run this once to apply all migrations and load demo data:
 
 ```bash
 cd backend
-npx prisma migrate reset --force --skip-generate
+npx prisma migrate reset --force
 npx ts-node prisma/seed.ts
 ```
 
 This creates all tables and seeds: 1 admin, 1 secretary, 3 doctors, 10 patients, appointments, medical records, prescriptions, invoices, and audit logs.
 
-### 5. Start the backend
+### 4. Start the backend
 
 ```bash
 cd backend
@@ -104,7 +75,7 @@ npm run dev
 # Swagger docs at http://localhost:3000/api-docs
 ```
 
-### 6. Start the frontend
+### 5. Start the frontend
 
 ```bash
 cd medisync-frontend
@@ -130,7 +101,7 @@ All accounts use the passwords below. Log in at **http://localhost:4200**.
 | **Patient** | alice.bernard@email.fr | Patient123! | /patient/dashboard |
 | **Patient** | bob.martin@email.fr | Patient123! | /patient/dashboard |
 
-> **2FA note**: Two-factor authentication is **mandatory for the Admin**. On first login, the admin is redirected to a setup page to scan a QR code with Google Authenticator and enter a 6-digit code. All subsequent admin sessions require the same app. If you lose access to the authenticator app, use the **"Rescanner le QR code"** button on the login page. Other roles do not require 2FA.
+> **2FA note**: Two-factor authentication is **mandatory for the Admin**. On first login, the admin is redirected to a setup page to scan a QR code with Google Authenticator and enter a 6-digit code. All subsequent admin sessions require the same app — no re-scan needed. Other roles (doctor, secretary, patient) do not require 2FA.
 
 ---
 
@@ -154,7 +125,6 @@ All accounts use the passwords below. Log in at **http://localhost:4200**.
 - Patient registration and profile management
 - Invoice generation and PDF download
 - Billing dashboard
-- Real-time notifications when patients book appointments
 
 ### Patient
 - Appointment booking with doctor selection and time slot picker
@@ -179,8 +149,7 @@ medisync/
 │   │   ├── middlewares/           # Auth, error, audit, upload, rate-limit
 │   │   ├── routes/                # Express router definitions
 │   │   └── utils/                 # JWT, email, PDF, socket helpers
-│   ├── .env                       # Local env vars (not committed — copy from .env.example)
-│   └── .env.example               # Template for environment variables
+│   └── .env
 │
 ├── medisync-frontend/
 │   └── src/app/
@@ -210,7 +179,6 @@ All endpoints are prefixed with `/api/v1/`. Full interactive documentation at **
 | POST | `/auth/register` | Register a new patient |
 | POST | `/auth/login` | Login, returns JWT access token |
 | POST | `/auth/2fa/verify` | Verify TOTP code (if 2FA enabled) |
-| POST | `/auth/2fa/rescan` | Re-generate QR code for existing 2FA secret |
 | GET  | `/auth/me` | Current user profile |
 | GET  | `/doctors` | List all doctors |
 | GET  | `/appointments` | List appointments (role-filtered) |
@@ -234,33 +202,11 @@ If you need to start fresh (re-seed demo data, clear all sessions):
 
 ```bash
 cd backend
-npx prisma migrate reset --force --skip-generate
+npx prisma migrate reset --force
 npx ts-node prisma/seed.ts
 ```
 
 Then clear your browser's localStorage and cookies for `localhost:4200` and log in again.
-
----
-
-## Troubleshooting
-
-**`prisma migrate reset` fails with a permission error on Windows**
-Add the `--skip-generate` flag: `npx prisma migrate reset --force --skip-generate`
-
-**Backend won't start — `Cannot find module`**
-Make sure you run `npm run dev` from the `backend/` directory. The entry point is `src/app.ts` (not `server.ts`).
-
-**`DATABASE_URL` connection refused**
-- Ensure PostgreSQL 18 service is running.
-- Double-check the password in `backend/.env` matches your PostgreSQL installation.
-- Confirm the `medisync` database exists (Step 3 above).
-
-**Angular build errors after pulling changes**
-```bash
-cd medisync-frontend
-npm install   # pick up any new packages
-ng serve
-```
 
 ---
 

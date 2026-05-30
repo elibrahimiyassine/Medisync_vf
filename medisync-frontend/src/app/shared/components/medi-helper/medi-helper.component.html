@@ -1,0 +1,20 @@
+<div class="medi-helper">
+
+  @if (isOpen) {
+    <div class="medi-tooltip glass">
+      <div class="tooltip-header">
+        <span class="mono" style="font-size:0.72rem; color:#5A7A9B;">Medi dit…</span>
+        <button class="close-btn" (click)="toggleHelper()">×</button>
+      </div>
+      <p class="tooltip-text">{{ currentText }}</p>
+    </div>
+  }
+
+  <div class="medi-bubble" (click)="toggleHelper()">
+    <app-medi-mascot [state]="currentState" [size]="54"/>
+    @if (hasNewTip) {
+      <div class="pulse-indicator"></div>
+    }
+  </div>
+
+</div>

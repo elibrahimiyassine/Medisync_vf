@@ -1,0 +1,9 @@
+.claude/
+node_modules/
+dist/
+.angular/
+*.env
+.env*
+backend/logs/*.log
+backend/uploads/*
+!backend/uploads/.gitkeep

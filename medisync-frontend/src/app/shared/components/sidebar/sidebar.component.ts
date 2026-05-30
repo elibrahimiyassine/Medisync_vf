@@ -282,6 +282,83 @@ const NAV_ITEMS: NavItem[] = [
       &.secretary { background: rgba(212,165,116,0.3); color: #E8C898; }
       &.admin     { background: rgba(201,99,60,0.35); color: #E89878; }
     }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 68px;
+        border-right: 0;
+        border-top: 1px solid rgba(27,37,32,0.18);
+        z-index: 200;
+
+        &.collapsed { width: 100vw; }
+      }
+
+      .sidebar-logo,
+      .sidebar-user,
+      .sidebar-bottom,
+      .ecg-bar,
+      .nav-label {
+        display: none !important;
+      }
+
+      .sidebar-nav {
+        height: 100%;
+        padding: 6px 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .nav-item {
+        flex: 1 0 58px;
+        min-width: 58px;
+        max-width: 78px;
+        height: 56px;
+        margin: 0;
+        padding: 6px 4px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 12px;
+        font-size: 10px;
+        text-align: center;
+      }
+
+      .nav-item .nav-icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      .nav-item .nav-label-text {
+        display: block !important;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 9px;
+        line-height: 1.1;
+      }
+
+      .nav-item .nav-indicator {
+        left: 50%;
+        top: auto;
+        bottom: 0;
+        width: 24px;
+        height: 3px;
+        transform: translateX(-50%);
+        border-radius: 3px 3px 0 0;
+      }
+
+      .nav-item.active .nav-indicator {
+        height: 3px;
+      }
+    }
   `],
 })
 export class SidebarComponent implements OnInit {

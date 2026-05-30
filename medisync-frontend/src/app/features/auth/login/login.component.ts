@@ -281,6 +281,12 @@ import { LucideAngularModule } from 'lucide-angular';
       position: relative;
       padding: 20px;
       background: #EFEAE0;
+
+      @media (max-width: 600px) {
+        align-items: flex-start;
+        padding: 10px;
+        min-height: 100svh;
+      }
     }
 
     .auth-container {
@@ -296,6 +302,11 @@ import { LucideAngularModule } from 'lucide-angular';
       box-shadow: 0 0 60px rgba(42,74,56,0.06), 0 24px 80px rgba(27,37,32,0.14);
 
       @media (max-width: 768px) { grid-template-columns: 1fr; }
+      @media (max-width: 600px) {
+        border-radius: 14px;
+        min-height: calc(100svh - 20px);
+        overflow: visible;
+      }
     }
 
     /* ── Brand panel ── */
@@ -373,6 +384,10 @@ import { LucideAngularModule } from 'lucide-angular';
       display: flex;
       align-items: center;
       @media (max-width: 480px) { padding: 32px 24px; }
+      @media (max-width: 600px) {
+        padding: 22px 16px;
+        align-items: flex-start;
+      }
     }
 
     .auth-form-content { width: 100%; }
@@ -381,9 +396,19 @@ import { LucideAngularModule } from 'lucide-angular';
       margin-bottom: 32px;
       h2 { font-size: 26px; font-weight: 700; color: #1B2520; font-family: 'Fraunces', Georgia, serif; }
       .form-sub { font-size: 14px; color: #7A8A82; margin-top: 4px; }
+
+      @media (max-width: 600px) {
+        margin-bottom: 20px;
+        h2 { font-size: 22px; }
+        .form-sub { font-size: 13px; }
+      }
     }
 
     .login-form { display: flex; flex-direction: column; gap: 20px; }
+
+    @media (max-width: 600px) {
+      .login-form { gap: 14px; }
+    }
 
     .password-wrapper {
       position: relative;
@@ -409,6 +434,12 @@ import { LucideAngularModule } from 'lucide-angular';
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      @media (max-width: 420px) {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
     }
 
     .remember-label {
@@ -478,6 +509,10 @@ import { LucideAngularModule } from 'lucide-angular';
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
+
+      @media (max-width: 600px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     .demo-btn {
@@ -515,6 +550,10 @@ import { LucideAngularModule } from 'lucide-angular';
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-bottom: 4px;
+
+      @media (max-width: 420px) {
+        grid-template-columns: 1fr;
+      }
     }
 
     .oauth-btn {
@@ -554,6 +593,15 @@ import { LucideAngularModule } from 'lucide-angular';
       font-weight: 700;
       padding: 0 !important;
       border-radius: 12px;
+    }
+
+    @media (max-width: 420px) {
+      .otp-inputs { gap: 6px; }
+      .otp-box {
+        width: 42px !important;
+        height: 50px !important;
+        font-size: 20px;
+      }
     }
 
     /* ── Particles ── */
